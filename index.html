@@ -251,6 +251,7 @@
       border-radius: 12px;
       font-weight: 850;
       transition: 0.25s ease;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -432,6 +433,7 @@
       0%,100% {
         box-shadow: 0 0 0 0 rgba(212,175,55,0.15);
       }
+
       50% {
         box-shadow: 0 0 0 15px rgba(212,175,55,0);
       }
@@ -957,7 +959,6 @@
       .preview-body {
         grid-template-columns: 1fr;
       }
-
     }
 
     @media (max-width: 620px) {
@@ -1036,394 +1037,383 @@
       }
     }
 
-/* =========================================
-   HERITAGEAI AUTHENTICATION
-   ========================================= */
+    /* =========================================
+       HERITAGEAI AUTHENTICATION
+    ========================================= */
 
-.auth-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
+    .auth-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
 
-.auth-modal.show {
-  display: flex;
-}
+    .auth-modal.show {
+      display: flex;
+    }
 
-.auth-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.78);
-  backdrop-filter: blur(10px);
-}
+    .auth-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(10px);
+    }
 
-.auth-card {
-  position: relative;
-  z-index: 2;
-  width: min(440px, 100%);
-  padding: 34px;
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: 24px;
-  background:
-    linear-gradient(
-      145deg,
-      rgba(25, 25, 25, 0.98),
-      rgba(10, 10, 10, 0.98)
-    );
-  box-shadow:
-    0 30px 100px rgba(0, 0, 0, 0.7),
-    0 0 60px rgba(212, 175, 55, 0.08);
-  animation: authAppear 0.25s ease;
-}
+    .auth-card {
+      position: relative;
+      z-index: 2;
+      width: min(440px, 100%);
+      padding: 34px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 24px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(25, 25, 25, 0.98),
+          rgba(10, 10, 10, 0.98)
+        );
+      box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(212, 175, 55, 0.08);
+      animation: authAppear 0.25s ease;
+    }
 
-@keyframes authAppear {
-  from {
-    opacity: 0;
-    transform: translateY(15px) scale(0.97);
-  }
+    @keyframes authAppear {
+      from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+      }
 
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
 
-.auth-close {
-  position: absolute;
-  top: 15px;
-  right: 18px;
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
-  font-size: 25px;
-  cursor: pointer;
-}
+    .auth-close {
+      position: absolute;
+      top: 15px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 25px;
+      cursor: pointer;
+    }
 
-.auth-close:hover {
-  background: rgba(212, 175, 55, 0.18);
-  color: #d4af37;
-}
+    .auth-close:hover {
+      background: rgba(212, 175, 55, 0.18);
+      color: #d4af37;
+    }
 
-.auth-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 28px;
-}
+    .auth-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
 
-.auth-logo {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #d4af37, #9b7620);
-  color: #080808;
-  font-size: 21px;
-  font-weight: 900;
-}
+    .auth-logo {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #d4af37, #9b7620);
+      color: #080808;
+      font-size: 21px;
+      font-weight: 900;
+    }
 
-.auth-brand strong {
-  display: block;
-  color: #fff;
-  font-size: 14px;
-  letter-spacing: 1.5px;
-}
+    .auth-brand strong {
+      display: block;
+      color: #fff;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+    }
 
-.auth-brand span {
-  display: block;
-  margin-top: 3px;
-  color: #888;
-  font-size: 8px;
-  letter-spacing: 1px;
-}
+    .auth-brand span {
+      display: block;
+      margin-top: 3px;
+      color: #888;
+      font-size: 8px;
+      letter-spacing: 1px;
+    }
 
-.auth-card h2 {
-  margin: 0 0 8px;
-  color: #fff;
-  font-size: 27px;
-  line-height: 1.2;
-}
+    .auth-card h2 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-size: 27px;
+      line-height: 1.2;
+    }
 
-.auth-card > p {
-  margin: 0 0 25px;
-  color: #999;
-  font-size: 14px;
-}
+    .auth-card > p {
+      margin: 0 0 25px;
+      color: #999;
+      font-size: 14px;
+    }
 
-.auth-field {
-  margin-bottom: 18px;
-}
+    .auth-field {
+      margin-bottom: 18px;
+    }
 
-.auth-field label {
-  display: block;
-  margin-bottom: 8px;
-  color: #ddd;
-  font-size: 13px;
-  font-weight: 600;
-}
+    .auth-field label {
+      display: block;
+      margin-bottom: 8px;
+      color: #ddd;
+      font-size: 13px;
+      font-weight: 600;
+    }
 
-.auth-field input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 14px 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 11px;
-  outline: none;
-  background: rgba(255, 255, 255, 0.045);
-  color: #fff;
-  font-size: 14px;
-  transition: 0.2s ease;
-}
+    .auth-field input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 11px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.045);
+      color: #fff;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
 
-.auth-field input::placeholder {
-  color: #666;
-}
+    .auth-field input::placeholder {
+      color: #666;
+    }
 
-.auth-field input:focus {
-  border-color: rgba(212, 175, 55, 0.65);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08);
-}
+    .auth-field input:focus {
+      border-color: rgba(212, 175, 55, 0.65);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08);
+    }
 
-.auth-submit {
-  width: 100%;
-  margin-top: 5px;
-  padding: 14px;
-  border: none;
-  border-radius: 11px;
-  background: linear-gradient(135deg, #d4af37, #b88b20);
-  color: #090909;
-  font-size: 14px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
+    .auth-submit {
+      width: 100%;
+      margin-top: 5px;
+      padding: 14px;
+      border: none;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #d4af37, #b88b20);
+      color: #090909;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
 
-.auth-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
-}
+    .auth-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+    }
 
-.auth-message {
-  min-height: 20px;
-  margin-top: 12px;
-  text-align: center;
-  font-size: 13px;
-}
+    .auth-message {
+      min-height: 20px;
+      margin-top: 12px;
+      text-align: center;
+      font-size: 13px;
+    }
 
-.auth-message.success {
-  color: #71d88b;
-}
+    .auth-message.success {
+      color: #71d88b;
+    }
 
-.auth-message.error {
-  color: #ff7272;
-}
+    .auth-message.error {
+      color: #ff7272;
+    }
 
-.auth-switch {
-  margin-top: 22px;
-  text-align: center;
-  color: #888;
-  font-size: 13px;
-}
+    .auth-switch {
+      margin-top: 22px;
+      text-align: center;
+      color: #888;
+      font-size: 13px;
+    }
 
-.auth-switch button {
-  border: none;
-  padding: 0;
-  background: transparent;
-  color: #d4af37;
-  font-weight: 700;
-  cursor: pointer;
-}
+    .auth-switch button {
+      border: none;
+      padding: 0;
+      background: transparent;
+      color: #d4af37;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
-.auth-switch button:hover {
-  text-decoration: underline;
-}
+    .auth-switch button:hover {
+      text-decoration: underline;
+    }
 
+    /* =========================================
+       NAVIGATION ACCOUNT BUTTONS
+    ========================================= */
 
-/* =========================================
-   NAVIGATION ACCOUNT BUTTONS
-   ========================================= */
+    #account-area {
+      display: flex !important;
+      align-items: center;
+      gap: 10px;
+      margin-left: 8px;
+      flex-shrink: 0;
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: relative;
+      z-index: 20;
+    }
 
-#account-area {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
+    .nav-login,
+    .nav-signup {
+      padding: 9px 16px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
 
-.nav-login,
-.nav-signup {
-  padding: 9px 16px;
-  border-radius: 9px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
+    .nav-login {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: transparent;
+      color: #fff;
+    }
 
-.nav-login {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: transparent;
-  color: #fff;
-}
+    .nav-login:hover {
+      border-color: #d4af37;
+      color: #d4af37;
+    }
 
-.nav-login:hover {
-  border-color: #d4af37;
-  color: #d4af37;
-}
+    .nav-signup {
+      border: none;
+      background: #d4af37;
+      color: #080808;
+    }
 
-.nav-signup {
-  border: none;
-  background: #d4af37;
-  color: #080808;
-}
+    .nav-signup:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(212, 175, 55, 0.2);
+    }
 
-.nav-signup:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.2);
-}
+    #account-area .nav-login,
+    #account-area .nav-signup {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      visibility: visible !important;
+      opacity: 1 !important;
+      white-space: nowrap;
+    }
 
+    #account-area .nav-login {
+      color: #fff !important;
+    }
 
-/* =========================================
-   LOGGED-IN ACCOUNT MENU
-   ========================================= */
+    #account-area .nav-signup {
+      color: #080808 !important;
+    }
 
-.account-menu {
-  position: relative;
-}
+    /* =========================================
+       LOGGED-IN ACCOUNT MENU
+    ========================================= */
 
-.account-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  color: #fff;
-  cursor: pointer;
-}
+    .account-menu {
+      position: relative;
+    }
 
-.account-avatar {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #d4af37;
-  color: #080808;
-  font-size: 12px;
-  font-weight: 900;
-}
+    .account-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      cursor: pointer;
+    }
 
-.account-dropdown {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  width: 220px;
-  padding: 10px;
-  display: none;
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: 14px;
-  background: #151515;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-}
+    .account-avatar {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #d4af37;
+      color: #080808;
+      font-size: 12px;
+      font-weight: 900;
+    }
 
-.account-dropdown.show {
-  display: block;
-}
+    .account-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 220px;
+      padding: 10px;
+      display: none;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 14px;
+      background: #151515;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
 
-.account-dropdown a,
-.account-dropdown button {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 11px 12px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  color: #ddd;
-  text-align: left;
-  text-decoration: none;
-  font-size: 13px;
-  cursor: pointer;
-}
+    .account-dropdown.show {
+      display: block;
+    }
 
-.account-dropdown a:hover,
-.account-dropdown button:hover {
-  background: rgba(212, 175, 55, 0.08);
-  color: #d4af37;
-}
+    .account-dropdown a,
+    .account-dropdown button {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px 12px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #ddd;
+      text-align: left;
+      text-decoration: none;
+      font-size: 13px;
+      cursor: pointer;
+    }
 
-.account-email {
-  padding: 10px 12px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: #777;
-  font-size: 11px;
-  word-break: break-word;
-}
+    .account-dropdown a:hover,
+    .account-dropdown button:hover {
+      background: rgba(212, 175, 55, 0.08);
+      color: #d4af37;
+    }
 
+    .account-email {
+      padding: 10px 12px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #777;
+      font-size: 11px;
+      word-break: break-word;
+    }
 
-@media (max-width: 700px) {
+    @media (max-width: 700px) {
 
-  .auth-card {
-    padding: 27px 22px;
-  }
+      .auth-card {
+        padding: 27px 22px;
+      }
 
-  #account-area {
-    width: 100%;
-    justify-content: center;
-  }
+      #account-area {
+        width: 100%;
+        justify-content: center;
+      }
 
-  .account-dropdown {
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-}
-
-
-/* FIX: HeritageAI account buttons visibility */
-#account-area {
-  display: flex !important;
-  align-items: center;
-  gap: 10px;
-  margin-left: 8px;
-  flex-shrink: 0;
-  visibility: visible !important;
-  opacity: 1 !important;
-  position: relative;
-  z-index: 20;
-}
-
-#account-area .nav-login,
-#account-area .nav-signup {
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  visibility: visible !important;
-  opacity: 1 !important;
-  white-space: nowrap;
-}
-
-#account-area .nav-login {
-  color: #fff !important;
-}
-
-#account-area .nav-signup {
-  color: #080808 !important;
-}
+      .account-dropdown {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
   </style>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="https://js.paystack.co/v2/inline.js"></script>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://js.paystack.co/v2/inline.js"></script>
 </head>
 
 <body>
@@ -1433,22 +1423,29 @@
   ========================== -->
 
   <nav>
-  <div class="wrap nav-inner">
+    <div class="wrap nav-inner">
 
-    <a href="#" class="logo">
-      HERITAGE<span>AI</span>
-    </a>
+      <a href="#" class="logo">
+        HERITAGE<span>AI</span>
+      </a>
 
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#how">How It Works</a>
-      <a href="#about">About</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#pricing" class="nav-cta">Get HeritageAI</a>
+      <div class="nav-links">
 
-      <div id="account-area"></div>
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#about">About</a>
+        <a href="#roadmap">Roadmap</a>
+
+        <a href="#pricing" class="nav-cta">
+          Get HeritageAI
+        </a>
+
+        <div id="account-area"></div>
+
+      </div>
+
     </div>
-</nav>
+  </nav>
 
 
   <main>
@@ -1490,20 +1487,22 @@
           </a>
 
           <a
-  class="btn btn-secondary"
-  href="#"
-  onclick="startProPayment(); return false;"
->
-  Get Pro Early Access — ₦3,000
-</a>
+            class="btn btn-secondary"
+            href="#"
+            onclick="startProPayment(); return false;"
+          >
+            Get Pro Early Access — ₦3,000
+          </a>
 
         </div>
 
         <div class="trust-row">
+
           <span class="trust-pill">Windows</span>
           <span class="trust-pill">Microsoft PowerPoint</span>
           <span class="trust-pill">Voice Controlled</span>
           <span class="trust-pill">Hands-Free</span>
+
         </div>
 
 
@@ -1514,10 +1513,15 @@
           <div class="preview-window">
 
             <div class="window-bar">
+
               <span class="window-dot"></span>
               <span class="window-dot"></span>
               <span class="window-dot"></span>
-              <span class="window-title">HeritageAI — Voice Presentation Assistant</span>
+
+              <span class="window-title">
+                HeritageAI — Voice Presentation Assistant
+              </span>
+
             </div>
 
             <div class="preview-body">
@@ -1532,9 +1536,11 @@
                 </h3>
 
                 <div class="slide-lines">
+
                   <div class="slide-line"></div>
                   <div class="slide-line"></div>
                   <div class="slide-line short"></div>
+
                 </div>
 
               </div>
@@ -1542,11 +1548,15 @@
               <div class="voice-panel">
 
                 <div class="voice-status">
+
                   <span class="live-dot"></span>
                   Voice system ready
+
                 </div>
 
-                <div class="mic">🎙</div>
+                <div class="mic">
+                  🎙
+                </div>
 
                 <div class="command">
                   “Heritage, next”
@@ -1581,7 +1591,9 @@
 
       <div class="wrap">
 
-        <div class="eyebrow">See it in action</div>
+        <div class="eyebrow">
+          See it in action
+        </div>
 
         <h2>
           Your voice becomes<br>
@@ -1592,9 +1604,13 @@
 
           <div class="demo-inner">
 
-            <div class="play">▶</div>
+            <div class="play">
+              ▶
+            </div>
 
-            <h3>HeritageAI Demo</h3>
+            <h3>
+              HeritageAI Demo
+            </h3>
 
             <p>
               The real HeritageAI demonstration video will appear here.
@@ -1617,7 +1633,9 @@
 
       <div class="wrap">
 
-        <div class="eyebrow">Why HeritageAI?</div>
+        <div class="eyebrow">
+          Why HeritageAI?
+        </div>
 
         <h2>
           Less clicking.<br>
@@ -1632,35 +1650,70 @@
         <div class="grid">
 
           <div class="card">
-            <div class="icon">🎙️</div>
-            <h3>Voice Control</h3>
+
+            <div class="icon">
+              🎙️
+            </div>
+
+            <h3>
+              Voice Control
+            </h3>
+
             <p>
               Navigate your presentation using simple voice commands.
             </p>
+
           </div>
 
+
           <div class="card">
-            <div class="icon">📂</div>
-            <h3>Your PowerPoint</h3>
+
+            <div class="icon">
+              📂
+            </div>
+
+            <h3>
+              Your PowerPoint
+            </h3>
+
             <p>
               Select and control your own PowerPoint presentations.
             </p>
+
           </div>
 
+
           <div class="card">
-            <div class="icon">⚡</div>
-            <h3>Quick Navigation</h3>
+
+            <div class="icon">
+              ⚡
+            </div>
+
+            <h3>
+              Quick Navigation
+            </h3>
+
             <p>
               Move forward, backward or jump directly to a slide.
             </p>
+
           </div>
 
+
           <div class="card">
-            <div class="icon">🤖</div>
-            <h3>Built for AI</h3>
+
+            <div class="icon">
+              🤖
+            </div>
+
+            <h3>
+              Built for AI
+            </h3>
+
             <p>
               HeritageAI is evolving toward smarter presentation assistance.
             </p>
+
           </div>
 
         </div>
@@ -1678,7 +1731,9 @@
 
       <div class="wrap">
 
-        <div class="eyebrow">How it works</div>
+        <div class="eyebrow">
+          How it works
+        </div>
 
         <h2>
           Four simple steps.
@@ -1687,35 +1742,70 @@
         <div class="steps">
 
           <div class="step">
-            <div class="num">01</div>
-            <h3>Select</h3>
+
+            <div class="num">
+              01
+            </div>
+
+            <h3>
+              Select
+            </h3>
+
             <p>
               Choose the PowerPoint presentation you want to use.
             </p>
+
           </div>
 
+
           <div class="step">
-            <div class="num">02</div>
-            <h3>Start</h3>
+
+            <div class="num">
+              02
+            </div>
+
+            <h3>
+              Start
+            </h3>
+
             <p>
               Launch HeritageAI and begin your presentation.
             </p>
+
           </div>
 
+
           <div class="step">
-            <div class="num">03</div>
-            <h3>Speak</h3>
+
+            <div class="num">
+              03
+            </div>
+
+            <h3>
+              Speak
+            </h3>
+
             <p>
               Say your HeritageAI voice command.
             </p>
+
           </div>
 
+
           <div class="step">
-            <div class="num">04</div>
-            <h3>Present</h3>
+
+            <div class="num">
+              04
+            </div>
+
+            <h3>
+              Present
+            </h3>
+
             <p>
               Keep your attention on the audience instead of the laptop.
             </p>
+
           </div>
 
         </div>
@@ -1733,7 +1823,9 @@
 
       <div class="wrap">
 
-        <div class="eyebrow">About HeritageAI</div>
+        <div class="eyebrow">
+          About HeritageAI
+        </div>
 
         <h2>
           Your presentation<br>
@@ -1772,15 +1864,24 @@
 
       <div class="wrap">
 
-        <div class="eyebrow">The Founder</div>
+        <div class="eyebrow">
+          The Founder
+        </div>
 
         <div class="founder">
 
           <div class="founder-photo">
 
             <div>
-              <strong>PHOTO SPACE</strong>
-              <span>Your founder photo will go here.</span>
+
+              <strong>
+                PHOTO SPACE
+              </strong>
+
+              <span>
+                Your founder photo will go here.
+              </span>
+
             </div>
 
           </div>
@@ -1833,7 +1934,9 @@
 
       <div class="wrap">
 
-        <div class="eyebrow">What's next</div>
+        <div class="eyebrow">
+          What's next
+        </div>
 
         <h2>
           HeritageAI is<br>
@@ -1849,11 +1952,16 @@
             </div>
 
             <div>
-              <h3>Voice Presentation Control</h3>
+
+              <h3>
+                Voice Presentation Control
+              </h3>
+
               <p>
                 Select PowerPoint files, start presentations,
                 navigate slides and control presentations by voice.
               </p>
+
             </div>
 
           </div>
@@ -1866,11 +1974,16 @@
             </div>
 
             <div>
-              <h3>AI Slide Understanding</h3>
+
+              <h3>
+                AI Slide Understanding
+              </h3>
+
               <p>
                 HeritageAI will understand the content of your
                 presentation and help you navigate more intelligently.
               </p>
+
             </div>
 
           </div>
@@ -1883,11 +1996,16 @@
             </div>
 
             <div>
-              <h3>Topic-Based Navigation</h3>
+
+              <h3>
+                Topic-Based Navigation
+              </h3>
+
               <p>
                 Instead of remembering slide numbers, ask HeritageAI
                 to take you to a specific topic.
               </p>
+
             </div>
 
           </div>
@@ -1900,11 +2018,16 @@
             </div>
 
             <div>
-              <h3>Smarter Presentation Assistance</h3>
+
+              <h3>
+                Smarter Presentation Assistance
+              </h3>
+
               <p>
                 Presentation Q&A, improved voice intelligence,
                 additional languages and more intelligent assistance.
               </p>
+
             </div>
 
           </div>
@@ -1926,7 +2049,9 @@
 
         <div class="pricing-intro">
 
-          <div class="eyebrow">Choose your experience</div>
+          <div class="eyebrow">
+            Choose your experience
+          </div>
 
           <h2>
             Start free.<br>
@@ -1961,11 +2086,25 @@
 
             <ul class="features-list">
 
-              <li>Select your PowerPoint</li>
-              <li>Voice presentation control</li>
-              <li>Next and previous</li>
-              <li>Jump to a slide</li>
-              <li>Windows application</li>
+              <li>
+                Select your PowerPoint
+              </li>
+
+              <li>
+                Voice presentation control
+              </li>
+
+              <li>
+                Next and previous
+              </li>
+
+              <li>
+                Jump to a slide
+              </li>
+
+              <li>
+                Windows application
+              </li>
 
             </ul>
 
@@ -2002,20 +2141,41 @@
 
             <ul class="features-list">
 
-              <li>Future AI slide understanding</li>
-              <li>Topic-based navigation</li>
-              <li>Presentation Q&A</li>
-              <li>Smarter presentation assistance</li>
-              <li>Future voice intelligence improvements</li>
-              <li>Early-access product updates</li>
+              <li>
+                Future AI slide understanding
+              </li>
+
+              <li>
+                Topic-based navigation
+              </li>
+
+              <li>
+                Presentation Q&A
+              </li>
+
+              <li>
+                Smarter presentation assistance
+              </li>
+
+              <li>
+                Future voice intelligence improvements
+              </li>
+
+              <li>
+                Early-access product updates
+              </li>
 
             </ul>
 
+            <!-- FIXED PRO BUTTON -->
+
             <a
-  class="btn btn-primary full-btn"
-  href="#"
-  onclick="startProPayment(); return false;"
-	>
+              class="btn btn-primary full-btn"
+              href="#"
+              onclick="startProPayment(); return false;"
+            >
+              Get Pro Early Access — ₦3,000
+            </a>
 
           </div>
 
@@ -2034,7 +2194,9 @@
 
       <div class="wrap">
 
-        <div class="eyebrow">FAQ</div>
+        <div class="eyebrow">
+          FAQ
+        </div>
 
         <h2>
           Questions?
@@ -2194,484 +2356,683 @@
 
   </footer>
 
-<script>
-const SUPABASE_URL = "https://wupuhidwlroxgwnnckiy.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_qm9x6KlUutLTku5S7iXZzQ_tGXxuFv_";
 
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-</script>
+  <!-- =========================
+       SUPABASE
+  ========================== -->
 
-<script>
-/* =========================================
-   HERITAGEAI ACCOUNT SYSTEM
-   ========================================= */
+  <script>
 
-let currentUser = null;
+    const SUPABASE_URL =
+      "https://wupuhidwlroxgwnnckiy.supabase.co";
 
-/* ---------- AUTH MODAL ---------- */
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_qm9x6KlUutLTku5S7iXZzQ_tGXxuFv_";
 
-function openAuth(mode = "signup") {
-  const modal = document.getElementById("auth-modal");
+    const supabaseClient =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
 
-  if (!modal) return;
-
-  modal.classList.add("show");
-
-  if (mode === "signin") {
-    showSignIn();
-  } else {
-    showSignUp();
-  }
-}
-
-function closeAuth() {
-  const modal = document.getElementById("auth-modal");
-
-  if (modal) {
-    modal.classList.remove("show");
-  }
-}
-
-function showSignUp() {
-  document.getElementById("auth-title").textContent =
-    "Create your HeritageAI account";
-
-  document.getElementById("auth-subtitle").textContent =
-    "Start your journey with HeritageAI.";
-
-  document.getElementById("full-name-field").style.display = "block";
-
-  document.getElementById("auth-submit").textContent =
-    "Create Account";
-
-  document.getElementById("auth-switch").innerHTML =
-    `Already have an account?
-     <button type="button" onclick="showSignIn()">Sign In</button>`;
-
-  document.getElementById("auth-form").dataset.mode = "signup";
-}
-
-function showSignIn() {
-  document.getElementById("auth-title").textContent =
-    "Welcome back";
-
-  document.getElementById("auth-subtitle").textContent =
-    "Sign in to your HeritageAI account.";
-
-  document.getElementById("full-name-field").style.display = "none";
-
-  document.getElementById("auth-submit").textContent =
-    "Sign In";
-
-  document.getElementById("auth-switch").innerHTML =
-    `Don't have an account?
-     <button type="button" onclick="showSignUp()">Create Account</button>`;
-
-  document.getElementById("auth-form").dataset.mode = "signin";
-}
+  </script>
 
 
-/* ---------- SIGN UP / SIGN IN ---------- */
+  <!-- =========================
+       HERITAGEAI ACCOUNT SYSTEM
+  ========================== -->
 
-async function handleAuth(event) {
-  event.preventDefault();
+  <script>
 
-  const form = event.target;
-  const mode = form.dataset.mode;
+    let currentUser = null;
 
-  const email =
-    document.getElementById("auth-email").value.trim();
 
-  const password =
-    document.getElementById("auth-password").value;
+    /* ---------- AUTH MODAL ---------- */
 
-  const fullName =
-    document.getElementById("auth-full-name").value.trim();
+    function openAuth(mode = "signup") {
 
-  const message =
-    document.getElementById("auth-message");
+      const modal =
+        document.getElementById("auth-modal");
 
-  message.textContent = "";
-  message.className = "auth-message";
+      if (!modal) return;
 
-  if (!email || !password) {
-    message.textContent =
-      "Please enter your email and password.";
-    message.classList.add("error");
-    return;
-  }
+      modal.classList.add("show");
 
-  try {
+      if (mode === "signin") {
+        showSignIn();
+      } else {
+        showSignUp();
+      }
 
-    if (mode === "signup") {
+    }
 
-      if (!fullName) {
+
+    function closeAuth() {
+
+      const modal =
+        document.getElementById("auth-modal");
+
+      if (modal) {
+        modal.classList.remove("show");
+      }
+
+    }
+
+
+    function showSignUp() {
+
+      document.getElementById("auth-title").textContent =
+        "Create your HeritageAI account";
+
+      document.getElementById("auth-subtitle").textContent =
+        "Start your journey with HeritageAI.";
+
+      document.getElementById("full-name-field").style.display =
+        "block";
+
+      document.getElementById("auth-submit").textContent =
+        "Create Account";
+
+      document.getElementById("auth-switch").innerHTML =
+        `Already have an account?
+         <button type="button"
+                 onclick="showSignIn()">
+           Sign In
+         </button>`;
+
+      document.getElementById("auth-form").dataset.mode =
+        "signup";
+
+    }
+
+
+    function showSignIn() {
+
+      document.getElementById("auth-title").textContent =
+        "Welcome back";
+
+      document.getElementById("auth-subtitle").textContent =
+        "Sign in to your HeritageAI account.";
+
+      document.getElementById("full-name-field").style.display =
+        "none";
+
+      document.getElementById("auth-submit").textContent =
+        "Sign In";
+
+      document.getElementById("auth-switch").innerHTML =
+        `Don't have an account?
+         <button type="button"
+                 onclick="showSignUp()">
+           Create Account
+         </button>`;
+
+      document.getElementById("auth-form").dataset.mode =
+        "signin";
+
+    }
+
+
+    /* ---------- SIGN UP / SIGN IN ---------- */
+
+    async function handleAuth(event) {
+
+      event.preventDefault();
+
+      const form = event.target;
+      const mode = form.dataset.mode;
+
+      const email =
+        document.getElementById("auth-email").value.trim();
+
+      const password =
+        document.getElementById("auth-password").value;
+
+      const fullName =
+        document.getElementById("auth-full-name").value.trim();
+
+      const message =
+        document.getElementById("auth-message");
+
+      message.textContent = "";
+      message.className = "auth-message";
+
+
+      if (!email || !password) {
+
         message.textContent =
-          "Please enter your full name.";
+          "Please enter your email and password.";
+
         message.classList.add("error");
+
         return;
+
       }
 
-      const { data, error } =
-        await supabaseClient.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: {
-              full_name: fullName
-            }
+
+      try {
+
+        if (mode === "signup") {
+
+          if (!fullName) {
+
+            message.textContent =
+              "Please enter your full name.";
+
+            message.classList.add("error");
+
+            return;
+
           }
-        });
 
-      if (error) throw error;
 
-      message.textContent =
-        "Account created successfully!";
+          const { data, error } =
+            await supabaseClient.auth.signUp({
 
-      message.classList.add("success");
+              email: email,
 
-      if (data.user) {
-        currentUser = data.user;
+              password: password,
+
+              options: {
+
+                data: {
+                  full_name: fullName
+                }
+
+              }
+
+            });
+
+
+          if (error) throw error;
+
+
+          message.textContent =
+            "Account created successfully!";
+
+          message.classList.add("success");
+
+
+          if (data.user) {
+            currentUser = data.user;
+          }
+
+
+          setTimeout(() => {
+
+            closeAuth();
+
+            updateAuthUI();
+
+          }, 1200);
+
+
+        } else {
+
+
+          const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+
+              email: email,
+
+              password: password
+
+            });
+
+
+          if (error) throw error;
+
+
+          currentUser =
+            data.user;
+
+
+          message.textContent =
+            "Signed in successfully!";
+
+          message.classList.add("success");
+
+
+          setTimeout(() => {
+
+            closeAuth();
+
+            updateAuthUI();
+
+          }, 800);
+
+        }
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error.message ||
+          "Something went wrong.";
+
+        message.classList.add("error");
+
       }
 
-      setTimeout(() => {
-        closeAuth();
-        updateAuthUI();
-      }, 1200);
-
-    } else {
-
-      const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-          email: email,
-          password: password
-        });
-
-      if (error) throw error;
-
-      currentUser = data.user;
-
-      message.textContent =
-        "Signed in successfully!";
-
-      message.classList.add("success");
-
-      setTimeout(() => {
-        closeAuth();
-        updateAuthUI();
-      }, 800);
     }
 
-  } catch (error) {
 
-    console.error(error);
+    /* ---------- SIGN OUT ---------- */
 
-    message.textContent =
-      error.message || "Something went wrong.";
+    async function signOutUser() {
 
-    message.classList.add("error");
-  }
-}
+      const { error } =
+        await supabaseClient.auth.signOut();
 
 
-/* ---------- SIGN OUT ---------- */
+      if (error) {
 
-async function signOutUser() {
+        console.error(error);
 
-  const { error } =
-    await supabaseClient.auth.signOut();
+        return;
 
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  currentUser = null;
-
-  updateAuthUI();
-}
+      }
 
 
-/* ---------- UPDATE WEBSITE UI ---------- */
+      currentUser = null;
 
-async function updateAuthUI() {
+      updateAuthUI();
 
-  const accountArea =
-    document.getElementById("account-area");
-
-  if (!accountArea) return;
-
-  const {
-    data: {
-      user
     }
-  } = await supabaseClient.auth.getUser();
 
-  currentUser = user;
 
-  if (!user) {
+    /* ---------- UPDATE WEBSITE UI ---------- */
 
-    accountArea.innerHTML = `
-      <button class="nav-login"
-              onclick="openAuth('signin')">
-        Sign In
-      </button>
+    async function updateAuthUI() {
 
-      <button class="nav-signup"
-              onclick="openAuth('signup')">
-        Sign Up
-      </button>
-    `;
+      const accountArea =
+        document.getElementById("account-area");
 
-    return;
-  }
 
-  const fullName =
-    user.user_metadata?.full_name ||
-    user.email?.split("@")[0] ||
-    "User";
+      if (!accountArea) return;
 
-  accountArea.innerHTML = `
-    <div class="account-menu">
 
-      <button class="account-button"
-              onclick="toggleAccountMenu()">
+      const {
+        data: {
+          user
+        }
+      } =
+        await supabaseClient.auth.getUser();
 
-        <span class="account-avatar">
-          ${fullName.charAt(0).toUpperCase()}
-        </span>
 
-        <span>
-          ${fullName}
-        </span>
+      currentUser =
+        user;
 
-        <span>⌄</span>
 
-      </button>
+      if (!user) {
 
-      <div id="account-dropdown"
-           class="account-dropdown">
+        accountArea.innerHTML = `
 
-        <div class="account-email">
-          ${user.email}
+          <button
+            class="nav-login"
+            onclick="openAuth('signin')"
+          >
+            Sign In
+          </button>
+
+          <button
+            class="nav-signup"
+            onclick="openAuth('signup')"
+          >
+            Sign Up
+          </button>
+
+        `;
+
+        return;
+
+      }
+
+
+      const fullName =
+        user.user_metadata?.full_name ||
+        user.email?.split("@")[0] ||
+        "User";
+
+
+      accountArea.innerHTML = `
+
+        <div class="account-menu">
+
+          <button
+            class="account-button"
+            onclick="toggleAccountMenu()"
+          >
+
+            <span class="account-avatar">
+              ${fullName.charAt(0).toUpperCase()}
+            </span>
+
+            <span>
+              ${fullName}
+            </span>
+
+            <span>
+              ⌄
+            </span>
+
+          </button>
+
+
+          <div
+            id="account-dropdown"
+            class="account-dropdown"
+          >
+
+            <div class="account-email">
+              ${user.email}
+            </div>
+
+            <a href="#pricing">
+              Pro & Plans
+            </a>
+
+            <a href="#about">
+              About HeritageAI
+            </a>
+
+            <button onclick="signOutUser()">
+              Sign Out
+            </button>
+
+          </div>
+
         </div>
 
-        <a href="#pricing">
-          Pro & Plans
-        </a>
+      `;
 
-        <a href="#about">
-          About HeritageAI
-        </a>
+    }
 
-        <button onclick="signOutUser()">
-          Sign Out
+
+    /* ---------- ACCOUNT DROPDOWN ---------- */
+
+    function toggleAccountMenu() {
+
+      const dropdown =
+        document.getElementById("account-dropdown");
+
+
+      if (!dropdown) return;
+
+
+      dropdown.classList.toggle("show");
+
+    }
+
+
+    /* ---------- AUTH STATE ---------- */
+
+    supabaseClient.auth.onAuthStateChange(
+      async (event, session) => {
+
+        currentUser =
+          session?.user || null;
+
+        updateAuthUI();
+
+      }
+    );
+
+
+    /* ---------- INITIAL LOAD ---------- */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        updateAuthUI();
+
+
+        const authForm =
+          document.getElementById("auth-form");
+
+
+        if (authForm) {
+
+          authForm.addEventListener(
+            "submit",
+            handleAuth
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+
+  <!-- =========================
+       HERITAGEAI AUTH MODAL
+  ========================== -->
+
+  <div
+    id="auth-modal"
+    class="auth-modal"
+  >
+
+    <div
+      class="auth-overlay"
+      onclick="closeAuth()"
+    ></div>
+
+
+    <div class="auth-card">
+
+      <button
+        class="auth-close"
+        onclick="closeAuth()"
+      >
+        ×
+      </button>
+
+
+      <div class="auth-brand">
+
+        <div class="auth-logo">
+          H
+        </div>
+
+        <div>
+
+          <strong>
+            HERITAGEAI
+          </strong>
+
+          <span>
+            VOICE PRESENTATION ASSISTANT
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <h2 id="auth-title">
+        Create your HeritageAI account
+      </h2>
+
+
+      <p id="auth-subtitle">
+        Start your journey with HeritageAI.
+      </p>
+
+
+      <form id="auth-form">
+
+        <div
+          id="full-name-field"
+          class="auth-field"
+        >
+
+          <label for="auth-full-name">
+            Full Name
+          </label>
+
+          <input
+            id="auth-full-name"
+            type="text"
+            placeholder="Your full name"
+            autocomplete="name"
+          >
+
+        </div>
+
+
+        <div class="auth-field">
+
+          <label for="auth-email">
+            Email Address
+          </label>
+
+          <input
+            id="auth-email"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="auth-field">
+
+          <label for="auth-password">
+            Password
+          </label>
+
+          <input
+            id="auth-password"
+            type="password"
+            placeholder="Create a password"
+            autocomplete="new-password"
+            required
+            minlength="6"
+          >
+
+        </div>
+
+
+        <button
+          id="auth-submit"
+          class="auth-submit"
+          type="submit"
+        >
+          Create Account
+        </button>
+
+
+        <div
+          id="auth-message"
+          class="auth-message"
+        ></div>
+
+      </form>
+
+
+      <div
+        id="auth-switch"
+        class="auth-switch"
+      >
+
+        Already have an account?
+
+        <button
+          type="button"
+          onclick="showSignIn()"
+        >
+          Sign In
         </button>
 
       </div>
 
     </div>
-  `;
-}
-
-
-/* ---------- ACCOUNT DROPDOWN ---------- */
-
-function toggleAccountMenu() {
-
-  const dropdown =
-    document.getElementById("account-dropdown");
-
-  if (!dropdown) return;
-
-  dropdown.classList.toggle("show");
-}
-
-
-/* ---------- AUTH STATE ---------- */
-
-supabaseClient.auth.onAuthStateChange(
-  async (event, session) => {
-
-    currentUser =
-      session?.user || null;
-
-    updateAuthUI();
-  }
-);
-
-
-/* ---------- INITIAL LOAD ---------- */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    updateAuthUI();
-
-    const authForm =
-      document.getElementById("auth-form");
-
-    if (authForm) {
-      authForm.addEventListener(
-        "submit",
-        handleAuth
-      );
-    }
-
-  }
-);
-</script>
-
-<!-- HERITAGEAI AUTH MODAL -->
-<div id="auth-modal" class="auth-modal">
-
-  <div class="auth-overlay" onclick="closeAuth()"></div>
-
-  <div class="auth-card">
-
-    <button class="auth-close"
-            onclick="closeAuth()">
-      ×
-    </button>
-
-    <div class="auth-brand">
-      <div class="auth-logo">H</div>
-
-      <div>
-        <strong>HERITAGEAI</strong>
-        <span>VOICE PRESENTATION ASSISTANT</span>
-      </div>
-    </div>
-
-    <h2 id="auth-title">
-      Create your HeritageAI account
-    </h2>
-
-    <p id="auth-subtitle">
-      Start your journey with HeritageAI.
-    </p>
-
-    <form id="auth-form">
-
-      <div id="full-name-field"
-           class="auth-field">
-
-        <label for="auth-full-name">
-          Full Name
-        </label>
-
-        <input
-          id="auth-full-name"
-          type="text"
-          placeholder="Your full name"
-          autocomplete="name"
-        >
-
-      </div>
-
-      <div class="auth-field">
-
-        <label for="auth-email">
-          Email Address
-        </label>
-
-        <input
-          id="auth-email"
-          type="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
-        >
-
-      </div>
-
-      <div class="auth-field">
-
-        <label for="auth-password">
-          Password
-        </label>
-
-        <input
-          id="auth-password"
-          type="password"
-          placeholder="Create a password"
-          autocomplete="new-password"
-          required
-          minlength="6"
-        >
-
-      </div>
-
-      <button
-        id="auth-submit"
-        class="auth-submit"
-        type="submit">
-
-        Create Account
-
-      </button>
-
-      <div id="auth-message"
-           class="auth-message">
-      </div>
-
-    </form>
-
-    <div id="auth-switch"
-         class="auth-switch">
-
-      Already have an account?
-
-      <button type="button"
-              onclick="showSignIn()">
-        Sign In
-      </button>
-
-    </div>
 
   </div>
 
-</div>
 
-<script>
-async function startProPayment() {
-  if (!currentUser) {
-    openAuth("signin");
-    return;
-  }
+  <!-- =========================
+       PRO PAYMENT
+  ========================== -->
 
-  try {
-    const { data, error } =
-      await supabaseClient.functions.invoke(
-        "smart-worker",
-        {
-          body: {}
+  <script>
+
+    async function startProPayment() {
+
+      if (!currentUser) {
+
+        openAuth("signin");
+
+        return;
+
+      }
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.functions.invoke(
+            "smart-worker",
+            {
+              body: {}
+            }
+          );
+
+
+        if (error) {
+
+          console.error(error);
+
+          alert(
+            "Could not start payment. Please try again."
+          );
+
+          return;
+
         }
-      );
 
-    if (error) {
-      console.error(error);
-      alert("Could not start payment. Please try again.");
-      return;
+
+        if (!data?.authorization_url) {
+
+          console.error(data);
+
+          alert(
+            "Payment could not be initialized."
+          );
+
+          return;
+
+        }
+
+
+        window.location.href =
+          data.authorization_url;
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "Something went wrong while starting payment."
+        );
+
+      }
+
     }
 
-    if (!data?.authorization_url) {
-      console.error(data);
-      alert("Payment could not be initialized.");
-      return;
-    }
+  </script>
 
-    window.location.href = data.authorization_url;
-
-  } catch (error) {
-    console.error(error);
-    alert("Something went wrong while starting payment.");
-  }
-}
-</script>
 </body>
 </html>
