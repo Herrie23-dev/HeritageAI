@@ -1423,6 +1423,7 @@
 }
   </style>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="https://js.paystack.co/v2/inline.js"></script>
 </head>
 
 <body>
@@ -1489,11 +1490,12 @@
           </a>
 
           <a
-            class="btn btn-secondary"
-            href="https://paystack.shop/pay/nksqx77mo7"
-          >
-            Get Pro Early Access — ₦3,000
-          </a>
+  class="btn btn-secondary"
+  href="#"
+  onclick="startProPayment(); return false;"
+>
+  Get Pro Early Access — ₦3,000
+</a>
 
         </div>
 
@@ -2010,11 +2012,10 @@
             </ul>
 
             <a
-              class="btn btn-primary full-btn"
-              href="https://paystack.shop/pay/nksqx77mo7"
-            >
-              Get Pro Early Access
-            </a>
+  class="btn btn-primary full-btn"
+  href="#"
+  onclick="startProPayment(); return false;"
+	>
 
           </div>
 
@@ -2635,5 +2636,42 @@ document.addEventListener(
   </div>
 
 </div>
+
+<script>
+async function startProPayment() {
+  if (!currentUser) {
+    openAuth("signin");
+    return;
+  }
+
+  try {
+    const { data, error } =
+      await supabaseClient.functions.invoke(
+        "smart-worker",
+        {
+          body: {}
+        }
+      );
+
+    if (error) {
+      console.error(error);
+      alert("Could not start payment. Please try again.");
+      return;
+    }
+
+    if (!data?.authorization_url) {
+      console.error(data);
+      alert("Payment could not be initialized.");
+      return;
+    }
+
+    window.location.href = data.authorization_url;
+
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong while starting payment.");
+  }
+}
+</script>
 </body>
 </html>
