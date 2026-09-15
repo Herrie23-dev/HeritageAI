@@ -1347,6 +1347,27 @@
       font-weight: 900;
     }
 
+    .account-plan-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f0d477, #d4af37);
+  color: #080808;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  box-shadow: 0 0 14px rgba(212,175,55,0.22);
+}
+
+.account-plan-badge.free {
+  background: rgba(255,255,255,0.08);
+  color: #999;
+  box-shadow: none;
+}
+
     .account-name {
       max-width: 130px;
       overflow: hidden;
@@ -2695,23 +2716,161 @@
 
     async function updateAuthUI() {
 
-      const accountArea =
-        document.getElementById("account-area");
+  const accountArea =
+    document.getElementById("account-area");
+
+  if (!accountArea) return;
+
+  const {
+    data: {
+      user
+    }
+  } = await supabaseClient.auth.getUser();
+
+  currentUser = user;
+
+  if (!user) {
+
+    accountArea.innerHTML = `
+
+      <button
+        class="nav-login"
+        onclick="openAuth('signin')"
+      >
+        Sign In
+      </button>
+
+      <button
+        class="nav-signup"
+        onclick="openAuth('signup')"
+      >
+        Sign Up
+      </button>
+
+    `;
+
+    return;
+  }
 
 
-      if (!accountArea) return;
+  /* =========================
+     GET USER PROFILE
+  ========================= */
+
+  let isPro = false;
+
+  try {
+
+    const {
+      data: profile,
+      error: profileError
+    } = await supabaseClient
+      .from("Profiles")
+      .select("is_pro")
+      .eq("id", user.id)
+      .single();
+
+    if (profileError) {
+      console.error(
+        "Profile error:",
+        profileError
+      );
+    }
+
+    if (profile) {
+      isPro = profile.is_pro === true;
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Could not load profile:",
+      error
+    );
+
+  }
 
 
-      const {
-        data: {
-          user
-        }
-      } =
-        await supabaseClient.auth.getUser();
+  const fullName =
+    user.user_metadata?.full_name ||
+    user.email?.split("@")[0] ||
+    "User";
 
 
-      currentUser =
-        user;
+  const firstLetter =
+    fullName.charAt(0).toUpperCase();
+
+
+  const planBadge = isPro
+    ? `<span class="account-plan-badge">PRO</span>`
+    : `<span class="account-plan-badge free">FREE</span>`;
+
+
+  accountArea.innerHTML = `
+
+    <div class="account-menu">
+
+      <button
+        class="account-button"
+        onclick="toggleAccountMenu()"
+      >
+
+        <span class="account-avatar">
+          ${firstLetter}
+        </span>
+
+        <span>
+          ${fullName}
+        </span>
+
+        ${planBadge}
+
+        <span>
+          ⌄
+        </span>
+
+      </button>
+
+
+      <div
+        id="account-dropdown"
+        class="account-dropdown"
+      >
+
+        <div class="account-email">
+          ${user.email}
+        </div>
+
+        <div style="
+          padding: 10px 12px;
+          margin-bottom: 5px;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          font-size: 12px;
+          font-weight: 800;
+          color: ${isPro ? "#d4af37" : "#999"};
+        ">
+          ${isPro ? "✦ HERITAGEAI PRO" : "HERITAGEAI FREE"}
+        </div>
+
+        <a href="#pricing">
+          Pro & Plans
+        </a>
+
+        <a href="#about">
+          About HeritageAI
+        </a>
+
+        <button onclick="signOutUser()">
+          Sign Out
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
 
 
       /* ---------- LOGGED OUT ---------- */
