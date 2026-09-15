@@ -1331,7 +1331,6 @@
       background: rgba(255, 255, 255, 0.04);
       color: #fff;
       cursor: pointer;
-      max-width: 260px;
     }
 
     .account-avatar {
@@ -1339,7 +1338,6 @@
       height: 28px;
       display: grid;
       place-items: center;
-      flex-shrink: 0;
       border-radius: 50%;
       background: #d4af37;
       color: #080808;
@@ -1347,68 +1345,11 @@
       font-weight: 900;
     }
 
-    .account-plan-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 4px;
-  padding: 3px 7px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #f0d477, #d4af37);
-  color: #080808;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.8px;
-  box-shadow: 0 0 14px rgba(212,175,55,0.22);
-}
-
-.account-plan-badge.free {
-  background: rgba(255,255,255,0.08);
-  color: #999;
-  box-shadow: none;
-}
-
-    .account-name {
-      max-width: 130px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    /* =========================================
-       PLAN BADGES
-    ========================================= */
-
-    .account-plan {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 9px;
-      line-height: 1;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      flex-shrink: 0;
-    }
-
-    .account-plan.pro {
-      background: rgba(212, 175, 55, 0.16);
-      color: #d4af37;
-      border: 1px solid rgba(212, 175, 55, 0.35);
-    }
-
-    .account-plan.free {
-      background: rgba(255, 255, 255, 0.08);
-      color: #aaa;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
     .account-dropdown {
       position: absolute;
       top: calc(100% + 10px);
       right: 0;
-      width: 245px;
+      width: 220px;
       padding: 10px;
       display: none;
       border: 1px solid rgba(212, 175, 55, 0.2);
@@ -1443,59 +1384,13 @@
       color: #d4af37;
     }
 
-    .account-user {
-      padding: 4px 12px 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .account-user-name {
-      font-weight: 700;
-      color: #fff;
-      font-size: 14px;
-    }
-
     .account-email {
-      margin-top: 3px;
+      padding: 10px 12px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       color: #777;
       font-size: 11px;
       word-break: break-word;
-    }
-
-    .account-plan-box {
-      margin: 10px 2px;
-      padding: 12px;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .account-plan-box.pro {
-      background: rgba(212, 175, 55, 0.10);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-    }
-
-    .account-plan-box.pro strong {
-      color: #d4af37;
-    }
-
-    .account-plan-box.pro span {
-      color: #ccc;
-      font-size: 12px;
-    }
-
-    .account-plan-box.free {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .account-plan-box.free strong {
-      color: #fff;
-    }
-
-    .account-plan-box.free span {
-      color: #999;
-      font-size: 12px;
     }
 
     @media (max-width: 700px) {
@@ -1609,6 +1504,9 @@
           <span class="trust-pill">Hands-Free</span>
 
         </div>
+
+
+        <!-- Floating product preview -->
 
         <div class="product-preview">
 
@@ -1752,7 +1650,10 @@
         <div class="grid">
 
           <div class="card">
-            <div class="icon">🎙️</div>
+
+            <div class="icon">
+              🎙️
+            </div>
 
             <h3>
               Voice Control
@@ -1761,11 +1662,15 @@
             <p>
               Navigate your presentation using simple voice commands.
             </p>
+
           </div>
 
 
           <div class="card">
-            <div class="icon">📂</div>
+
+            <div class="icon">
+              📂
+            </div>
 
             <h3>
               Your PowerPoint
@@ -1774,11 +1679,15 @@
             <p>
               Select and control your own PowerPoint presentations.
             </p>
+
           </div>
 
 
           <div class="card">
-            <div class="icon">⚡</div>
+
+            <div class="icon">
+              ⚡
+            </div>
 
             <h3>
               Quick Navigation
@@ -1787,11 +1696,15 @@
             <p>
               Move forward, backward or jump directly to a slide.
             </p>
+
           </div>
 
 
           <div class="card">
-            <div class="icon">🤖</div>
+
+            <div class="icon">
+              🤖
+            </div>
 
             <h3>
               Built for AI
@@ -1800,6 +1713,7 @@
             <p>
               HeritageAI is evolving toward smarter presentation assistance.
             </p>
+
           </div>
 
         </div>
@@ -1828,7 +1742,10 @@
         <div class="steps">
 
           <div class="step">
-            <div class="num">01</div>
+
+            <div class="num">
+              01
+            </div>
 
             <h3>
               Select
@@ -1837,11 +1754,15 @@
             <p>
               Choose the PowerPoint presentation you want to use.
             </p>
+
           </div>
 
 
           <div class="step">
-            <div class="num">02</div>
+
+            <div class="num">
+              02
+            </div>
 
             <h3>
               Start
@@ -1850,11 +1771,15 @@
             <p>
               Launch HeritageAI and begin your presentation.
             </p>
+
           </div>
 
 
           <div class="step">
-            <div class="num">03</div>
+
+            <div class="num">
+              03
+            </div>
 
             <h3>
               Speak
@@ -1863,11 +1788,15 @@
             <p>
               Say your HeritageAI voice command.
             </p>
+
           </div>
 
 
           <div class="step">
-            <div class="num">04</div>
+
+            <div class="num">
+              04
+            </div>
 
             <h3>
               Present
@@ -1876,6 +1805,7 @@
             <p>
               Keep your attention on the audience instead of the laptop.
             </p>
+
           </div>
 
         </div>
@@ -1943,6 +1873,7 @@
           <div class="founder-photo">
 
             <div>
+
               <strong>
                 PHOTO SPACE
               </strong>
@@ -1950,6 +1881,7 @@
               <span>
                 Your founder photo will go here.
               </span>
+
             </div>
 
           </div>
@@ -1980,7 +1912,6 @@
               class="btn btn-secondary"
               href="https://www.linkedin.com/"
               target="_blank"
-              rel="noopener noreferrer"
               style="margin-top:22px;"
             >
               Connect on LinkedIn →
@@ -2021,6 +1952,7 @@
             </div>
 
             <div>
+
               <h3>
                 Voice Presentation Control
               </h3>
@@ -2029,6 +1961,7 @@
                 Select PowerPoint files, start presentations,
                 navigate slides and control presentations by voice.
               </p>
+
             </div>
 
           </div>
@@ -2041,6 +1974,7 @@
             </div>
 
             <div>
+
               <h3>
                 AI Slide Understanding
               </h3>
@@ -2049,6 +1983,7 @@
                 HeritageAI will understand the content of your
                 presentation and help you navigate more intelligently.
               </p>
+
             </div>
 
           </div>
@@ -2061,6 +1996,7 @@
             </div>
 
             <div>
+
               <h3>
                 Topic-Based Navigation
               </h3>
@@ -2069,6 +2005,7 @@
                 Instead of remembering slide numbers, ask HeritageAI
                 to take you to a specific topic.
               </p>
+
             </div>
 
           </div>
@@ -2081,6 +2018,7 @@
             </div>
 
             <div>
+
               <h3>
                 Smarter Presentation Assistance
               </h3>
@@ -2089,6 +2027,7 @@
                 Presentation Q&A, improved voice intelligence,
                 additional languages and more intelligent assistance.
               </p>
+
             </div>
 
           </div>
@@ -2128,6 +2067,8 @@
 
 
         <div class="pricing">
+
+          <!-- FREE -->
 
           <div class="price-card">
 
@@ -2177,6 +2118,8 @@
           </div>
 
 
+          <!-- PRO -->
+
           <div class="price-card pro">
 
             <div class="popular">
@@ -2223,6 +2166,8 @@
               </li>
 
             </ul>
+
+            <!-- FIXED PRO BUTTON -->
 
             <a
               class="btn btn-primary full-btn"
@@ -2376,7 +2321,6 @@
             class="btn btn-primary"
             href="https://www.linkedin.com/"
             target="_blank"
-            rel="noopener noreferrer"
           >
             Connect on LinkedIn →
           </a>
@@ -2441,20 +2385,6 @@
   <script>
 
     let currentUser = null;
-
-
-    /* ---------- SAFE HTML ---------- */
-
-    function escapeHtml(value) {
-
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-    }
 
 
     /* ---------- AUTH MODAL ---------- */
@@ -2639,6 +2569,7 @@
 
         } else {
 
+
           const { data, error } =
             await supabaseClient.auth.signInWithPassword({
 
@@ -2716,164 +2647,24 @@
 
     async function updateAuthUI() {
 
-  const accountArea =
-    document.getElementById("account-area");
-
-  if (!accountArea) return;
-
-  const {
-    data: {
-      user
-    }
-  } = await supabaseClient.auth.getUser();
-
-  currentUser = user;
-
-  if (!user) {
-
-    accountArea.innerHTML = `
-
-      <button
-        class="nav-login"
-        onclick="openAuth('signin')"
-      >
-        Sign In
-      </button>
-
-      <button
-        class="nav-signup"
-        onclick="openAuth('signup')"
-      >
-        Sign Up
-      </button>
-
-    `;
-
-    return;
-  }
+      const accountArea =
+        document.getElementById("account-area");
 
 
-  /* =========================
-     GET USER PROFILE
-  ========================= */
-
-  let isPro = false;
-
-  try {
-
-    const {
-      data: profile,
-      error: profileError
-    } = await supabaseClient
-      .from("Profiles")
-      .select("is_pro")
-      .eq("id", user.id)
-      .single();
-
-    if (profileError) {
-      console.error(
-        "Profile error:",
-        profileError
-      );
-    }
-
-    if (profile) {
-      isPro = profile.is_pro === true;
-    }
-
-  } catch (error) {
-
-    console.error(
-      "Could not load profile:",
-      error
-    );
-
-  }
+      if (!accountArea) return;
 
 
-  const fullName =
-    user.user_metadata?.full_name ||
-    user.email?.split("@")[0] ||
-    "User";
+      const {
+        data: {
+          user
+        }
+      } =
+        await supabaseClient.auth.getUser();
 
 
-  const firstLetter =
-    fullName.charAt(0).toUpperCase();
+      currentUser =
+        user;
 
-
-  const planBadge = isPro
-    ? `<span class="account-plan-badge">PRO</span>`
-    : `<span class="account-plan-badge free">FREE</span>`;
-
-
-  accountArea.innerHTML = `
-
-    <div class="account-menu">
-
-      <button
-        class="account-button"
-        onclick="toggleAccountMenu()"
-      >
-
-        <span class="account-avatar">
-          ${firstLetter}
-        </span>
-
-        <span>
-          ${fullName}
-        </span>
-
-        ${planBadge}
-
-        <span>
-          ⌄
-        </span>
-
-      </button>
-
-
-      <div
-        id="account-dropdown"
-        class="account-dropdown"
-      >
-
-        <div class="account-email">
-          ${user.email}
-        </div>
-
-        <div style="
-          padding: 10px 12px;
-          margin-bottom: 5px;
-          border-bottom: 1px solid rgba(255,255,255,0.08);
-          font-size: 12px;
-          font-weight: 800;
-          color: ${isPro ? "#d4af37" : "#999"};
-        ">
-          ${isPro ? "✦ HERITAGEAI PRO" : "HERITAGEAI FREE"}
-        </div>
-
-        <a href="#pricing">
-          Pro & Plans
-        </a>
-
-        <a href="#about">
-          About HeritageAI
-        </a>
-
-        <button onclick="signOutUser()">
-          Sign Out
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-      /* ---------- LOGGED OUT ---------- */
 
       if (!user) {
 
@@ -2900,115 +2691,11 @@
       }
 
 
-      /* ---------- USER INFORMATION ---------- */
-
       const fullName =
         user.user_metadata?.full_name ||
         user.email?.split("@")[0] ||
         "User";
 
-      const safeName =
-        escapeHtml(fullName);
-
-      const safeEmail =
-        escapeHtml(user.email || "");
-
-
-      /* ---------- LOAD PROFILE ---------- */
-
-      let profile = null;
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .from("Profiles")
-            .select("is_pro, paystack_reference")
-            .eq("id", user.id)
-            .maybeSingle();
-
-
-        if (error) {
-
-          console.error(
-            "Could not load HeritageAI profile:",
-            error
-          );
-
-        } else {
-
-          profile = data;
-
-        }
-
-      } catch (error) {
-
-        console.error(
-          "Profile request failed:",
-          error
-        );
-
-      }
-
-
-      /* ---------- PLAN ---------- */
-
-      const isPro =
-        profile?.is_pro === true;
-
-
-      const planBadge =
-        isPro
-
-          ? `
-            <span class="account-plan pro">
-              PRO
-            </span>
-          `
-
-          : `
-            <span class="account-plan free">
-              FREE
-            </span>
-          `;
-
-
-      const planBox =
-        isPro
-
-          ? `
-            <div class="account-plan-box pro">
-
-              <strong>
-                HERITAGEAI PRO
-              </strong>
-
-              <span>
-                ✓ Pro Member
-              </span>
-
-            </div>
-          `
-
-          : `
-            <div class="account-plan-box free">
-
-              <strong>
-                HERITAGEAI FREE
-              </strong>
-
-              <span>
-                Free plan
-              </span>
-
-            </div>
-          `;
-
-
-      /* ---------- RENDER ACCOUNT ---------- */
 
       accountArea.innerHTML = `
 
@@ -3017,18 +2704,15 @@
           <button
             class="account-button"
             onclick="toggleAccountMenu()"
-            aria-label="Open account menu"
           >
 
             <span class="account-avatar">
-              ${safeName.charAt(0).toUpperCase()}
+              ${fullName.charAt(0).toUpperCase()}
             </span>
 
-            <span class="account-name">
-              ${safeName}
+            <span>
+              ${fullName}
             </span>
-
-            ${planBadge}
 
             <span>
               ⌄
@@ -3042,36 +2726,19 @@
             class="account-dropdown"
           >
 
-            <div class="account-user">
-
-              <div class="account-user-name">
-                ${safeName}
-              </div>
-
-              <div class="account-email">
-                ${safeEmail}
-              </div>
-
+            <div class="account-email">
+              ${user.email}
             </div>
-
-
-            ${planBox}
-
 
             <a href="#pricing">
               Pro & Plans
             </a>
 
-
             <a href="#about">
               About HeritageAI
             </a>
 
-
-            <button
-              type="button"
-              onclick="signOutUser()"
-            >
+            <button onclick="signOutUser()">
               Sign Out
             </button>
 
@@ -3100,33 +2767,6 @@
     }
 
 
-    /* ---------- CLOSE DROPDOWN WHEN CLICKING OUTSIDE ---------- */
-
-    document.addEventListener(
-      "click",
-      (event) => {
-
-        const accountArea =
-          document.getElementById("account-area");
-
-        const dropdown =
-          document.getElementById("account-dropdown");
-
-
-        if (
-          accountArea &&
-          dropdown &&
-          !accountArea.contains(event.target)
-        ) {
-
-          dropdown.classList.remove("show");
-
-        }
-
-      }
-    );
-
-
     /* ---------- AUTH STATE ---------- */
 
     supabaseClient.auth.onAuthStateChange(
@@ -3135,7 +2775,7 @@
         currentUser =
           session?.user || null;
 
-        await updateAuthUI();
+        updateAuthUI();
 
       }
     );
@@ -3352,10 +2992,7 @@
 
         if (error) {
 
-          console.error(
-            "Payment initialization error:",
-            error
-          );
+          console.error(error);
 
           alert(
             "Could not start payment. Please try again."
@@ -3368,10 +3005,7 @@
 
         if (!data?.authorization_url) {
 
-          console.error(
-            "Payment initialization returned no URL:",
-            data
-          );
+          console.error(data);
 
           alert(
             "Payment could not be initialized."
