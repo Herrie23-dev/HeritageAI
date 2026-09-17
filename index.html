@@ -1747,7 +1747,6 @@
   </style>
 
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <script src="https://js.paystack.co/v2/inline.js"></script>
 </head>
 
 <body>
@@ -1818,14 +1817,6 @@
             href="https://github.com/Herrie23-dev/HeritageAI/releases/download/v1.0.0/HeritageAI.zip"
           >
             ↓ Download HeritageAI Free
-          </a>
-
-          <a
-            class="btn btn-secondary"
-            href="#"
-            onclick="startProPayment(); return false;"
-          >
-            Get Pro Early Access — ₦3,000
           </a>
 
         </div>
@@ -2381,147 +2372,6 @@
 
 
     <!-- =========================
-         PRICING
-    ========================== -->
-
-    <section id="pricing">
-
-      <div class="wrap">
-
-        <div class="pricing-intro">
-
-          <div class="eyebrow">
-            Choose your experience
-          </div>
-
-          <h2>
-            Start free.<br>
-            Go further with Pro.
-          </h2>
-
-          <p class="lead">
-            Get the core HeritageAI experience today and join the
-            early-access journey toward smarter presentation AI.
-          </p>
-
-        </div>
-
-
-        <div class="pricing">
-
-          <div class="price-card">
-
-            <div class="price-name">
-              HeritageAI Basic
-            </div>
-
-            <div class="price">
-              Free
-            </div>
-
-            <p>
-              Everything you need to control your presentations.
-            </p>
-
-            <ul class="features-list">
-
-              <li>
-                Select your PowerPoint
-              </li>
-
-              <li>
-                Voice presentation control
-              </li>
-
-              <li>
-                Next and previous
-              </li>
-
-              <li>
-                Jump to a slide
-              </li>
-
-              <li>
-                Windows application
-              </li>
-
-            </ul>
-
-            <a
-              class="btn btn-secondary full-btn"
-              href="https://github.com/Herrie23-dev/HeritageAI/releases/download/v1.0.0/HeritageAI.zip"
-            >
-              Download Free
-            </a>
-
-          </div>
-
-
-          <div class="price-card pro">
-
-            <div class="popular">
-              EARLY ACCESS
-            </div>
-
-            <div class="price-name">
-              HeritageAI Pro
-            </div>
-
-            <div class="price">
-              ₦3,000
-              <small>lifetime early access</small>
-            </div>
-
-            <p>
-              Get in early and help shape the future of HeritageAI.
-            </p>
-
-            <ul class="features-list">
-
-              <li>
-                Future AI slide understanding
-              </li>
-
-              <li>
-                Topic-based navigation
-              </li>
-
-              <li>
-                Presentation Q&A
-              </li>
-
-              <li>
-                Smarter presentation assistance
-              </li>
-
-              <li>
-                Future voice intelligence improvements
-              </li>
-
-              <li>
-                Early-access product updates
-              </li>
-
-            </ul>
-
-            <a
-              class="btn btn-primary full-btn"
-              href="#"
-              onclick="startProPayment(); return false;"
-            >
-              Get Pro Early Access — ₦3,000
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
          FAQ
     ========================== -->
 
@@ -2568,17 +2418,6 @@
 
 
           <div class="faq-item">
-
-            <strong>
-              What is the ₦3,000 Pro payment for?
-            </strong>
-
-            <p>
-              It is early access to HeritageAI Pro and its
-              upcoming advanced AI features as they are released.
-            </p>
-
-          </div>
 
 
           <div class="faq-item">
@@ -3105,61 +2944,6 @@
 
       }
 
-
-      /* ---------- PLAN ---------- */
-
-      const isPro =
-        profile?.is_pro === true;
-
-
-      const planBadge =
-        isPro
-
-          ? `
-            <span class="account-plan pro">
-              PRO
-            </span>
-          `
-
-          : `
-            <span class="account-plan free">
-              FREE
-            </span>
-          `;
-
-
-      const planBox =
-        isPro
-
-          ? `
-            <div class="account-plan-box pro">
-
-              <strong>
-                HERITAGEAI PRO
-              </strong>
-
-              <span>
-                ✓ Pro Member
-              </span>
-
-            </div>
-          `
-
-          : `
-            <div class="account-plan-box free">
-
-              <strong>
-                HERITAGEAI FREE
-              </strong>
-
-              <span>
-                Free plan
-              </span>
-
-            </div>
-          `;
-
-
       /* ---------- RENDER ACCOUNT ---------- */
 
       accountArea.innerHTML = `
@@ -3179,8 +2963,6 @@
             <span class="account-name">
               ${safeName}
             </span>
-
-            ${planBadge}
 
             <span>
               ⌄
@@ -3208,11 +2990,6 @@
 
 
             ${planBox}
-
-
-            <a href="#pricing">
-              Pro & Plans
-            </a>
 
 
             <a href="#about">
@@ -3470,87 +3247,6 @@
 
   </div>
 
-
-  <!-- =========================
-       PRO PAYMENT
-  ========================== -->
-
-  <script>
-
-    async function startProPayment() {
-
-      if (!currentUser) {
-
-        openAuth("signin");
-
-        return;
-
-      }
-
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient.functions.invoke(
-            "smart-worker",
-            {
-              body: {}
-            }
-          );
-
-
-        if (error) {
-
-          console.error(
-            "Payment initialization error:",
-            error
-          );
-
-          alert(
-            "Could not start payment. Please try again."
-          );
-
-          return;
-
-        }
-
-
-        if (!data?.authorization_url) {
-
-          console.error(
-            "Payment initialization returned no URL:",
-            data
-          );
-
-          alert(
-            "Payment could not be initialized."
-          );
-
-          return;
-
-        }
-
-
-        window.location.href =
-          data.authorization_url;
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        alert(
-          "Something went wrong while starting payment."
-        );
-
-      }
-
-    }
-
-  </script>
 
 </body>
 </html>
