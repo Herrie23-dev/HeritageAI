@@ -13,16 +13,18 @@
 
   <style>
     :root {
-      --bg: #070707;
-      --bg2: #0d0d0d;
+      --bg: #060606;
+      --bg2: #0c0c0c;
       --card: rgba(255,255,255,0.045);
       --card-hover: rgba(255,255,255,0.075);
       --text: #f5f5f2;
       --muted: #a3a3a0;
       --gold: #d4af37;
       --gold2: #f0d477;
+      --gold3: #ffe9a3;
       --line: rgba(255,255,255,0.09);
       --green: #62d98b;
+      --red: #ff7272;
       --max: 1160px;
     }
 
@@ -39,15 +41,29 @@
     body {
       font-family: Inter, Segoe UI, Arial, sans-serif;
       background:
-        radial-gradient(circle at 50% -20%, rgba(212,175,55,0.09), transparent 35%),
+        radial-gradient(
+          circle at 50% -20%,
+          rgba(212,175,55,0.10),
+          transparent 35%
+        ),
         var(--bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
+    body::selection {
+      background: rgba(212,175,55,0.35);
+      color: #fff;
+    }
+
     a {
       color: inherit;
+    }
+
+    button,
+    input {
+      font-family: inherit;
     }
 
     .wrap {
@@ -56,16 +72,37 @@
     }
 
     /* =========================
+       SCROLLBAR
+    ========================== */
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #080808;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 99px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold);
+    }
+
+    /* =========================
        NAVIGATION
-    ========================= */
+    ========================== */
 
     nav {
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      background: rgba(7,7,7,0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(6,6,6,0.82);
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
@@ -82,6 +119,7 @@
       font-size: 21px;
       letter-spacing: -0.5px;
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .logo span {
@@ -91,13 +129,13 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
     }
 
     .nav-links a {
       text-decoration: none;
       color: #cfcfca;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       transition: 0.25s;
     }
@@ -107,16 +145,21 @@
     }
 
     .nav-cta {
-      padding: 10px 17px;
+      padding: 10px 16px;
       border-radius: 999px;
       border: 1px solid rgba(212,175,55,0.45);
       color: var(--gold2) !important;
       background: rgba(212,175,55,0.07);
     }
 
+    .nav-cta:hover {
+      background: rgba(212,175,55,0.13);
+      transform: translateY(-1px);
+    }
+
     /* =========================
        HERO
-    ========================= */
+    ========================== */
 
     .hero {
       position: relative;
@@ -125,7 +168,7 @@
       display: flex;
       align-items: center;
       text-align: center;
-      padding: 100px 0 90px;
+      padding: 105px 0 90px;
     }
 
     .hero-grid {
@@ -136,6 +179,7 @@
         linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
       background-size: 55px 55px;
       mask-image: linear-gradient(to bottom, black, transparent 88%);
+      -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
       pointer-events: none;
     }
 
@@ -178,7 +222,7 @@
 
     .eyebrow {
       color: var(--gold2);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 900;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -194,8 +238,9 @@
       border-radius: 999px;
       margin-bottom: 25px;
       color: #e9d99d;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
+      box-shadow: 0 10px 35px rgba(212,175,55,0.05);
     }
 
     .live-dot {
@@ -205,6 +250,7 @@
       background: var(--green);
       box-shadow: 0 0 12px rgba(98,217,139,0.8);
       animation: blink 1.8s infinite;
+      flex-shrink: 0;
     }
 
     @keyframes blink {
@@ -252,6 +298,7 @@
       font-weight: 850;
       transition: 0.25s ease;
       cursor: pointer;
+      border: none;
     }
 
     .btn-primary {
@@ -295,8 +342,8 @@
     }
 
     /* =========================
-       FLOATING PRODUCT PREVIEW
-    ========================= */
+       PRODUCT PREVIEW
+    ========================== */
 
     .product-preview {
       position: relative;
@@ -307,7 +354,7 @@
       border-radius: 22px;
       background: linear-gradient(
         135deg,
-        rgba(212,175,55,0.45),
+        rgba(212,175,55,0.55),
         rgba(255,255,255,0.08),
         transparent
       );
@@ -450,7 +497,7 @@
 
     /* =========================
        SECTIONS
-    ========================= */
+    ========================== */
 
     section {
       padding: 100px 0;
@@ -489,7 +536,7 @@
 
     /* =========================
        DEMO
-    ========================= */
+    ========================== */
 
     .demo {
       border: 1px solid var(--line);
@@ -536,10 +583,12 @@
       background: var(--gold);
       box-shadow: 0 0 50px rgba(212,175,55,0.25);
       transition: 0.3s;
+      cursor: pointer;
     }
 
     .play:hover {
       transform: scale(1.08);
+      box-shadow: 0 0 70px rgba(212,175,55,0.35);
     }
 
     .demo-inner h3 {
@@ -551,9 +600,20 @@
       margin-top: 8px;
     }
 
+    .demo-note {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 7px 11px;
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: 999px;
+      color: #9b9b95;
+      font-size: 11px;
+      background: rgba(212,175,55,0.035);
+    }
+
     /* =========================
        FEATURE CARDS
-    ========================= */
+    ========================== */
 
     .grid {
       margin-top: 42px;
@@ -609,7 +669,7 @@
 
     /* =========================
        HOW IT WORKS
-    ========================= */
+    ========================== */
 
     .steps {
       margin-top: 45px;
@@ -648,7 +708,7 @@
 
     /* =========================
        ABOUT
-    ========================= */
+    ========================== */
 
     .about-box {
       margin-top: 40px;
@@ -658,6 +718,7 @@
       background:
         linear-gradient(135deg, rgba(212,175,55,0.06), transparent 40%),
         var(--card);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.18);
     }
 
     .about-box p {
@@ -675,56 +736,191 @@
     }
 
     /* =========================
-       FOUNDER
-    ========================= */
+       FOUNDER — IMPROVED
+    ========================== */
 
     .founder {
+      margin-top: 45px;
       display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
+      grid-template-columns: 0.85fr 1.15fr;
       gap: 50px;
       align-items: center;
-      margin-top: 45px;
     }
 
-    .founder-photo {
-      min-height: 390px;
-      border-radius: 25px;
-      border: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+    .founder-photo-card {
+      position: relative;
+      min-height: 520px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(212,175,55,0.35);
       background:
-        radial-gradient(circle at center, rgba(212,175,55,0.1), transparent 55%),
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(212,175,55,0.18),
+          transparent 45%
+        ),
         #101010;
-      color: #777;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.4),
+        0 0 70px rgba(212,175,55,0.07);
     }
 
-    .founder-photo strong {
-      color: var(--gold2);
+    .founder-photo-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          to top,
+          rgba(0,0,0,0.92) 0%,
+          rgba(0,0,0,0.38) 28%,
+          transparent 58%
+        );
+      z-index: 2;
+    }
+
+    .founder-photo-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
       display: block;
+      z-index: 1;
+      transition: transform 0.5s ease;
+    }
+
+    .founder-photo-card:hover img {
+      transform: scale(1.025);
+    }
+
+    .founder-image-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 4;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,175,55,0.4);
+      background: rgba(5,5,5,0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--gold2);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+
+    .founder-photo-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 4;
+      padding: 34px 28px 27px;
+    }
+
+    .founder-photo-caption .caption-label {
+      display: block;
+      color: var(--gold2);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       margin-bottom: 7px;
     }
 
+    .founder-photo-caption strong {
+      display: block;
+      color: #fff;
+      font-size: clamp(20px, 2.5vw, 27px);
+      line-height: 1.12;
+      letter-spacing: -0.7px;
+    }
+
+    .founder-photo-caption span:last-child {
+      display: block;
+      margin-top: 6px;
+      color: #d0d0cc;
+      font-size: 12px;
+    }
+
+    .founder-info {
+      padding: 10px 0;
+    }
+
+    .founder-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold2);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .founder-kicker::before {
+      content: "";
+      width: 25px;
+      height: 1px;
+      background: var(--gold);
+    }
+
     .founder-info h3 {
-      font-size: 32px;
+      font-size: clamp(32px, 4vw, 50px);
+      line-height: 1.03;
+      letter-spacing: -2px;
+    }
+
+    .founder-name {
+      margin-top: 17px;
+      font-size: clamp(21px, 2.4vw, 29px);
+      line-height: 1.2;
+      font-weight: 850;
+      color: #fff;
     }
 
     .founder-role {
       color: var(--gold2);
-      margin-top: 5px;
+      margin-top: 7px;
       font-weight: 700;
+      font-size: 14px;
     }
 
     .founder-info p {
       color: var(--muted);
       margin-top: 20px;
       max-width: 650px;
+      font-size: 16px;
+    }
+
+    .founder-meta {
+      margin-top: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .founder-tag {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: #aaa;
+      font-size: 11px;
+    }
+
+    .founder-link {
+      margin-top: 25px;
     }
 
     /* =========================
        ROADMAP
-    ========================= */
+    ========================== */
 
     .roadmap {
       margin-top: 45px;
@@ -766,7 +962,7 @@
 
     /* =========================
        PRICING
-    ========================= */
+    ========================== */
 
     .pricing-intro {
       text-align: center;
@@ -795,6 +991,12 @@
       border: 1px solid var(--line);
       background: var(--card);
       position: relative;
+      transition: 0.3s ease;
+    }
+
+    .price-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,0.15);
     }
 
     .price-card.pro {
@@ -803,6 +1005,11 @@
         radial-gradient(circle at 90% 10%, rgba(212,175,55,0.14), transparent 35%),
         rgba(212,175,55,0.035);
       box-shadow: 0 25px 70px rgba(212,175,55,0.08);
+    }
+
+    .price-card.pro:hover {
+      border-color: rgba(212,175,55,0.8);
+      box-shadow: 0 30px 80px rgba(212,175,55,0.12);
     }
 
     .popular {
@@ -836,6 +1043,7 @@
       font-size: 14px;
       color: #888;
       letter-spacing: 0;
+      font-weight: 600;
     }
 
     .price-card > p {
@@ -869,7 +1077,7 @@
 
     /* =========================
        FAQ
-    ========================= */
+    ========================== */
 
     .faq {
       margin-top: 38px;
@@ -883,6 +1091,12 @@
       border: 1px solid var(--line);
       border-radius: 15px;
       background: var(--card);
+      transition: 0.25s;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(212,175,55,0.25);
+      background: rgba(255,255,255,0.055);
     }
 
     .faq-item strong {
@@ -898,16 +1112,17 @@
 
     /* =========================
        CONTACT
-    ========================= */
+    ========================== */
 
     .contact {
       text-align: center;
-      padding: 65px 30px;
+      padding: 75px 30px;
       border: 1px solid rgba(212,175,55,0.2);
       border-radius: 25px;
       background:
         radial-gradient(circle at center, rgba(212,175,55,0.08), transparent 60%),
         var(--card);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.2);
     }
 
     .contact p {
@@ -918,7 +1133,7 @@
 
     /* =========================
        FOOTER
-    ========================= */
+    ========================== */
 
     footer {
       border-top: 1px solid var(--line);
@@ -936,7 +1151,7 @@
 
     /* =========================
        MOBILE
-    ========================= */
+    ========================== */
 
     @media (max-width: 900px) {
 
@@ -959,6 +1174,12 @@
       .preview-body {
         grid-template-columns: 1fr;
       }
+
+      .founder-photo-card {
+        max-width: 600px;
+        margin: auto;
+        width: 100%;
+      }
     }
 
     @media (max-width: 620px) {
@@ -970,6 +1191,14 @@
       .hero {
         min-height: auto;
         padding: 80px 0 60px;
+      }
+
+      .hero-badge {
+        font-size: 9px;
+        letter-spacing: 1px;
+        max-width: 95%;
+        justify-content: center;
+        text-align: center;
       }
 
       h1 {
@@ -1024,8 +1253,20 @@
         gap: 10px;
       }
 
-      .founder-photo {
-        min-height: 300px;
+      .founder-photo-card {
+        min-height: 450px;
+      }
+
+      .founder-info {
+        padding-top: 5px;
+      }
+
+      .founder-info h3 {
+        letter-spacing: -1.5px;
+      }
+
+      .founder-name {
+        font-size: 23px;
       }
 
       .price-card {
@@ -1034,6 +1275,10 @@
 
       .contact {
         padding: 45px 20px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
       }
     }
 
@@ -1060,6 +1305,7 @@
       inset: 0;
       background: rgba(0, 0, 0, 0.78);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .auth-card {
@@ -1331,6 +1577,11 @@
       background: rgba(255, 255, 255, 0.04);
       color: #fff;
       cursor: pointer;
+      max-width: 260px;
+    }
+
+    .account-button:hover {
+      border-color: rgba(212,175,55,0.35);
     }
 
     .account-avatar {
@@ -1338,6 +1589,7 @@
       height: 28px;
       display: grid;
       place-items: center;
+      flex-shrink: 0;
       border-radius: 50%;
       background: #d4af37;
       color: #080808;
@@ -1345,11 +1597,47 @@
       font-weight: 900;
     }
 
+    .account-name {
+      max-width: 130px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* =========================================
+       PLAN BADGES
+    ========================================= */
+
+    .account-plan {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+    }
+
+    .account-plan.pro {
+      background: rgba(212, 175, 55, 0.16);
+      color: #d4af37;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .account-plan.free {
+      background: rgba(255, 255, 255, 0.08);
+      color: #aaa;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
     .account-dropdown {
       position: absolute;
       top: calc(100% + 10px);
       right: 0;
-      width: 220px;
+      width: 245px;
       padding: 10px;
       display: none;
       border: 1px solid rgba(212, 175, 55, 0.2);
@@ -1384,13 +1672,59 @@
       color: #d4af37;
     }
 
+    .account-user {
+      padding: 4px 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .account-user-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 14px;
+    }
+
     .account-email {
-      padding: 10px 12px;
-      margin-bottom: 5px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 3px;
       color: #777;
       font-size: 11px;
       word-break: break-word;
+    }
+
+    .account-plan-box {
+      margin: 10px 2px;
+      padding: 12px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .account-plan-box.pro {
+      background: rgba(212, 175, 55, 0.10);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .account-plan-box.pro strong {
+      color: #d4af37;
+    }
+
+    .account-plan-box.pro span {
+      color: #ccc;
+      font-size: 12px;
+    }
+
+    .account-plan-box.free {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .account-plan-box.free strong {
+      color: #fff;
+    }
+
+    .account-plan-box.free span {
+      color: #999;
+      font-size: 12px;
     }
 
     @media (max-width: 700px) {
@@ -1505,9 +1839,6 @@
 
         </div>
 
-
-        <!-- Floating product preview -->
-
         <div class="product-preview">
 
           <div class="preview-window">
@@ -1613,8 +1944,13 @@
             </h3>
 
             <p>
-              The real HeritageAI demonstration video will appear here.
+              A real demonstration of HeritageAI controlling
+              a PowerPoint presentation with voice.
             </p>
+
+            <span class="demo-note">
+              Demo video coming soon
+            </span>
 
           </div>
 
@@ -1650,10 +1986,7 @@
         <div class="grid">
 
           <div class="card">
-
-            <div class="icon">
-              🎙️
-            </div>
+            <div class="icon">🎙️</div>
 
             <h3>
               Voice Control
@@ -1662,15 +1995,11 @@
             <p>
               Navigate your presentation using simple voice commands.
             </p>
-
           </div>
 
 
           <div class="card">
-
-            <div class="icon">
-              📂
-            </div>
+            <div class="icon">📂</div>
 
             <h3>
               Your PowerPoint
@@ -1679,15 +2008,11 @@
             <p>
               Select and control your own PowerPoint presentations.
             </p>
-
           </div>
 
 
           <div class="card">
-
-            <div class="icon">
-              ⚡
-            </div>
+            <div class="icon">⚡</div>
 
             <h3>
               Quick Navigation
@@ -1696,15 +2021,11 @@
             <p>
               Move forward, backward or jump directly to a slide.
             </p>
-
           </div>
 
 
           <div class="card">
-
-            <div class="icon">
-              🤖
-            </div>
+            <div class="icon">🤖</div>
 
             <h3>
               Built for AI
@@ -1713,7 +2034,6 @@
             <p>
               HeritageAI is evolving toward smarter presentation assistance.
             </p>
-
           </div>
 
         </div>
@@ -1742,10 +2062,7 @@
         <div class="steps">
 
           <div class="step">
-
-            <div class="num">
-              01
-            </div>
+            <div class="num">01</div>
 
             <h3>
               Select
@@ -1754,15 +2071,11 @@
             <p>
               Choose the PowerPoint presentation you want to use.
             </p>
-
           </div>
 
 
           <div class="step">
-
-            <div class="num">
-              02
-            </div>
+            <div class="num">02</div>
 
             <h3>
               Start
@@ -1771,15 +2084,11 @@
             <p>
               Launch HeritageAI and begin your presentation.
             </p>
-
           </div>
 
 
           <div class="step">
-
-            <div class="num">
-              03
-            </div>
+            <div class="num">03</div>
 
             <h3>
               Speak
@@ -1788,15 +2097,11 @@
             <p>
               Say your HeritageAI voice command.
             </p>
-
           </div>
 
 
           <div class="step">
-
-            <div class="num">
-              04
-            </div>
+            <div class="num">04</div>
 
             <h3>
               Present
@@ -1805,7 +2110,6 @@
             <p>
               Keep your attention on the audience instead of the laptop.
             </p>
-
           </div>
 
         </div>
@@ -1857,10 +2161,10 @@
 
 
     <!-- =========================
-         FOUNDER
+         FOUNDER — IMPROVED
     ========================== -->
 
-    <section>
+    <section id="founder">
 
       <div class="wrap">
 
@@ -1870,27 +2174,56 @@
 
         <div class="founder">
 
-          <div class="founder-photo">
+          <!-- FOUNDER PHOTO -->
 
-            <div>
+          <div class="founder-photo-card">
+
+            <div class="founder-image-badge">
+              HERITAGEAI • FOUNDER
+            </div>
+
+            <img
+              src="https://drive.google.com/thumbnail?id=1L3TELVkBAePoRzo3-PhZkaAuaAhttcs8&sz=w1000"
+              alt="Bolarinwa Heritage Oluwanimilo — Founder and Creator of HeritageAI"
+            >
+
+            <div class="founder-photo-caption">
+
+              <span class="caption-label">
+                Founder & Creator
+              </span>
 
               <strong>
-                PHOTO SPACE
+                Bolarinwa Heritage Oluwanimilo
               </strong>
 
               <span>
-                Your founder photo will go here.
+                Building HeritageAI
               </span>
 
             </div>
 
           </div>
 
+
+          <!-- FOUNDER INFORMATION -->
+
           <div class="founder-info">
 
+            <div class="founder-kicker">
+              The person behind the idea
+            </div>
+
             <h3>
-              Bolarinwa Heritage Oluwanimilo
+              Building HeritageAI<br>
+              one idea at a time.
             </h3>
+
+            <!-- NAME IS NOW CLEARLY VISIBLE AS TEXT -->
+
+            <div class="founder-name">
+              Bolarinwa Heritage Oluwanimilo
+            </div>
 
             <div class="founder-role">
               Founder & Creator, HeritageAI
@@ -1905,14 +2238,30 @@
             <p>
               What started as a project to control presentations with
               voice is becoming a product designed to make presenting
-              more natural and intelligent.
+              more natural, accessible and intelligent.
             </p>
 
+            <div class="founder-meta">
+
+              <span class="founder-tag">
+                Computer Engineering
+              </span>
+
+              <span class="founder-tag">
+                AI & Automation
+              </span>
+
+              <span class="founder-tag">
+                Product Builder
+              </span>
+
+            </div>
+
             <a
-              class="btn btn-secondary"
-              href="https://www.linkedin.com/"
+              class="btn btn-secondary founder-link"
+              href="https://www.linkedin.com/in/bolarinwa-heritage-837942302/"
               target="_blank"
-              style="margin-top:22px;"
+              rel="noopener noreferrer"
             >
               Connect on LinkedIn →
             </a>
@@ -1952,7 +2301,6 @@
             </div>
 
             <div>
-
               <h3>
                 Voice Presentation Control
               </h3>
@@ -1961,7 +2309,6 @@
                 Select PowerPoint files, start presentations,
                 navigate slides and control presentations by voice.
               </p>
-
             </div>
 
           </div>
@@ -1974,7 +2321,6 @@
             </div>
 
             <div>
-
               <h3>
                 AI Slide Understanding
               </h3>
@@ -1983,7 +2329,6 @@
                 HeritageAI will understand the content of your
                 presentation and help you navigate more intelligently.
               </p>
-
             </div>
 
           </div>
@@ -1996,7 +2341,6 @@
             </div>
 
             <div>
-
               <h3>
                 Topic-Based Navigation
               </h3>
@@ -2005,7 +2349,6 @@
                 Instead of remembering slide numbers, ask HeritageAI
                 to take you to a specific topic.
               </p>
-
             </div>
 
           </div>
@@ -2018,7 +2361,6 @@
             </div>
 
             <div>
-
               <h3>
                 Smarter Presentation Assistance
               </h3>
@@ -2027,7 +2369,6 @@
                 Presentation Q&A, improved voice intelligence,
                 additional languages and more intelligent assistance.
               </p>
-
             </div>
 
           </div>
@@ -2067,8 +2408,6 @@
 
 
         <div class="pricing">
-
-          <!-- FREE -->
 
           <div class="price-card">
 
@@ -2118,8 +2457,6 @@
           </div>
 
 
-          <!-- PRO -->
-
           <div class="price-card pro">
 
             <div class="popular">
@@ -2166,8 +2503,6 @@
               </li>
 
             </ul>
-
-            <!-- FIXED PRO BUTTON -->
 
             <a
               class="btn btn-primary full-btn"
@@ -2319,8 +2654,9 @@
 
           <a
             class="btn btn-primary"
-            href="https://www.linkedin.com/"
+            href="https://www.linkedin.com/in/bolarinwa-heritage-837942302/"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Connect on LinkedIn →
           </a>
@@ -2387,6 +2723,20 @@
     let currentUser = null;
 
 
+    /* ---------- SAFE HTML ---------- */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
     /* ---------- AUTH MODAL ---------- */
 
     function openAuth(mode = "signup") {
@@ -2443,6 +2793,11 @@
       document.getElementById("auth-form").dataset.mode =
         "signup";
 
+      document.getElementById("auth-password").setAttribute(
+        "autocomplete",
+        "new-password"
+      );
+
     }
 
 
@@ -2469,6 +2824,11 @@
 
       document.getElementById("auth-form").dataset.mode =
         "signin";
+
+      document.getElementById("auth-password").setAttribute(
+        "autocomplete",
+        "current-password"
+      );
 
     }
 
@@ -2569,7 +2929,6 @@
 
         } else {
 
-
           const { data, error } =
             await supabaseClient.auth.signInWithPassword({
 
@@ -2666,6 +3025,8 @@
         user;
 
 
+      /* ---------- LOGGED OUT ---------- */
+
       if (!user) {
 
         accountArea.innerHTML = `
@@ -2691,11 +3052,115 @@
       }
 
 
+      /* ---------- USER INFORMATION ---------- */
+
       const fullName =
         user.user_metadata?.full_name ||
         user.email?.split("@")[0] ||
         "User";
 
+      const safeName =
+        escapeHtml(fullName);
+
+      const safeEmail =
+        escapeHtml(user.email || "");
+
+
+      /* ---------- LOAD PROFILE ---------- */
+
+      let profile = null;
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("Profiles")
+            .select("is_pro, paystack_reference")
+            .eq("id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+          console.error(
+            "Could not load HeritageAI profile:",
+            error
+          );
+
+        } else {
+
+          profile = data;
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Profile request failed:",
+          error
+        );
+
+      }
+
+
+      /* ---------- PLAN ---------- */
+
+      const isPro =
+        profile?.is_pro === true;
+
+
+      const planBadge =
+        isPro
+
+          ? `
+            <span class="account-plan pro">
+              PRO
+            </span>
+          `
+
+          : `
+            <span class="account-plan free">
+              FREE
+            </span>
+          `;
+
+
+      const planBox =
+        isPro
+
+          ? `
+            <div class="account-plan-box pro">
+
+              <strong>
+                HERITAGEAI PRO
+              </strong>
+
+              <span>
+                ✓ Pro Member
+              </span>
+
+            </div>
+          `
+
+          : `
+            <div class="account-plan-box free">
+
+              <strong>
+                HERITAGEAI FREE
+              </strong>
+
+              <span>
+                Free plan
+              </span>
+
+            </div>
+          `;
+
+
+      /* ---------- RENDER ACCOUNT ---------- */
 
       accountArea.innerHTML = `
 
@@ -2704,15 +3169,18 @@
           <button
             class="account-button"
             onclick="toggleAccountMenu()"
+            aria-label="Open account menu"
           >
 
             <span class="account-avatar">
-              ${fullName.charAt(0).toUpperCase()}
+              ${safeName.charAt(0).toUpperCase()}
             </span>
 
-            <span>
-              ${fullName}
+            <span class="account-name">
+              ${safeName}
             </span>
+
+            ${planBadge}
 
             <span>
               ⌄
@@ -2726,19 +3194,36 @@
             class="account-dropdown"
           >
 
-            <div class="account-email">
-              ${user.email}
+            <div class="account-user">
+
+              <div class="account-user-name">
+                ${safeName}
+              </div>
+
+              <div class="account-email">
+                ${safeEmail}
+              </div>
+
             </div>
+
+
+            ${planBox}
+
 
             <a href="#pricing">
               Pro & Plans
             </a>
 
+
             <a href="#about">
               About HeritageAI
             </a>
 
-            <button onclick="signOutUser()">
+
+            <button
+              type="button"
+              onclick="signOutUser()"
+            >
               Sign Out
             </button>
 
@@ -2767,6 +3252,33 @@
     }
 
 
+    /* ---------- CLOSE DROPDOWN WHEN CLICKING OUTSIDE ---------- */
+
+    document.addEventListener(
+      "click",
+      (event) => {
+
+        const accountArea =
+          document.getElementById("account-area");
+
+        const dropdown =
+          document.getElementById("account-dropdown");
+
+
+        if (
+          accountArea &&
+          dropdown &&
+          !accountArea.contains(event.target)
+        ) {
+
+          dropdown.classList.remove("show");
+
+        }
+
+      }
+    );
+
+
     /* ---------- AUTH STATE ---------- */
 
     supabaseClient.auth.onAuthStateChange(
@@ -2775,7 +3287,7 @@
         currentUser =
           session?.user || null;
 
-        updateAuthUI();
+        await updateAuthUI();
 
       }
     );
@@ -2992,7 +3504,10 @@
 
         if (error) {
 
-          console.error(error);
+          console.error(
+            "Payment initialization error:",
+            error
+          );
 
           alert(
             "Could not start payment. Please try again."
@@ -3005,7 +3520,10 @@
 
         if (!data?.authorization_url) {
 
-          console.error(data);
+          console.error(
+            "Payment initialization returned no URL:",
+            data
+          );
 
           alert(
             "Payment could not be initialized."
