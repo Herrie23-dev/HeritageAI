@@ -1,15 +1,93 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>HeritageAI 2.0 — Present With Your Voice</title>
+  <title>HeritageAI — Voice-Controlled PowerPoint Presentation Assistant</title>
 
-  <meta
-    name="description"
-    content="HeritageAI is a voice-controlled PowerPoint presentation assistant. Present naturally, navigate hands-free, and keep your focus on your audience."
+<meta
+name="description"
+content="HeritageAI is a voice-controlled PowerPoint presentation assistant for Windows. Control slides with your voice, navigate hands-free, and stay focused on your audience."
+
+>
+
+<meta
+name="keywords"
+content="voice-controlled PowerPoint, voice control PowerPoint, voice presentation assistant, PowerPoint presentation assistant, control PowerPoint with voice, PowerPoint voice commands, hands-free PowerPoint presentation, presentation automation, AI presentation assistant, HeritageAI"
+
+>
+
+  <meta name="author" content="Bolarinwa Heritage Oluwanimilo">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#060606">
+
+  <link
+    rel="canonical"
+    href="https://herrie23-dev.github.io/HeritageAI/"
   >
+
+  <!-- Open Graph -->
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HeritageAI — Voice-Controlled PowerPoint Presentation Assistant">
+  <meta
+    property="og:description"
+    content="Control PowerPoint presentations with your voice. Navigate slides hands-free and keep your focus on your audience."
+  >
+  <meta
+    property="og:url"
+    content="https://herrie23-dev.github.io/HeritageAI/"
+  >
+  <meta property="og:site_name" content="HeritageAI">
+  <meta
+    property="og:image"
+    content="https://drive.google.com/thumbnail?id=1L3TELVkBAePoRzo3-PhZkaAuaAhttcs8&sz=w1000"
+  >
+
+  <!-- Twitter / X -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta
+    name="twitter:title"
+    content="HeritageAI — Voice-Controlled PowerPoint Presentation Assistant"
+  >
+  <meta
+    name="twitter:description"
+    content="Control PowerPoint presentations with your voice and present hands-free with HeritageAI."
+  >
+  <meta
+    name="twitter:image"
+    content="https://drive.google.com/thumbnail?id=1L3TELVkBAePoRzo3-PhZkaAuaAhttcs8&sz=w1000"
+  >
+
+  <!-- SoftwareApplication structured data -->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "HeritageAI",
+    "applicationCategory": "BusinessApplication",
+    "applicationSubCategory": "Presentation Software",
+    "operatingSystem": "Windows",
+    "description": "HeritageAI is a voice-controlled PowerPoint presentation assistant that lets presenters navigate slides using voice commands.",
+    "url": "https://herrie23-dev.github.io/HeritageAI/",
+    "downloadUrl": "https://github.com/Herrie23-dev/HeritageAI/releases/download/v1.1.0/HeritageAI.zip",
+    "softwareVersion": "1.1.0",
+    "author": {
+      "@type": "Person",
+      "name": "Bolarinwa Heritage Oluwanimilo",
+      "url": "https://www.linkedin.com/in/bolarinwa-heritage-837942302/"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     :root {
@@ -273,7 +351,7 @@
     }
 
     .hero-description {
-      max-width: 700px;
+      max-width: 720px;
       margin: 27px auto 0;
       color: var(--muted);
       font-size: 18px;
@@ -668,6 +746,32 @@
     }
 
     /* =========================
+       SEO CONTENT
+    ========================== */
+
+    .seo-content {
+      margin-top: 45px;
+      padding: 38px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(212,175,55,0.05), transparent 50%),
+        var(--card);
+    }
+
+    .seo-content h3 {
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    .seo-content p {
+      max-width: 850px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* =========================
        HOW IT WORKS
     ========================== */
 
@@ -736,7 +840,7 @@
     }
 
     /* =========================
-       FOUNDER — IMPROVED
+       FOUNDER
     ========================== */
 
     .founder {
@@ -1248,6 +1352,10 @@
         padding: 28px;
       }
 
+      .seo-content {
+        padding: 27px;
+      }
+
       .road {
         grid-template-columns: 1fr;
         gap: 10px;
@@ -1747,6 +1855,7 @@
   </style>
 
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
@@ -1758,756 +1867,885 @@
   <nav>
     <div class="wrap nav-inner">
 
-      <a href="#" class="logo">
-        HERITAGE<span>AI</span>
+```
+  <a href="#" class="logo">
+    HERITAGE<span>AI</span>
+  </a>
+
+  <div class="nav-links">
+
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#about">About</a>
+    <a href="#roadmap">Roadmap</a>
+
+    <a href="#pricing" class="nav-cta">
+      Get HeritageAI
+    </a>
+
+    <div id="account-area"></div>
+
+  </div>
+
+</div>
+```
+
+  </nav>
+
+  <main>
+
+```
+<!-- =========================
+     HERO
+========================== -->
+
+<section class="hero">
+
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="wrap hero-content">
+
+    <div class="hero-badge">
+      <span class="live-dot"></span>
+      HERITAGEAI 2.0 • VOICE PRESENTATION ASSISTANT
+    </div>
+
+    <h1>
+      Present with<br>
+      <span>your voice.</span>
+    </h1>
+
+    <p class="hero-description">
+      HeritageAI is a voice-controlled PowerPoint presentation assistant
+      that lets you navigate slides hands-free, control your presentation
+      naturally, and stay focused on your audience.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a
+        class="btn btn-primary"
+        href="https://github.com/Herrie23-dev/HeritageAI/releases/download/v1.1.0/HeritageAI.zip"
+      >
+        ↓ Download HeritageAI Free
       </a>
 
-      <div class="nav-links">
+    </div>
 
-        <a href="#features">Features</a>
-        <a href="#how">How It Works</a>
-        <a href="#about">About</a>
-        <a href="#roadmap">Roadmap</a>
+    <div class="trust-row">
 
-        <a href="#pricing" class="nav-cta">
-          Get HeritageAI
-        </a>
+      <span class="trust-pill">Windows</span>
+      <span class="trust-pill">Microsoft PowerPoint</span>
+      <span class="trust-pill">Voice Controlled</span>
+      <span class="trust-pill">Hands-Free</span>
 
-        <div id="account-area"></div>
+    </div>
+
+    <div class="product-preview">
+
+      <div class="preview-window">
+
+        <div class="window-bar">
+
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+
+          <span class="window-title">
+            HeritageAI — Voice Presentation Assistant
+          </span>
+
+        </div>
+
+        <div class="preview-body">
+
+          <div class="slide-preview">
+
+            <small>PRESENTATION</small>
+
+            <h3>
+              Your presentation.<br>
+              Your voice.
+            </h3>
+
+            <div class="slide-lines">
+
+              <div class="slide-line"></div>
+              <div class="slide-line"></div>
+              <div class="slide-line short"></div>
+
+            </div>
+
+          </div>
+
+          <div class="voice-panel">
+
+            <div class="voice-status">
+
+              <span class="live-dot"></span>
+              Voice system ready
+
+            </div>
+
+            <div class="mic">
+              🎙
+            </div>
+
+            <div class="command">
+              “Heritage, next”
+            </div>
+
+            <div class="command">
+              “Heritage, previous”
+            </div>
+
+            <div class="command">
+              “Heritage, number 3”
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
 
     </div>
-  </nav>
+
+  </div>
+
+</section>
 
 
-  <main>
+<!-- =========================
+     DEMO
+========================== -->
 
-    <!-- =========================
-         HERO
-    ========================== -->
+<section id="demo">
 
-    <section class="hero">
+  <div class="wrap">
 
-      <div class="hero-grid"></div>
-      <div class="hero-glow"></div>
+    <div class="eyebrow">
+      See it in action
+    </div>
 
-      <div class="wrap hero-content">
+    <h2>
+      Your voice becomes<br>
+      the remote.
+    </h2>
 
-        <div class="hero-badge">
-          <span class="live-dot"></span>
-          HERITAGEAI 2.0 • VOICE PRESENTATION ASSISTANT
+    <div class="demo">
+
+      <div class="demo-inner">
+
+        <div class="play">
+          ▶
         </div>
 
-        <h1>
-          Present with<br>
-          <span>your voice.</span>
-        </h1>
+        <h3>
+          HeritageAI Demo
+        </h3>
 
-        <p class="hero-description">
-          Control your PowerPoint presentation with your voice,
-          stay focused on your audience, and present without
-          constantly reaching for your laptop.
+        <p>
+          A real demonstration of HeritageAI controlling
+          a PowerPoint presentation with voice.
         </p>
 
-        <div class="hero-buttons">
+        <span class="demo-note">
+          Demo video coming soon
+        </span>
 
-          <a
-            class="btn btn-primary"
-            href="https://github.com/Herrie23-dev/HeritageAI/releases/download/v1.0.0/HeritageAI.zip"
-          >
-            ↓ Download HeritageAI Free
-          </a>
+      </div>
 
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================== -->
+
+<section id="features">
+
+  <div class="wrap">
+
+    <div class="eyebrow">
+      Why HeritageAI?
+    </div>
+
+    <h2>
+      Less clicking.<br>
+      More presenting.
+    </h2>
+
+    <p class="lead">
+      HeritageAI is a voice-controlled PowerPoint presentation assistant
+      designed to make presentation control feel natural, simple and hands-free.
+    </p>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="icon">🎙️</div>
+
+        <h3>
+          Voice-Controlled PowerPoint
+        </h3>
+
+        <p>
+          Control PowerPoint presentations using simple voice commands
+          instead of constantly reaching for your laptop.
+        </p>
+      </div>
+
+
+      <div class="card">
+        <div class="icon">📂</div>
+
+        <h3>
+          Your PowerPoint
+        </h3>
+
+        <p>
+          Select and control your own PowerPoint presentations directly
+          through the HeritageAI experience.
+        </p>
+      </div>
+
+
+      <div class="card">
+        <div class="icon">⚡</div>
+
+        <h3>
+          Quick Navigation
+        </h3>
+
+        <p>
+          Move forward, go backward or jump directly to a specific slide
+          with voice commands.
+        </p>
+      </div>
+
+
+      <div class="card">
+        <div class="icon">🤖</div>
+
+        <h3>
+          Built for AI
+        </h3>
+
+        <p>
+          HeritageAI is evolving toward smarter AI-powered presentation
+          assistance and intelligent navigation.
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- SEO-FRIENDLY EXPLANATION -->
+
+    <div class="seo-content">
+
+      <h3>
+        Control PowerPoint with your voice
+      </h3>
+
+      <p>
+        HeritageAI makes hands-free PowerPoint presentation control possible
+        with natural voice commands. Instead of repeatedly returning to your
+        computer during a presentation, you can use HeritageAI to move to the
+        next slide, return to a previous slide or jump to a specific slide.
+      </p>
+
+      <p>
+        Designed for students, lecturers, trainers, speakers and professionals,
+        HeritageAI combines voice recognition with PowerPoint automation to
+        create a more natural presentation experience.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================== -->
+
+<section id="how">
+
+  <div class="wrap">
+
+    <div class="eyebrow">
+      How it works
+    </div>
+
+    <h2>
+      Four simple steps.
+    </h2>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="num">01</div>
+
+        <h3>
+          Select
+        </h3>
+
+        <p>
+          Choose the PowerPoint presentation you want to use.
+        </p>
+      </div>
+
+
+      <div class="step">
+        <div class="num">02</div>
+
+        <h3>
+          Start
+        </h3>
+
+        <p>
+          Launch HeritageAI and begin your presentation.
+        </p>
+      </div>
+
+
+      <div class="step">
+        <div class="num">03</div>
+
+        <h3>
+          Speak
+        </h3>
+
+        <p>
+          Say your HeritageAI voice command.
+        </p>
+      </div>
+
+
+      <div class="step">
+        <div class="num">04</div>
+
+        <h3>
+          Present
+        </h3>
+
+        <p>
+          Keep your attention on the audience instead of the laptop.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================== -->
+
+<section id="about">
+
+  <div class="wrap">
+
+    <div class="eyebrow">
+      About HeritageAI
+    </div>
+
+    <h2>
+      Your presentation<br>
+      should feel like a conversation.
+    </h2>
+
+    <div class="about-box">
+
+      <div class="quote">
+        “Technology should disappear into the experience.”
+      </div>
+
+      <p>
+        HeritageAI started with a simple question:
+        what if a presenter could control their PowerPoint
+        without constantly turning back to the laptop?
+      </p>
+
+      <p>
+        That idea became a working voice-controlled presentation
+        assistant — and now it is growing into something much bigger.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FOUNDER
+========================== -->
+
+<section id="founder">
+
+  <div class="wrap">
+
+    <div class="eyebrow">
+      The Founder
+    </div>
+
+    <div class="founder">
+
+      <div class="founder-photo-card">
+
+        <div class="founder-image-badge">
+          HERITAGEAI • FOUNDER
         </div>
 
-        <div class="trust-row">
+        <img
+          src="https://drive.google.com/thumbnail?id=1L3TELVkBAePoRzo3-PhZkaAuaAhttcs8&sz=w1000"
+          alt="Bolarinwa Heritage Oluwanimilo — Founder and Creator of HeritageAI"
+          loading="lazy"
+        >
 
-          <span class="trust-pill">Windows</span>
-          <span class="trust-pill">Microsoft PowerPoint</span>
-          <span class="trust-pill">Voice Controlled</span>
-          <span class="trust-pill">Hands-Free</span>
+        <div class="founder-photo-caption">
 
-        </div>
+          <span class="caption-label">
+            Founder & Creator
+          </span>
 
-        <div class="product-preview">
+          <strong>
+            Bolarinwa Heritage Oluwanimilo
+          </strong>
 
-          <div class="preview-window">
-
-            <div class="window-bar">
-
-              <span class="window-dot"></span>
-              <span class="window-dot"></span>
-              <span class="window-dot"></span>
-
-              <span class="window-title">
-                HeritageAI — Voice Presentation Assistant
-              </span>
-
-            </div>
-
-            <div class="preview-body">
-
-              <div class="slide-preview">
-
-                <small>PRESENTATION</small>
-
-                <h3>
-                  Your presentation.<br>
-                  Your voice.
-                </h3>
-
-                <div class="slide-lines">
-
-                  <div class="slide-line"></div>
-                  <div class="slide-line"></div>
-                  <div class="slide-line short"></div>
-
-                </div>
-
-              </div>
-
-              <div class="voice-panel">
-
-                <div class="voice-status">
-
-                  <span class="live-dot"></span>
-                  Voice system ready
-
-                </div>
-
-                <div class="mic">
-                  🎙
-                </div>
-
-                <div class="command">
-                  “Heritage, next”
-                </div>
-
-                <div class="command">
-                  “Heritage, previous”
-                </div>
-
-                <div class="command">
-                  “Heritage, number 3”
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
+          <span>
+            Building HeritageAI
+          </span>
 
         </div>
 
       </div>
 
-    </section>
 
+      <div class="founder-info">
 
-    <!-- =========================
-         DEMO
-    ========================== -->
-
-    <section id="demo">
-
-      <div class="wrap">
-
-        <div class="eyebrow">
-          See it in action
+        <div class="founder-kicker">
+          The person behind the idea
         </div>
 
-        <h2>
-          Your voice becomes<br>
-          the remote.
-        </h2>
+        <h3>
+          Building HeritageAI<br>
+          one idea at a time.
+        </h3>
 
-        <div class="demo">
-
-          <div class="demo-inner">
-
-            <div class="play">
-              ▶
-            </div>
-
-            <h3>
-              HeritageAI Demo
-            </h3>
-
-            <p>
-              A real demonstration of HeritageAI controlling
-              a PowerPoint presentation with voice.
-            </p>
-
-            <span class="demo-note">
-              Demo video coming soon
-            </span>
-
-          </div>
-
+        <div class="founder-name">
+          Bolarinwa Heritage Oluwanimilo
         </div>
 
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         FEATURES
-    ========================== -->
-
-    <section id="features">
-
-      <div class="wrap">
-
-        <div class="eyebrow">
-          Why HeritageAI?
+        <div class="founder-role">
+          Founder & Creator, HeritageAI
         </div>
 
-        <h2>
-          Less clicking.<br>
-          More presenting.
-        </h2>
-
-        <p class="lead">
-          HeritageAI is designed to make presentation control
-          feel natural, simple and hands-free.
+        <p>
+          Heritage is a Computer Engineering student and the creator
+          of HeritageAI, building practical technology around voice,
+          automation and artificial intelligence.
         </p>
 
-        <div class="grid">
+        <p>
+          What started as a project to control presentations with
+          voice is becoming a product designed to make presenting
+          more natural, accessible and intelligent.
+        </p>
 
-          <div class="card">
-            <div class="icon">🎙️</div>
+        <div class="founder-meta">
 
-            <h3>
-              Voice Control
-            </h3>
+          <span class="founder-tag">
+            Computer Engineering
+          </span>
 
-            <p>
-              Navigate your presentation using simple voice commands.
-            </p>
-          </div>
+          <span class="founder-tag">
+            AI & Automation
+          </span>
 
-
-          <div class="card">
-            <div class="icon">📂</div>
-
-            <h3>
-              Your PowerPoint
-            </h3>
-
-            <p>
-              Select and control your own PowerPoint presentations.
-            </p>
-          </div>
-
-
-          <div class="card">
-            <div class="icon">⚡</div>
-
-            <h3>
-              Quick Navigation
-            </h3>
-
-            <p>
-              Move forward, backward or jump directly to a slide.
-            </p>
-          </div>
-
-
-          <div class="card">
-            <div class="icon">🤖</div>
-
-            <h3>
-              Built for AI
-            </h3>
-
-            <p>
-              HeritageAI is evolving toward smarter presentation assistance.
-            </p>
-          </div>
+          <span class="founder-tag">
+            Product Builder
+          </span>
 
         </div>
+
+        <a
+          class="btn btn-secondary founder-link"
+          href="https://www.linkedin.com/in/bolarinwa-heritage-837942302/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Connect on LinkedIn →
+        </a>
 
       </div>
 
-    </section>
+    </div>
+
+  </div>
+
+</section>
 
 
-    <!-- =========================
-         HOW IT WORKS
-    ========================== -->
+<!-- =========================
+     ROADMAP
+========================== -->
 
-    <section id="how">
+<section id="roadmap">
 
-      <div class="wrap">
+  <div class="wrap">
 
-        <div class="eyebrow">
-          How it works
+    <div class="eyebrow">
+      What's next
+    </div>
+
+    <h2>
+      HeritageAI is<br>
+      just getting started.
+    </h2>
+
+    <div class="roadmap">
+
+      <div class="road">
+
+        <div class="road-status">
+          AVAILABLE NOW
         </div>
 
-        <h2>
-          Four simple steps.
-        </h2>
-
-        <div class="steps">
-
-          <div class="step">
-            <div class="num">01</div>
-
-            <h3>
-              Select
-            </h3>
-
-            <p>
-              Choose the PowerPoint presentation you want to use.
-            </p>
-          </div>
-
-
-          <div class="step">
-            <div class="num">02</div>
-
-            <h3>
-              Start
-            </h3>
-
-            <p>
-              Launch HeritageAI and begin your presentation.
-            </p>
-          </div>
-
-
-          <div class="step">
-            <div class="num">03</div>
-
-            <h3>
-              Speak
-            </h3>
-
-            <p>
-              Say your HeritageAI voice command.
-            </p>
-          </div>
-
-
-          <div class="step">
-            <div class="num">04</div>
-
-            <h3>
-              Present
-            </h3>
-
-            <p>
-              Keep your attention on the audience instead of the laptop.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         ABOUT
-    ========================== -->
-
-    <section id="about">
-
-      <div class="wrap">
-
-        <div class="eyebrow">
-          About HeritageAI
-        </div>
-
-        <h2>
-          Your presentation<br>
-          should feel like a conversation.
-        </h2>
-
-        <div class="about-box">
-
-          <div class="quote">
-            “Technology should disappear into the experience.”
-          </div>
+        <div>
+          <h3>
+            Voice Presentation Control
+          </h3>
 
           <p>
-            HeritageAI started with a simple question:
-            what if a presenter could control their PowerPoint
-            without constantly turning back to the laptop?
+            Select PowerPoint files, start presentations,
+            navigate slides and control presentations by voice.
           </p>
+        </div>
+
+      </div>
+
+
+      <div class="road">
+
+        <div class="road-status">
+          COMING TO PRO
+        </div>
+
+        <div>
+          <h3>
+            AI Slide Understanding
+          </h3>
 
           <p>
-            That idea became a working voice-controlled presentation
-            assistant — and now it is growing into something much bigger.
+            HeritageAI will understand the content of your
+            presentation and help you navigate more intelligently.
           </p>
-
         </div>
 
       </div>
 
-    </section>
 
+      <div class="road">
 
-    <!-- =========================
-         FOUNDER — IMPROVED
-    ========================== -->
-
-    <section id="founder">
-
-      <div class="wrap">
-
-        <div class="eyebrow">
-          The Founder
+        <div class="road-status">
+          COMING TO PRO
         </div>
 
-        <div class="founder">
-
-          <!-- FOUNDER PHOTO -->
-
-          <div class="founder-photo-card">
-
-            <div class="founder-image-badge">
-              HERITAGEAI • FOUNDER
-            </div>
-
-            <img
-              src="https://drive.google.com/thumbnail?id=1L3TELVkBAePoRzo3-PhZkaAuaAhttcs8&sz=w1000"
-              alt="Bolarinwa Heritage Oluwanimilo — Founder and Creator of HeritageAI"
-            >
-
-            <div class="founder-photo-caption">
-
-              <span class="caption-label">
-                Founder & Creator
-              </span>
-
-              <strong>
-                Bolarinwa Heritage Oluwanimilo
-              </strong>
-
-              <span>
-                Building HeritageAI
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <!-- FOUNDER INFORMATION -->
-
-          <div class="founder-info">
-
-            <div class="founder-kicker">
-              The person behind the idea
-            </div>
-
-            <h3>
-              Building HeritageAI<br>
-              one idea at a time.
-            </h3>
-
-            <!-- NAME IS NOW CLEARLY VISIBLE AS TEXT -->
-
-            <div class="founder-name">
-              Bolarinwa Heritage Oluwanimilo
-            </div>
-
-            <div class="founder-role">
-              Founder & Creator, HeritageAI
-            </div>
-
-            <p>
-              Heritage is a Computer Engineering student and the creator
-              of HeritageAI, building practical technology around voice,
-              automation and artificial intelligence.
-            </p>
-
-            <p>
-              What started as a project to control presentations with
-              voice is becoming a product designed to make presenting
-              more natural, accessible and intelligent.
-            </p>
-
-            <div class="founder-meta">
-
-              <span class="founder-tag">
-                Computer Engineering
-              </span>
-
-              <span class="founder-tag">
-                AI & Automation
-              </span>
-
-              <span class="founder-tag">
-                Product Builder
-              </span>
-
-            </div>
-
-            <a
-              class="btn btn-secondary founder-link"
-              href="https://www.linkedin.com/in/bolarinwa-heritage-837942302/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Connect on LinkedIn →
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         ROADMAP
-    ========================== -->
-
-    <section id="roadmap">
-
-      <div class="wrap">
-
-        <div class="eyebrow">
-          What's next
-        </div>
-
-        <h2>
-          HeritageAI is<br>
-          just getting started.
-        </h2>
-
-        <div class="roadmap">
-
-          <div class="road">
-
-            <div class="road-status">
-              AVAILABLE NOW
-            </div>
-
-            <div>
-              <h3>
-                Voice Presentation Control
-              </h3>
-
-              <p>
-                Select PowerPoint files, start presentations,
-                navigate slides and control presentations by voice.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="road">
-
-            <div class="road-status">
-              COMING TO PRO
-            </div>
-
-            <div>
-              <h3>
-                AI Slide Understanding
-              </h3>
-
-              <p>
-                HeritageAI will understand the content of your
-                presentation and help you navigate more intelligently.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="road">
-
-            <div class="road-status">
-              COMING TO PRO
-            </div>
-
-            <div>
-              <h3>
-                Topic-Based Navigation
-              </h3>
-
-              <p>
-                Instead of remembering slide numbers, ask HeritageAI
-                to take you to a specific topic.
-              </p>
-            </div>
-
-          </div>
-
-
-          <div class="road">
-
-            <div class="road-status">
-              FUTURE
-            </div>
-
-            <div>
-              <h3>
-                Smarter Presentation Assistance
-              </h3>
-
-              <p>
-                Presentation Q&A, improved voice intelligence,
-                additional languages and more intelligent assistance.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         FAQ
-    ========================== -->
-
-    <section>
-
-      <div class="wrap">
-
-        <div class="eyebrow">
-          FAQ
-        </div>
-
-        <h2>
-          Questions?
-        </h2>
-
-        <div class="faq">
-
-          <div class="faq-item">
-
-            <strong>
-              Can I use my own PowerPoint?
-            </strong>
-
-            <p>
-              Yes. HeritageAI is designed to let you select
-              the PowerPoint presentation you want to control.
-            </p>
-
-          </div>
-
-
-          <div class="faq-item">
-
-            <strong>
-              Is HeritageAI free?
-            </strong>
-
-            <p>
-              Yes. The Basic version is available as a free
-              Windows download.
-            </p>
-
-          </div>
-
-
-          <div class="faq-item">
-
-
-          <div class="faq-item">
-
-            <strong>
-              Do I need Python installed?
-            </strong>
-
-            <p>
-              No. The packaged HeritageAI Windows application
-              is designed to run without requiring Python.
-            </p>
-
-          </div>
-
-
-          <div class="faq-item">
-
-            <strong>
-              Who is HeritageAI for?
-            </strong>
-
-            <p>
-              Students, lecturers, trainers, speakers and professionals
-              who use PowerPoint presentations.
-            </p>
-
-          </div>
-
-
-          <div class="faq-item">
-
-            <strong>
-              Can I suggest a feature?
-            </strong>
-
-            <p>
-              Absolutely. HeritageAI is still growing, and user
-              feedback will help shape what comes next.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CONTACT
-    ========================== -->
-
-    <section>
-
-      <div class="wrap">
-
-        <div class="contact">
-
-          <div class="eyebrow">
-            Have an idea?
-          </div>
-
-          <h2>
-            Help shape HeritageAI.
-          </h2>
+        <div>
+          <h3>
+            Topic-Based Navigation
+          </h3>
 
           <p>
-            Have a feature idea, feedback, or just want to follow
-            the journey? Connect with the creator.
+            Instead of remembering slide numbers, ask HeritageAI
+            to take you to a specific topic.
           </p>
-
-          <a
-            class="btn btn-primary"
-            href="https://www.linkedin.com/in/bolarinwa-heritage-837942302/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Connect on LinkedIn →
-          </a>
-
         </div>
 
       </div>
 
-    </section>
+
+      <div class="road">
+
+        <div class="road-status">
+          FUTURE
+        </div>
+
+        <div>
+          <h3>
+            Smarter Presentation Assistance
+          </h3>
+
+          <p>
+            Presentation Q&A, improved voice intelligence,
+            additional languages and more intelligent assistance.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PRICING
+========================== -->
+
+<section id="pricing">
+
+  <div class="wrap">
+
+    <div class="pricing-intro">
+
+      <div class="eyebrow">
+        Choose your experience
+      </div>
+
+      <h2>
+        Start presenting<br>
+        with your voice.
+      </h2>
+
+      <p class="lead">
+        Get started with HeritageAI and follow the journey as
+        smarter presentation features are introduced.
+      </p>
+
+    </div>
+
+    <div class="pricing">
+
+      <div class="price-card">
+
+        <div class="price-name">
+          Free
+        </div>
+
+        <div class="price">
+          ₦0
+        </div>
+
+        <p>
+          Start using HeritageAI today.
+        </p>
+
+        <ul class="features-list">
+
+          <li>Voice presentation control</li>
+          <li>Next and previous slide commands</li>
+          <li>Jump to specific slides</li>
+          <li>Windows application</li>
+
+        </ul>
+
+        <a
+          class="btn btn-secondary full-btn"
+          href="https://github.com/Herrie23-dev/HeritageAI/releases/download/v1.1.0/HeritageAI.zip"
+        >
+          Download Free
+        </a>
+
+      </div>
+
+
+      <div class="price-card pro">
+
+        <span class="popular">
+          EARLY ACCESS
+        </span>
+
+        <div class="price-name">
+          Pro
+        </div>
+
+        <div class="price">
+          ₦3,000
+        </div>
+
+        <p>
+          Early access to upcoming Pro features.
+        </p>
+
+        <ul class="features-list">
+
+          <li>Future AI presentation features</li>
+          <li>Smarter slide navigation</li>
+          <li>Advanced presentation assistance</li>
+          <li>Future Pro improvements</li>
+
+        </ul>
+
+        <a
+          class="btn btn-primary full-btn"
+          href="https://paystack.com/pay/heritageai"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Get Early Access
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FAQ
+========================== -->
+
+<section id="faq">
+
+  <div class="wrap">
+
+    <div class="eyebrow">
+      FAQ
+    </div>
+
+    <h2>
+      Questions?
+    </h2>
+
+    <div class="faq">
+
+      <div class="faq-item">
+
+        <strong>
+          Can I use my own PowerPoint?
+        </strong>
+
+        <p>
+          Yes. HeritageAI is designed to let you select
+          the PowerPoint presentation you want to control.
+        </p>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <strong>
+          Is HeritageAI free?
+        </strong>
+
+        <p>
+          Yes. The Basic version is available as a free
+          Windows download.
+        </p>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <strong>
+          Do I need Python installed?
+        </strong>
+
+        <p>
+          No. The packaged HeritageAI Windows application
+          is designed to run without requiring Python.
+        </p>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <strong>
+          Who is HeritageAI for?
+        </strong>
+
+        <p>
+          Students, lecturers, trainers, speakers and professionals
+          who use PowerPoint presentations.
+        </p>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <strong>
+          Can I suggest a feature?
+        </strong>
+
+        <p>
+          Absolutely. HeritageAI is still growing, and user
+          feedback will help shape what comes next.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================== -->
+
+<section>
+
+  <div class="wrap">
+
+    <div class="contact">
+
+      <div class="eyebrow">
+        Have an idea?
+      </div>
+
+      <h2>
+        Help shape HeritageAI.
+      </h2>
+
+      <p>
+        Have a feature idea, feedback, or just want to follow
+        the journey? Connect with the creator.
+      </p>
+
+      <a
+        class="btn btn-primary"
+        href="https://www.linkedin.com/in/bolarinwa-heritage-837942302/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Connect on LinkedIn →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+```
 
   </main>
-
 
   <!-- =========================
        FOOTER
@@ -2515,22 +2753,23 @@
 
   <footer>
 
-    <div class="wrap footer-inner">
+```
+<div class="wrap footer-inner">
 
-      <div>
-        <strong style="color:#ddd;">
-          HERITAGE<span style="color:var(--gold);">AI</span>
-        </strong>
-      </div>
+  <div>
+    <strong style="color:#ddd;">
+      HERITAGE<span style="color:var(--gold);">AI</span>
+    </strong>
+  </div>
 
-      <div>
-        © 2026 HeritageAI • Present with your voice.
-      </div>
+  <div>
+    © 2026 HeritageAI • Present with your voice.
+  </div>
 
-    </div>
+</div>
+```
 
   </footer>
-
 
   <!-- =========================
        SUPABASE
@@ -2551,7 +2790,6 @@
       );
 
   </script>
-
 
   <!-- =========================
        HERITAGEAI ACCOUNT SYSTEM
@@ -2843,174 +3081,194 @@
 
     /* ---------- UPDATE WEBSITE UI ---------- */
 
-    async function updateAuthUI() {
+async function updateAuthUI() {
 
-      const accountArea =
-        document.getElementById("account-area");
+  const accountArea =
+    document.getElementById("account-area");
 
+  if (!accountArea) return;
 
-      if (!accountArea) return;
+  const {
+    data: {
+      user
+    }
+  } = await supabaseClient.auth.getUser();
 
-
-      const {
-        data: {
-          user
-        }
-      } =
-        await supabaseClient.auth.getUser();
-
-
-      currentUser =
-        user;
+  currentUser = user;
 
 
-      /* ---------- LOGGED OUT ---------- */
+  /* ---------- LOGGED OUT ---------- */
 
-      if (!user) {
+  if (!user) {
 
-        accountArea.innerHTML = `
+    accountArea.innerHTML = `
 
-          <button
-            class="nav-login"
-            onclick="openAuth('signin')"
-          >
-            Sign In
-          </button>
+      <button
+        class="nav-login"
+        onclick="openAuth('signin')"
+      >
+        Sign In
+      </button>
 
-          <button
-            class="nav-signup"
-            onclick="openAuth('signup')"
-          >
-            Sign Up
-          </button>
+      <button
+        class="nav-signup"
+        onclick="openAuth('signup')"
+      >
+        Sign Up
+      </button>
 
-        `;
+    `;
 
-        return;
-
-      }
-
-
-      /* ---------- USER INFORMATION ---------- */
-
-      const fullName =
-        user.user_metadata?.full_name ||
-        user.email?.split("@")[0] ||
-        "User";
-
-      const safeName =
-        escapeHtml(fullName);
-
-      const safeEmail =
-        escapeHtml(user.email || "");
+    return;
+  }
 
 
-      /* ---------- LOAD PROFILE ---------- */
+  /* ---------- USER INFORMATION ---------- */
 
-      let profile = null;
+  const fullName =
+    user.user_metadata?.full_name ||
+    user.email?.split("@")[0] ||
+    "User";
 
-      try {
+  const safeName =
+    escapeHtml(fullName);
 
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .from("Profiles")
-            .select("is_pro, paystack_reference")
-            .eq("id", user.id)
-            .maybeSingle();
+  const safeEmail =
+    escapeHtml(user.email || "");
 
 
-        if (error) {
+  /* ---------- LOAD PROFILE ---------- */
 
-          console.error(
-            "Could not load HeritageAI profile:",
-            error
-          );
+  let profile = null;
 
-        } else {
+  try {
 
-          profile = data;
-
-        }
-
-      } catch (error) {
-
-        console.error(
-          "Profile request failed:",
-          error
-        );
-
-      }
-
-      /* ---------- RENDER ACCOUNT ---------- */
-
-      accountArea.innerHTML = `
-
-        <div class="account-menu">
-
-          <button
-            class="account-button"
-            onclick="toggleAccountMenu()"
-            aria-label="Open account menu"
-          >
-
-            <span class="account-avatar">
-              ${safeName.charAt(0).toUpperCase()}
-            </span>
-
-            <span class="account-name">
-              ${safeName}
-            </span>
-
-            <span>
-              ⌄
-            </span>
-
-          </button>
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("Profiles")
+      .select("is_pro, paystack_reference")
+      .eq("id", user.id)
+      .maybeSingle();
 
 
-          <div
-            id="account-dropdown"
-            class="account-dropdown"
-          >
+    if (error) {
 
-            <div class="account-user">
+      console.error(
+        "Could not load HeritageAI profile:",
+        error
+      );
 
-              <div class="account-user-name">
-                ${safeName}
-              </div>
+    } else {
 
-              <div class="account-email">
-                ${safeEmail}
-              </div>
+      profile = data;
 
-            </div>
+    }
 
+  } catch (error) {
 
-            ${planBox}
+    console.error(
+      "Profile request failed:",
+      error
+    );
 
-
-            <a href="#about">
-              About HeritageAI
-            </a>
+  }
 
 
-            <button
-              type="button"
-              onclick="signOutUser()"
-            >
-              Sign Out
-            </button>
+  /* ---------- PLAN ---------- */
 
+  const isPro =
+    profile?.is_pro === true;
+
+  const planBox = isPro
+
+    ? `
+      <div class="account-plan-box pro">
+        <strong>PRO MEMBER</strong>
+        <span>Your HeritageAI Pro access is active.</span>
+      </div>
+    `
+
+    : `
+      <div class="account-plan-box free">
+        <strong>FREE PLAN</strong>
+        <span>HeritageAI Free is active on your account.</span>
+      </div>
+    `;
+
+
+  /* ---------- RENDER ACCOUNT ---------- */
+
+  accountArea.innerHTML = `
+
+    <div class="account-menu">
+
+      <button
+        class="account-button"
+        onclick="toggleAccountMenu()"
+        aria-label="Open account menu"
+      >
+
+        <span class="account-avatar">
+          ${safeName.charAt(0).toUpperCase()}
+        </span>
+
+        <span class="account-name">
+          ${safeName}
+        </span>
+
+        <span class="account-plan ${isPro ? "pro" : "free"}">
+          ${isPro ? "PRO" : "FREE"}
+        </span>
+
+        <span>
+          ⌄
+        </span>
+
+      </button>
+
+
+      <div
+        id="account-dropdown"
+        class="account-dropdown"
+      >
+
+        <div class="account-user">
+
+          <div class="account-user-name">
+            ${safeName}
+          </div>
+
+          <div class="account-email">
+            ${safeEmail}
           </div>
 
         </div>
 
-      `;
 
-    }
+        ${planBox}
+
+
+        <a href="#about">
+          About HeritageAI
+        </a>
+
+
+        <button
+          type="button"
+          onclick="signOutUser()"
+        >
+          Sign Out
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
 
 
     /* ---------- ACCOUNT DROPDOWN ---------- */
@@ -3097,7 +3355,6 @@
 
   </script>
 
-
   <!-- =========================
        HERITAGEAI AUTH MODAL
   ========================== -->
@@ -3107,146 +3364,148 @@
     class="auth-modal"
   >
 
-    <div
-      class="auth-overlay"
-      onclick="closeAuth()"
-    ></div>
+```
+<div
+  class="auth-overlay"
+  onclick="closeAuth()"
+></div>
 
 
-    <div class="auth-card">
+<div class="auth-card">
 
-      <button
-        class="auth-close"
-        onclick="closeAuth()"
-      >
-        ×
-      </button>
-
-
-      <div class="auth-brand">
-
-        <div class="auth-logo">
-          H
-        </div>
-
-        <div>
-
-          <strong>
-            HERITAGEAI
-          </strong>
-
-          <span>
-            VOICE PRESENTATION ASSISTANT
-          </span>
-
-        </div>
-
-      </div>
+  <button
+    class="auth-close"
+    onclick="closeAuth()"
+    aria-label="Close authentication window"
+  >
+    ×
+  </button>
 
 
-      <h2 id="auth-title">
-        Create your HeritageAI account
-      </h2>
+  <div class="auth-brand">
 
+    <div class="auth-logo">
+      H
+    </div>
 
-      <p id="auth-subtitle">
-        Start your journey with HeritageAI.
-      </p>
+    <div>
 
+      <strong>
+        HERITAGEAI
+      </strong>
 
-      <form id="auth-form">
-
-        <div
-          id="full-name-field"
-          class="auth-field"
-        >
-
-          <label for="auth-full-name">
-            Full Name
-          </label>
-
-          <input
-            id="auth-full-name"
-            type="text"
-            placeholder="Your full name"
-            autocomplete="name"
-          >
-
-        </div>
-
-
-        <div class="auth-field">
-
-          <label for="auth-email">
-            Email Address
-          </label>
-
-          <input
-            id="auth-email"
-            type="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-            required
-          >
-
-        </div>
-
-
-        <div class="auth-field">
-
-          <label for="auth-password">
-            Password
-          </label>
-
-          <input
-            id="auth-password"
-            type="password"
-            placeholder="Create a password"
-            autocomplete="new-password"
-            required
-            minlength="6"
-          >
-
-        </div>
-
-
-        <button
-          id="auth-submit"
-          class="auth-submit"
-          type="submit"
-        >
-          Create Account
-        </button>
-
-
-        <div
-          id="auth-message"
-          class="auth-message"
-        ></div>
-
-      </form>
-
-
-      <div
-        id="auth-switch"
-        class="auth-switch"
-      >
-
-        Already have an account?
-
-        <button
-          type="button"
-          onclick="showSignIn()"
-        >
-          Sign In
-        </button>
-
-      </div>
+      <span>
+        VOICE PRESENTATION ASSISTANT
+      </span>
 
     </div>
 
   </div>
 
+
+  <h2 id="auth-title">
+    Create your HeritageAI account
+  </h2>
+
+
+  <p id="auth-subtitle">
+    Start your journey with HeritageAI.
+  </p>
+
+
+  <form id="auth-form">
+
+    <div
+      id="full-name-field"
+      class="auth-field"
+    >
+
+      <label for="auth-full-name">
+        Full Name
+      </label>
+
+      <input
+        id="auth-full-name"
+        type="text"
+        placeholder="Your full name"
+        autocomplete="name"
+      >
+
+    </div>
+
+
+    <div class="auth-field">
+
+      <label for="auth-email">
+        Email Address
+      </label>
+
+      <input
+        id="auth-email"
+        type="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      >
+
+    </div>
+
+
+    <div class="auth-field">
+
+      <label for="auth-password">
+        Password
+      </label>
+
+      <input
+        id="auth-password"
+        type="password"
+        placeholder="Create a password"
+        autocomplete="new-password"
+        required
+        minlength="6"
+      >
+
+    </div>
+
+
+    <button
+      id="auth-submit"
+      class="auth-submit"
+      type="submit"
+    >
+      Create Account
+    </button>
+
+
+    <div
+      id="auth-message"
+      class="auth-message"
+    ></div>
+
+  </form>
+
+
+  <div
+    id="auth-switch"
+    class="auth-switch"
+  >
+
+    Already have an account?
+
+    <button
+      type="button"
+      onclick="showSignIn()"
+    >
+      Sign In
+    </button>
+
+  </div>
+
+</div>
+```
+
+  </div>
 
 </body>
 </html>
