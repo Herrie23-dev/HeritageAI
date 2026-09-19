@@ -16,6 +16,11 @@ jobs:
         with:
           ref: main
 
+      - name: Check files
+        run: |
+          dir
+          dir /s /b main.py
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
