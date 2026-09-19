@@ -1,4 +1,4 @@
-name: Build HeritageAI
+name: Build HeritageAI v2
 
 on:
   push:
