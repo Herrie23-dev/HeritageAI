@@ -20,8 +20,8 @@ jobs:
 
       - name: Check files
         run: |
-          dir
-          dir /s /b main.py
+          Get-ChildItem
+          Get-ChildItem -Recurse -Filter main.py
 
       - name: Set up Python
         uses: actions/setup-python@v5
