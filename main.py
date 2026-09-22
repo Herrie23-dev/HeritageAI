@@ -40,26 +40,51 @@ PRESENTATION_FILE = os.path.join(
     "HeritageAI.pptx"
 )
 
+MODEL_FOLDER = "vosk-model-small-en-us-0.15"
+
+# Possible model locations.
+#
+# Development:
+#   HeritageAI\_internal\vosk-model-small-en-us-0.15
+#   HeritageAI\vosk-model-small-en-us-0.15
+#
+# One-file EXE:
+#   temporary_extract\vosk-model-small-en-us-0.15
+#   temporary_extract\_internal\vosk-model-small-en-us-0.15
+#
+# We check all of them.
 
 if getattr(sys, "frozen", False):
 
-    MODEL_BASE_PATH = sys._MEIPASS
+    FROZEN_BASE = getattr(
+        sys,
+        "_MEIPASS",
+        os.path.dirname(sys.executable)
+    )
+
+    MODEL_PATH_INTERNAL = os.path.join(
+        FROZEN_BASE,
+        "_internal",
+        MODEL_FOLDER
+    )
+
+    MODEL_PATH_PACKAGED = os.path.join(
+        FROZEN_BASE,
+        MODEL_FOLDER
+    )
 
 else:
 
-    MODEL_BASE_PATH = BASE_PATH
+    MODEL_PATH_INTERNAL = os.path.join(
+        BASE_PATH,
+        "_internal",
+        MODEL_FOLDER
+    )
 
-
-MODEL_PATH_INTERNAL = os.path.join(
-    MODEL_BASE_PATH,
-    "_internal",
-    "vosk-model-small-en-us-0.15"
-)
-
-MODEL_PATH_LOCAL = os.path.join(
-    MODEL_BASE_PATH,
-    "vosk-model-small-en-us-0.15"
-)
+    MODEL_PATH_PACKAGED = os.path.join(
+        BASE_PATH,
+        MODEL_FOLDER
+    )
 
 
 # ============================================================
@@ -77,6 +102,9 @@ audio_queue = queue.Queue()
 sample_rate = 44100
 microphone_index = None
 
+# Cached presentation intelligence index.
+slide_index = []
+
 
 # ============================================================
 # NUMBER WORDS
@@ -87,555 +115,210 @@ NUMBER_WORDS = {
     "zero": 0,
 
     "one": 1,
+    "won": 1,
+    "wun": 1,
+    "wan": 1,
+
     "two": 2,
+    "too": 2,
+    "to": 2,
+    "twu": 2,
+
     "three": 3,
+    "tree": 3,
+    "thre": 3,
+    "free": 3,
+    "tri": 3,
+    "tiri": 3,
+
     "four": 4,
+    "for": 4,
+    "fore": 4,
+    "fo": 4,
+    "faw": 4,
+
     "five": 5,
+    "fiv": 5,
+    "faiv": 5,
+
     "six": 6,
+    "sicks": 6,
+    "sik": 6,
+
     "seven": 7,
+    "sevin": 7,
+    "sevan": 7,
+
     "eight": 8,
+    "ate": 8,
+    "ait": 8,
+    "eit": 8,
+
     "nine": 9,
+    "nain": 9,
+    "neen": 9,
+
     "ten": 10,
+    "tin": 10,
+    "then": 10,
 
     "eleven": 11,
+    "leven": 11,
+
     "twelve": 12,
+    "twelv": 12,
+
     "thirteen": 13,
+    "thirteenth": 13,
+
     "fourteen": 14,
+    "forteen": 14,
+
     "fifteen": 15,
+    "fiveteen": 15,
+
     "sixteen": 16,
+    "sixten": 16,
+
     "seventeen": 17,
-    "eighteen": 18,
-    "nineteen": 19,
-    "twenty": 20,
-
-    "twenty one": 21,
-    "twenty two": 22,
-    "twenty three": 23,
-    "twenty four": 24,
-    "twenty five": 25,
-    "twenty six": 26,
-    "twenty seven": 27,
-    "twenty eight": 28,
-    "twenty nine": 29,
-
-    "thirty": 30,
-    "thirty one": 31,
-    "thirty two": 32,
-    "thirty three": 33,
-    "thirty four": 34,
-    "thirty five": 35,
-    "thirty six": 36,
-    "thirty seven": 37,
-    "thirty eight": 38,
-    "thirty nine": 39,
-
-    "forty": 40,
-    "forty one": 41,
-    "forty two": 42,
-    "forty three": 43,
-    "forty four": 44,
-    "forty five": 45,
-    "forty six": 46,
-    "forty seven": 47,
-    "forty eight": 48,
-    "forty nine": 49,
-
-    "fifty": 50,
-    "fifty one": 51,
-    "fifty two": 52,
-    "fifty three": 53,
-    "fifty four": 54,
-    "fifty five": 55,
-    "fifty six": 56,
-    "fifty seven": 57,
-    "fifty eight": 58,
-    "fifty nine": 59,
-
-    "sixty": 60,
-    "sixty one": 61,
-    "sixty two": 62,
-    "sixty three": 63,
-    "sixty four": 64,
-    "sixty five": 65,
-    "sixty six": 66,
-    "sixty seven": 67,
-    "sixty eight": 68,
-    "sixty nine": 69,
-
-    "seventy": 70,
-    "seventy one": 71,
-    "seventy two": 72,
-    "seventy three": 73,
-    "seventy four": 74,
-    "seventy five": 75,
-    "seventy six": 76,
-    "seventy seven": 77,
-    "seventy eight": 78,
-    "seventy nine": 79,
-
-    "eighty": 80,
-    "eighty one": 81,
-    "eighty two": 82,
-    "eighty three": 83,
-    "eighty four": 84,
-    "eighty five": 85,
-    "eighty six": 86,
-    "eighty seven": 87,
-    "eighty eight": 88,
-    "eighty nine": 89,
-
-    "ninety": 90,
-    "ninety one": 91,
-    "ninety two": 92,
-    "ninety three": 93,
-    "ninety four": 94,
-    "ninety five": 95,
-    "ninety six": 96,
-    "ninety seven": 97,
-    "ninety eight": 98,
-    "ninety nine": 99,
+    "seventen": 17,
 }
 
 
 # ============================================================
-# SPEECH CORRECTIONS
+# COMMON SPEECH RECOGNITION CORRECTIONS
 # ============================================================
 
 SPEECH_CORRECTIONS = {
 
-    # -------------------------
     # Heritage
-    # -------------------------
-
-    "herit": "heritage",
     "heritagee": "heritage",
+    "heritagey": "heritage",
     "heritages": "heritage",
+    "heritageai": "heritage",
+    "heritage a i": "heritage",
+    "heritage": "heritage",
     "her itage": "heritage",
-    "hairitage": "heritage",
-    "heritage ai": "heritage",
-    "heritagea": "heritage",
-    "heritage i": "heritage",
+    "heratage": "heritage",
+    "heretage": "heritage",
+    "heritag": "heritage",
+    "heritash": "heritage",
+    "heritaj": "heritage",
+    "heritige": "heritage",
+    "heritigee": "heritage",
+    "herigate": "heritage",
+    "heritace": "heritage",
+    "heritich": "heritage",
 
-    # -------------------------
-    # Next
-    # -------------------------
-
-    "neck": "next",
-    "necks": "next",
-    "nest": "next",
-    "nests": "next",
-    "neste": "next",
-    "nexst": "next",
-    "nest": "next",
-    "nests": "next",
-    "neste": "next",
-    "nex": "next",
-    "nextt": "next",
-    "nexted": "next",
-    "nexx": "next",
-
-    # -------------------------
-    # Previous
-    # -------------------------
-
-    "previews": "previous",
-    "preview": "previous",
-    "previously": "previous",
-    "previse": "previous",
-    "previus": "previous",
-    "prev": "previous",
-
-    # -------------------------
-    # Start
-    # -------------------------
-
-    "stat": "start",
-    "stark": "start",
-    "starts": "start",
-    "started": "start",
-    "starr": "start",
-
-    # -------------------------
-    # Stop
-    # -------------------------
-
-    "stops": "stop",
-    "stopped": "stop",
-    "shop": "stop",
-    "stap": "stop",
-    "stopp": "stop",
-
-    # -------------------------
-    # Backward
-    # -------------------------
-
-    "backwards": "backward",
-    "backword": "backward",
-
-    # -------------------------
-    # Presentation
-    # -------------------------
-
-    "presentations": "presentation",
-    "presenting": "presentation",
-    "presented": "presentation",
-
-    # -------------------------
-    # Slide
-    # -------------------------
-
-    "slides": "slide",
-    "slight": "slide",
-    "slights": "slide",
-    "slyde": "slide",
-
-    # -------------------------
-    # Go
-    # -------------------------
-
-    "goo": "go",
-    "goh": "go",
-
-    # -------------------------
-    # Number
-    # -------------------------
-
-    "numbers": "number",
-    "numb": "number",
-}
-
-
-# ============================================================
-# SMART SPEECH VARIANTS
-#
-# Common words that Vosk may confuse with command words.
-# These are applied carefully so ordinary speech is not
-# accidentally turned into a command.
-# ============================================================
-
-NUMBER_SPEECH_VARIANTS = {
-    # ONE
+    # Numbers
     "won": "one",
-    "wan": "one",
     "wun": "one",
+    "wan": "one",
 
-    # TWO
     "too": "two",
-    "tu": "two",
-    "tue": "two",
     "to": "two",
+    "twu": "two",
 
-    # THREE
     "tree": "three",
-    "threes": "three",
     "thre": "three",
     "free": "three",
-    "feree": "three",
+    "tri": "three",
+    "tiri": "three",
 
-    # FOUR
     "for": "four",
-    "fo": "four",
     "fore": "four",
-    "phor": "four",
+    "fo": "four",
+    "faw": "four",
 
-    # EIGHT
+    "fiv": "five",
+    "faiv": "five",
+
+    "sicks": "six",
+    "sik": "six",
+
+    "sevin": "seven",
+    "sevan": "seven",
+
     "ate": "eight",
     "ait": "eight",
-    "aight": "eight",
-    "eigt": "eight",
-    "eigth": "eight",
-    "eightt": "eight",
+    "eit": "eight",
 
-    # NINE
-    "nein": "nine",
-    "nien": "nine",
-    "nyn": "nine",
     "nain": "nine",
-    "night": "nine",
+    "neen": "nine",
 
-    # TEN
-    "then": "ten",
     "tin": "ten",
-    "tenn": "ten",
-    "tend": "ten",
+    "then": "ten",
 
-    # ELEVEN
-    "elevn": "eleven",
-    "elevent": "eleven",
-    "elebin": "eleven",
-    "eleben": "eleven",
-    "elevenn": "eleven",
+    "leven": "eleven",
 
-    # TWELVE
     "twelv": "twelve",
-    "twelf": "twelve",
-    "twelvth": "twelve",
-    "twelbe": "twelve",
-    "twelb": "twelve",
 
-    # OTHER COMMON NUMBER ERRORS
-    "fiv": "five",
-    "fife": "five",
-    "twentee": "twenty",
-    "thirtee": "thirty",
-    "fourty": "forty",
-    "fivty": "fifty",
-    "sixty": "sixty",
-    "seventy": "seventy",
-    "eighty": "eighty",
-    "ninty": "ninety",
+    "thirteenth": "thirteen",
+    "forteen": "fourteen",
+    "fiveteen": "fifteen",
+    "sixten": "sixteen",
+    "seventen": "seventeen",
 }
-
-COMMAND_FILLER_WORDS = {
-    "please", "can", "could", "would", "will", "you",
-    "kindly", "just", "now", "me", "the", "a", "an",
-    "to", "my", "for", "us", "let", "lets", "i",
-}
-
-
-# ============================================================
-# FUZZY NUMBER CORRECTION
-# ============================================================
-
-def correct_number_words(words):
-
-    # Canonical number vocabulary for every integer from 0 to 99.
-    # We use fuzzy matching on individual number words so Vosk can
-    # recover from natural pronunciation/transcription variations.
-    single_number_words = {
-        "zero", "one", "two", "three", "four", "five",
-        "six", "seven", "eight", "nine", "ten", "eleven",
-        "twelve", "thirteen", "fourteen", "fifteen",
-        "sixteen", "seventeen", "eighteen", "nineteen",
-        "twenty", "thirty", "forty", "fifty", "sixty",
-        "seventy", "eighty", "ninety"
-    }
-
-    corrected = []
-
-    for word in words:
-
-        if word in single_number_words:
-            corrected.append(word)
-            continue
-
-        if word in NUMBER_SPEECH_VARIANTS:
-            corrected.append(NUMBER_SPEECH_VARIANTS[word])
-            continue
-
-        best_word = None
-        best_score = 0.0
-
-        for number_word in single_number_words:
-            score = similarity(word, number_word)
-
-            if score > best_score:
-                best_score = score
-                best_word = number_word
-
-        # Conservative threshold: only words that are reasonably
-        # close to a real number word are corrected.
-        if best_word is not None and best_score >= 0.76:
-            corrected.append(best_word)
-        else:
-            corrected.append(word)
-
-    return corrected
-
-
-# ============================================================
-# NUMBER EXTRACTION HELPERS
-# ============================================================
-
-def number_from_words(number_tokens):
-
-    if not number_tokens:
-        return None
-
-    # Correct each spoken number component. This handles things like
-    # "twentee tree" -> "twenty three" and "thirtee for" -> "thirty four".
-    corrected = correct_number_words(number_tokens)
-
-    # Only accept tokens that are genuine canonical number words.
-    if any(token not in NUMBER_WORDS for token in corrected):
-        return None
-
-    phrase = " ".join(corrected)
-
-    if phrase in NUMBER_WORDS:
-        number = NUMBER_WORDS[phrase]
-        return number if 1 <= number <= 99 else None
-
-    # Also allow a tens word + a unit word even if the exact phrase
-    # was not explicitly present in the dictionary.
-    tens = {
-        "twenty": 20, "thirty": 30, "forty": 40,
-        "fifty": 50, "sixty": 60, "seventy": 70,
-        "eighty": 80, "ninety": 90
-    }
-
-    units = {
-        "one": 1, "two": 2, "three": 3, "four": 4,
-        "five": 5, "six": 6, "seven": 7, "eight": 8,
-        "nine": 9
-    }
-
-    if len(corrected) == 2 and corrected[0] in tens and corrected[1] in units:
-        return tens[corrected[0]] + units[corrected[1]]
-
-    return None
-
-
-# ============================================================
-# SMART COMMAND TEXT
-# ============================================================
-
-def smart_command_text(text):
-
-    text = normalize_text(text)
-
-    if not text:
-        return ""
-
-    words = text.split()
-
-    # Only correct ambiguous number words when they are likely
-    # being used as a slide number. This avoids changing
-    # normal phrases such as "go to" into "go two".
-    number_context = any(
-        phrase in text
-        for phrase in (
-            "number",
-            "slide",
-            "go to",
-            "goto",
-            "jump to",
-            "move to",
-            "take me to",
-            "bring me to",
-            "show",
-            "open",
-        )
-    )
-
-    if number_context:
-        words = correct_number_words(words)
-
-    text = " ".join(words)
-
-    # Strip conversational filler only for matching.
-    # This lets phrases such as "can you please start" work.
-    words = text.split()
-    filtered = [
-        word
-        for word in words
-        if word not in COMMAND_FILLER_WORDS
-    ]
-
-    if filtered:
-        return " ".join(filtered)
-
-    return text
 
 
 # ============================================================
 # COMMAND PHRASES
 # ============================================================
 
-NEXT_PHRASES = [
-
+NEXT_PHRASES = {
     "next",
     "go next",
+    "go forward",
+    "move forward",
+    "move to next",
+    "move to the next",
+    "next one",
+    "forward",
+    "forward one",
+    "advance",
+    "go ahead",
+    "continue",
     "next slide",
     "go to next",
-    "go to next slide",
-    "move next",
-    "move to next",
-    "move to next slide",
-    "move forward",
-    "go forward",
-    "forward",
-    "continue",
-    "proceed",
-    "show next",
-    "show the next",
-    "show the next slide",
-    "take me to next",
-    "take me to the next",
-    "take me to the next slide",
-    "bring up the next",
-    "bring up the next slide",
-]
+    "go to the next",
+}
 
-
-PREVIOUS_PHRASES = [
-
+PREVIOUS_PHRASES = {
     "previous",
-    "previous slide",
     "go previous",
-    "go to previous",
-    "go to previous slide",
-    "move previous",
-    "move to previous",
-    "move to previous slide",
     "go back",
-    "back",
     "move back",
     "move backward",
-    "backward",
-    "return",
-    "show previous",
-    "show the previous",
-    "show the previous slide",
-    "take me to previous",
-    "take me to the previous",
-    "take me to the previous slide",
-]
+    "back",
+    "back one",
+    "previous one",
+    "go to previous",
+    "go to the previous",
+    "previous slide",
+}
 
-
-START_PHRASES = [
-
+START_PHRASES = {
     "start",
     "start presentation",
-    "start the presentation",
     "begin",
     "begin presentation",
-    "begin the presentation",
-    "present",
-    "presentation",
-    "launch presentation",
-    "launch the presentation",
     "open presentation",
-    "open the presentation",
-    "commence",
-    "commence presentation",
-    "commence the presentation",
-    "let us start",
-    "lets start",
-    "let us begin",
-    "lets begin",
-]
+    "play presentation",
+    "start slideshow",
+    "begin slideshow",
+    "show presentation",
+    "launch presentation",
+}
 
-
-STOP_PHRASES = [
-
+STOP_PHRASES = {
     "stop",
     "stop presentation",
-    "stop the presentation",
-    "end",
     "end presentation",
-    "end the presentation",
-    "finish",
-    "finish presentation",
-    "finish the presentation",
-    "exit",
+    "end slideshow",
     "exit presentation",
-    "exit the presentation",
     "close presentation",
-    "close the presentation",
-    "quit presentation",
-    "quit the presentation",
-]
+    "stop slideshow",
+}
 
 
 # ============================================================
@@ -648,11 +331,6 @@ def normalize_text(text):
         return ""
 
     text = text.lower().strip()
-
-    text = text.replace(
-        "’",
-        "'"
-    )
 
     text = re.sub(
         r"[^a-z0-9\s]",
@@ -670,7 +348,20 @@ def normalize_text(text):
 
 
 # ============================================================
-# CORRECT COMMON SPEECH ERRORS
+# SIMILARITY
+# ============================================================
+
+def similarity(a, b):
+
+    return SequenceMatcher(
+        None,
+        a,
+        b
+    ).ratio()
+
+
+# ============================================================
+# CORRECT SPEECH
 # ============================================================
 
 def correct_speech_words(text):
@@ -680,19 +371,20 @@ def correct_speech_words(text):
     if not text:
         return ""
 
-    # Multi-word corrections first.
-    for wrong, correct in sorted(
-        SPEECH_CORRECTIONS.items(),
-        key=lambda item: len(item[0]),
-        reverse=True
-    ):
+    # Handle multi-word Heritage variations first.
 
-        if " " in wrong:
+    multi_word_corrections = {
+        "heritage ai": "heritage",
+        "heritage a i": "heritage",
+        "her itage": "heritage",
+    }
 
-            text = text.replace(
-                wrong,
-                correct
-            )
+    for wrong, correct in multi_word_corrections.items():
+
+        text = text.replace(
+            wrong,
+            correct
+        )
 
     words = text.split()
 
@@ -714,136 +406,7 @@ def correct_speech_words(text):
 
 
 # ============================================================
-# SIMILARITY
-# ============================================================
-
-def similarity(a, b):
-
-    a = normalize_text(a)
-    b = normalize_text(b)
-
-    if not a or not b:
-        return 0.0
-
-    return SequenceMatcher(
-        None,
-        a,
-        b
-    ).ratio()
-
-
-# ============================================================
-# EXACT COMMAND MATCHING
-# ============================================================
-
-def exact_phrase_match(
-    text,
-    phrases
-):
-
-    text = normalize_text(text)
-
-    if not text:
-        return False
-
-    # Exact complete command.
-    if text in phrases:
-        return True
-
-    # Exact phrase inside a longer command.
-    padded_text = f" {text} "
-
-    for phrase in phrases:
-
-        padded_phrase = f" {phrase} "
-
-        if padded_phrase in padded_text:
-
-            return True
-
-    return False
-
-
-# ============================================================
-# SAFE FUZZY COMMAND MATCHING
-# ============================================================
-
-def safe_phrase_match(
-    text,
-    phrases,
-    threshold=0.82
-):
-
-    text = normalize_text(text)
-
-    if not text:
-        return False
-
-    # Always prefer exact matching.
-    if exact_phrase_match(
-        text,
-        phrases
-    ):
-
-        return True
-
-    words = text.split()
-
-    # --------------------------------------------------------
-    # IMPORTANT SAFETY RULE
-    # --------------------------------------------------------
-    # Do NOT fuzzy-match a one-word command against another
-    # one-word command.
-    #
-    # This prevents:
-    #
-    # next -> stop
-    # start -> stop
-    # back -> next
-    #
-    # etc.
-    # --------------------------------------------------------
-
-    if len(words) == 1:
-
-        # Only allow fuzzy matching against phrases
-        # that are also one word.
-        for phrase in phrases:
-
-            if " " in phrase:
-                continue
-
-            if len(phrase) < 4:
-                continue
-
-            if similarity(
-                text,
-                phrase
-            ) >= threshold:
-
-                return True
-
-        return False
-
-    # For longer phrases, compare the complete phrase.
-    best_score = 0.0
-
-    for phrase in phrases:
-
-        score = similarity(
-            text,
-            phrase
-        )
-
-        if score > best_score:
-
-            best_score = score
-
-    return best_score >= threshold
-
-
-# ============================================================
-# MICROPHONE
+# FIND MICROPHONE
 # ============================================================
 
 def find_microphone():
@@ -863,11 +426,9 @@ def find_microphone():
                 preferred_index
             ]
 
-            if (
-                device[
-                    "max_input_channels"
-                ] > 0
-            ):
+            if device[
+                "max_input_channels"
+            ] > 0:
 
                 microphone_index = (
                     preferred_index
@@ -879,11 +440,9 @@ def find_microphone():
                 devices
             ):
 
-                if (
-                    device[
-                        "max_input_channels"
-                    ] > 0
-                ):
+                if device[
+                    "max_input_channels"
+                ] > 0:
 
                     microphone_index = i
 
@@ -893,21 +452,24 @@ def find_microphone():
 
             print()
             print(
-                "HeritageAI: No microphone was found."
+                "HeritageAI: "
+                "No microphone was found."
             )
 
             return False
 
         print()
         print(
-            "HeritageAI: Using microphone:",
+            "HeritageAI: "
+            "Using microphone:",
             microphone_index
         )
 
         sample_rate = 44100
 
         print(
-            "HeritageAI: Using sample rate:",
+            "HeritageAI: "
+            "Using sample rate:",
             sample_rate
         )
 
@@ -930,7 +492,7 @@ def find_microphone():
 
 
 # ============================================================
-# FIND POWERPOINT
+# FIND POWERPOINT APPLICATION
 # ============================================================
 
 def find_powerpoint_window():
@@ -967,7 +529,10 @@ def focus_powerpoint():
 
         windows = []
 
-        def enum_windows(hwnd, extra):
+        def enum_windows(
+            hwnd,
+            extra
+        ):
 
             try:
 
@@ -980,7 +545,9 @@ def focus_powerpoint():
                 if not title:
                     return
 
-                title_lower = title.lower()
+                title_lower = (
+                    title.lower()
+                )
 
                 if (
                     "powerpoint slide show"
@@ -1006,6 +573,7 @@ def focus_powerpoint():
         )
 
         # Prefer slideshow window.
+
         for hwnd in windows:
 
             try:
@@ -1036,7 +604,8 @@ def focus_powerpoint():
 
                 pass
 
-        # Otherwise normal PowerPoint.
+        # Otherwise focus normal PowerPoint.
+
         for hwnd in windows:
 
             try:
@@ -1079,6 +648,8 @@ def get_active_presentation():
                 )
             )
 
+        # Currently active presentation.
+
         try:
 
             active = (
@@ -1092,6 +663,8 @@ def get_active_presentation():
         except Exception:
 
             pass
+
+        # If only one presentation exists.
 
         try:
 
@@ -1109,6 +682,8 @@ def get_active_presentation():
         except Exception:
 
             pass
+
+        # Final fallback.
 
         try:
 
@@ -1135,7 +710,7 @@ def get_active_presentation():
 
 
 # ============================================================
-# CONNECT POWERPOINT
+# CONNECT TO POWERPOINT
 # ============================================================
 
 def connect_powerpoint():
@@ -1145,10 +720,15 @@ def connect_powerpoint():
 
     print()
     print(
-        "HeritageAI: Connecting to PowerPoint..."
+        "HeritageAI: "
+        "Connecting to PowerPoint..."
     )
 
     try:
+
+        # ----------------------------------------------------
+        # Connect to running PowerPoint.
+        # ----------------------------------------------------
 
         try:
 
@@ -1171,19 +751,22 @@ def connect_powerpoint():
                 )
             )
 
-            try:
-                powerpoint.Visible = True
-            except Exception:
-                pass
-
             print(
                 "HeritageAI: "
                 "PowerPoint application started."
             )
 
+        # ----------------------------------------------------
+        # Find presentation.
+        # ----------------------------------------------------
+
         presentation = (
             get_active_presentation()
         )
+
+        # ----------------------------------------------------
+        # Existing presentation.
+        # ----------------------------------------------------
 
         if presentation is not None:
 
@@ -1206,9 +789,13 @@ def connect_powerpoint():
             )
 
             print(
-                "        ",
+                "         ",
                 presentation_name
             )
+
+        # ----------------------------------------------------
+        # Fallback presentation.
+        # ----------------------------------------------------
 
         else:
 
@@ -1222,8 +809,10 @@ def connect_powerpoint():
                     "No PowerPoint presentation is open."
                 )
 
+                print()
                 print(
-                    "HeritageAI also could not find:"
+                    "HeritageAI also could not find "
+                    "the fallback presentation:"
                 )
 
                 print(
@@ -1246,9 +835,9 @@ def connect_powerpoint():
             presentation = (
                 powerpoint.Presentations.Open(
                     PRESENTATION_FILE,
-                    ReadOnly=False,
-                    Untitled=False,
-                    WithWindow=True
+                    False,
+                    False,
+                    True
                 )
             )
 
@@ -1263,9 +852,15 @@ def connect_powerpoint():
 
             return False
 
+        # ----------------------------------------------------
+        # Presentation information.
+        # ----------------------------------------------------
+
         try:
 
-            name = presentation.Name
+            name = (
+                presentation.Name
+            )
 
         except Exception:
 
@@ -1283,16 +878,18 @@ def connect_powerpoint():
 
         print()
         print(
-            "HeritageAI: Using presentation:"
+            "HeritageAI: "
+            "Using presentation:"
         )
 
         print(
-            "        ",
+            "         ",
             name
         )
 
         print(
-            "HeritageAI: Number of slides:",
+            "HeritageAI: "
+            "Number of slides:",
             slide_count
         )
 
@@ -1301,6 +898,8 @@ def connect_powerpoint():
             "HeritageAI: "
             "Connected to PowerPoint."
         )
+
+        build_slide_index()
 
         focus_powerpoint()
 
@@ -1311,7 +910,8 @@ def connect_powerpoint():
         print()
         print(
             "HeritageAI: "
-            "Could not connect to PowerPoint."
+            "Could not connect "
+            "to PowerPoint."
         )
 
         print(
@@ -1331,6 +931,7 @@ def get_slideshow_view():
     global presentation
 
     if presentation is None:
+
         return None
 
     try:
@@ -1340,11 +941,13 @@ def get_slideshow_view():
         )
 
         if window is None:
+
             return None
 
         view = window.View
 
         if view is None:
+
             return None
 
         return view
@@ -1383,7 +986,8 @@ def start_presentation():
 
     print()
     print(
-        "HeritageAI: Starting presentation..."
+        "HeritageAI: "
+        "Starting presentation..."
     )
 
     try:
@@ -1391,6 +995,7 @@ def start_presentation():
         if presentation is None:
 
             if not connect_powerpoint():
+
                 return False
 
         if slideshow_is_running():
@@ -1403,11 +1008,6 @@ def start_presentation():
             focus_powerpoint()
 
             return True
-
-        try:
-            powerpoint.Visible = True
-        except Exception:
-            pass
 
         settings = (
             presentation.SlideShowSettings
@@ -1432,7 +1032,9 @@ def start_presentation():
 
         time.sleep(1)
 
-        view = get_slideshow_view()
+        view = (
+            get_slideshow_view()
+        )
 
         if view is None:
 
@@ -1488,19 +1090,24 @@ def next_slide():
         )
 
         if not start_presentation():
+
             return
 
     try:
 
-        view = get_slideshow_view()
+        view = (
+            get_slideshow_view()
+        )
 
         if view is None:
+
             return
 
         view.Next()
 
         print(
-            "HeritageAI: Next slide."
+            "HeritageAI: "
+            "Next slide."
         )
 
         focus_powerpoint()
@@ -1537,19 +1144,24 @@ def previous_slide():
         )
 
         if not start_presentation():
+
             return
 
     try:
 
-        view = get_slideshow_view()
+        view = (
+            get_slideshow_view()
+        )
 
         if view is None:
+
             return
 
         view.Previous()
 
         print(
-            "HeritageAI: Previous slide."
+            "HeritageAI: "
+            "Previous slide."
         )
 
         focus_powerpoint()
@@ -1586,6 +1198,7 @@ def go_to_slide(number):
         if presentation is None:
 
             if not connect_powerpoint():
+
                 return
 
         slide_count = (
@@ -1625,11 +1238,15 @@ def go_to_slide(number):
             )
 
             if not start_presentation():
+
                 return
 
-        view = get_slideshow_view()
+        view = (
+            get_slideshow_view()
+        )
 
         if view is None:
+
             return
 
         view.GotoSlide(number)
@@ -1671,9 +1288,12 @@ def stop_presentation():
 
     try:
 
-        view = get_slideshow_view()
+        view = (
+            get_slideshow_view()
+        )
 
         if view is not None:
+
             view.Exit()
 
         print(
@@ -1701,243 +1321,520 @@ def stop_presentation():
 # ============================================================
 
 def extract_slide_number(text):
-
+    """Extract a slide number while tolerating common speech errors."""
     text = normalize_text(text)
-
     if not text:
         return None
 
-    # First accept an explicitly spoken/written numeric value.
-    for token in text.split():
-        if token.isdigit():
-            number = int(token)
-            if 1 <= number <= 99:
+    words = text.split()
+
+    # Direct numeric form: "8", "slide 8", etc.
+    for word in words:
+        if word.isdigit():
+            number = int(word)
+            if 1 <= number <= 999:
                 return number
 
-    # Remove common navigation words. This is important because words
-    # like "to" must NOT be interpreted as the number "two".
-    tokens = text.split()
+    # Exact written numbers.
+    for word in words:
+        if word in NUMBER_WORDS:
+            number = NUMBER_WORDS[word]
+            if 1 <= number <= 999:
+                return number
 
-    navigation_words = {
-        "number", "slide", "slides", "go", "goto", "jump",
-        "move", "take", "bring", "show", "open", "to",
-        "the", "a", "an", "please", "can", "could", "would",
-        "you", "kindly", "me", "my", "now", "just", "on",
-        "into", "onto", "presentation"
+    # Contextual homophones produced by speech recognition.
+    # These are only interpreted as numbers when the surrounding command
+    # clearly looks like slide navigation.
+    contextual_numbers = {
+        "to": 2,
+        "too": 2,
+        "for": 4,
+        "ate": 8,
+        "won": 1,
+        "wan": 1,
+        "wun": 1,
     }
 
-    number_tokens = [
-        token for token in tokens
-        if token not in navigation_words
-    ]
+    navigation_context = any(phrase in text for phrase in (
+        "slide", "number", "go to", "move to", "take me to",
+        "take us to", "jump to", "show me", "bring me to",
+        "go directly to", "open slide", "show slide",
+    ))
 
-    # Try the whole remaining phrase first.
-    number = number_from_words(number_tokens)
-    if number is not None:
-        return number
-
-    # If Vosk inserted an extra word, try each contiguous 1-2 word
-    # section. This keeps recognition tolerant without accepting a
-    # completely unrelated sentence as a slide number.
-    for size in (2, 1):
-        for i in range(len(number_tokens) - size + 1):
-            candidate = number_tokens[i:i + size]
-            number = number_from_words(candidate)
-            if number is not None:
-                return number
+    if navigation_context:
+        for word in words:
+            if word in contextual_numbers:
+                return contextual_numbers[word]
 
     return None
 
 
 # ============================================================
-# CHECK SLIDE NUMBER COMMAND
+# PRESENTATION INTELLIGENCE
 # ============================================================
 
-def is_slide_number_command(text):
+TOPIC_STOP_WORDS = {
+    "the", "a", "an", "to", "of", "on", "in", "at", "for",
+    "me", "my", "please", "can", "could", "would", "you", "show",
+    "find", "take", "bring", "go", "where", "did", "i", "we", "us",
+    "discuss", "discussed", "talk", "talked", "about", "slide", "slides",
+    "presentation", "presentations", "page", "pages", "is", "are", "was",
+    "were", "this", "that", "these", "those", "from", "with", "and", "or"
+}
 
-    text = normalize_text(text)
 
-    if not text:
+def shape_text(shape):
+    """Safely extract visible text from a PowerPoint shape."""
+    try:
+        if getattr(shape, "HasTextFrame", False):
+            if shape.TextFrame.HasText:
+                return str(shape.TextFrame.TextRange.Text or "")
+    except Exception:
+        pass
+
+    try:
+        if getattr(shape, "HasTable", False):
+            values = []
+            table = shape.Table
+            for row in range(1, table.Rows.Count + 1):
+                for col in range(1, table.Columns.Count + 1):
+                    try:
+                        values.append(str(table.Cell(row, col).Shape.TextFrame.TextRange.Text or ""))
+                    except Exception:
+                        pass
+            return " ".join(values)
+    except Exception:
+        pass
+
+    return ""
+
+
+def extract_slide_text(slide):
+    """Return all readable text from one slide."""
+    parts = []
+    try:
+        for shape in slide.Shapes:
+            text = shape_text(shape).strip()
+            if text:
+                parts.append(text)
+    except Exception:
+        pass
+    return " ".join(parts)
+
+
+def build_slide_index():
+    """Read the selected presentation once and cache slide text."""
+    global slide_index
+
+    slide_index = []
+
+    if presentation is None:
         return False
 
-    number = extract_slide_number(text)
-
-    if number is None:
+    try:
+        count = presentation.Slides.Count
+    except Exception:
         return False
 
-    words = text.split()
+    print()
+    print("HeritageAI: Building presentation intelligence...")
 
-    # A bare number/number word is a direct slide command.
-    if len(words) == 1:
-        if words[0].isdigit():
-            return 1 <= int(words[0]) <= 99
+    for number in range(1, count + 1):
+        try:
+            slide = presentation.Slides.Item(number)
+            full_text = extract_slide_text(slide)
+            normalized = normalize_text(full_text)
 
-        if words[0] in NUMBER_WORDS:
-            return True
+            # First meaningful text line is treated as a lightweight title.
+            title = ""
+            for line in full_text.splitlines():
+                line = normalize_text(line)
+                if line and len(line) >= 3:
+                    title = line
+                    break
 
-        # Also accept a single fuzzy-spoken number.
-        return number_from_words(words) is not None
+            slide_index.append({
+                "number": number,
+                "title": title,
+                "text": normalized,
+            })
+        except Exception:
+            slide_index.append({
+                "number": number,
+                "title": "",
+                "text": "",
+            })
 
-    # Strong navigation indicators.
-    indicators = {
-        "number", "slide", "slides", "go to", "goto",
-        "jump to", "move to", "take me to", "bring me to",
-        "show", "open", "take me", "bring me"
-    }
+    print(
+        "HeritageAI: Presentation intelligence ready for",
+        len(slide_index),
+        "slides."
+    )
+    return True
 
-    if any(indicator in text for indicator in indicators):
-        return True
 
-    # Short commands such as "twenty three" are also accepted.
-    if len(words) <= 2 and number_from_words(words) is not None:
-        return True
+def topic_words(text):
+    words = re.findall(r"[a-z0-9]+", normalize_text(text))
+    return {w for w in words if w not in TOPIC_STOP_WORDS and len(w) >= 3}
 
-    return False
+
+def topic_command_candidate(command):
+    """Decide whether a command is asking for a topic/subject."""
+    command = normalize_text(command)
+    if not command:
+        return False
+
+    topic_markers = [
+        "find ",
+        "find the ",
+        "show ",
+        "show me ",
+        "take me to ",
+        "bring me to ",
+        "go to ",
+        "jump to ",
+        "where is ",
+        "where did i discuss ",
+        "where did we discuss ",
+        "where did i talk about ",
+        "where did we talk about ",
+        "what slide is ",
+        "show the slide about ",
+        "go to the slide about ",
+        "take me to the slide about ",
+        "open the slide about ",
+    ]
+
+    return any(command.startswith(marker) for marker in topic_markers)
+
+
+def extract_topic_query(command):
+    """Remove navigation wording and return the subject being requested."""
+    command = normalize_text(command)
+
+    patterns = [
+        r"^where did (?:i|we) (?:discuss|talk about) (.+)$",
+        r"^where is (.+)$",
+        r"^what slide is (.+)$",
+        r"^find (?:the )?(.+)$",
+        r"^show me (?:the )?(.+)$",
+        r"^show (?:me )?(?:the )?slide (?:about|on) (.+)$",
+        r"^show (?:the )?(?:slide )?(?:about|on) (.+)$",
+        r"^go to (?:the )?(?:slide )?(?:about|on) (.+)$",
+        r"^take me to (?:the )?(?:slide )?(?:about|on) (.+)$",
+        r"^bring me to (?:the )?(?:slide )?(?:about|on) (.+)$",
+        r"^jump to (?:the )?(?:slide )?(?:about|on) (.+)$",
+        r"^open (?:the )?(?:slide )?(?:about|on) (.+)$",
+        r"^show me (?:the )?(.+)$",
+        r"^go to (?:the )?(.+)$",
+        r"^take me to (?:the )?(.+)$",
+        r"^bring me to (?:the )?(.+)$",
+        r"^jump to (?:the )?(.+)$",
+    ]
+
+    for pattern in patterns:
+        match = re.match(pattern, command)
+        if match:
+            query = match.group(1).strip()
+            query = re.sub(r"^(slide|slides)\s+", "", query).strip()
+            query = re.sub(r"\s+(slide|slides)$", "", query).strip()
+            return query
+
+    return command
+
+
+def search_topic(command):
+    """Find the best matching slide for a natural-language topic request."""
+    global slide_index
+
+    if not slide_index:
+        build_slide_index()
+
+    if not slide_index:
+        return None
+
+    query = extract_topic_query(command)
+    query = normalize_text(query)
+    query_tokens = topic_words(query)
+
+    if not query or not query_tokens:
+        return None
+
+    ranked = []
+
+    for item in slide_index:
+        title = item["title"]
+        text = item["text"]
+        title_tokens = topic_words(title)
+        text_tokens = topic_words(text)
+
+        # Exact phrase is very strong.
+        phrase_score = 1.0 if query in text else 0.0
+        title_phrase_score = 1.0 if query in title else 0.0
+
+        # Word overlap.
+        title_overlap = (
+            len(query_tokens & title_tokens) / len(query_tokens)
+            if query_tokens else 0.0
+        )
+        text_overlap = (
+            len(query_tokens & text_tokens) / len(query_tokens)
+            if query_tokens else 0.0
+        )
+
+        # Fuzzy similarity helps with words like "methodology" vs a slightly
+        # different phrase on the slide.
+        title_fuzzy = SequenceMatcher(None, query, title).ratio() if title else 0.0
+        text_fuzzy = SequenceMatcher(None, query, text[:1200]).ratio() if text else 0.0
+
+        score = (
+            title_phrase_score * 1.00
+            + phrase_score * 0.80
+            + title_overlap * 0.75
+            + text_overlap * 0.45
+            + title_fuzzy * 0.35
+            + text_fuzzy * 0.10
+        )
+
+        ranked.append((score, item, title_overlap, text_overlap))
+
+    ranked.sort(key=lambda x: x[0], reverse=True)
+
+    if not ranked:
+        return None
+
+    best = ranked[0]
+    second_score = ranked[1][0] if len(ranked) > 1 else 0.0
+
+    # Require a meaningful match. Also require a reasonable gap when the
+    # top two slides are close, so HeritageAI does not confidently jump to
+    # a random slide.
+    if best[0] < 0.55:
+        return None
+
+    if best[0] < 0.90 and (best[0] - second_score) < 0.08:
+        return None
+
+    return best[1]
+
+
+def go_to_topic(command):
+    """Search the presentation and jump to the best matching topic slide."""
+    result = search_topic(command)
+
+    if result is None:
+        print()
+        print("HeritageAI: I could not find a strong topic match.")
+        return False
+
+    number = result["number"]
+    title = result["title"] or "matching content"
+
+    print()
+    print(
+        f"HeritageAI: Topic match -> slide {number}"
+    )
+    print(
+        "HeritageAI: Match ->",
+        title
+    )
+
+    go_to_slide(number)
+    return True
 
 
 # ============================================================
 # PROCESS COMMAND
 # ============================================================
 
+def _token_similarity(a, b):
+    """Compare two words while tolerating small Vosk transcription errors."""
+    return SequenceMatcher(None, a, b).ratio()
+
+
+def _command_similarity(command, phrase):
+    """Blend whole-command and token-level similarity."""
+    command = normalize_text(command)
+    phrase = normalize_text(phrase)
+
+    if not command or not phrase:
+        return 0.0
+
+    if command == phrase:
+        return 1.0
+
+    whole = SequenceMatcher(None, command, phrase).ratio()
+
+    command_tokens = command.split()
+    phrase_tokens = phrase.split()
+
+    matched = 0
+    for token in command_tokens:
+        if any(_token_similarity(token, target) >= 0.78 for target in phrase_tokens):
+            matched += 1
+
+    token_score = matched / max(len(command_tokens), len(phrase_tokens))
+    return max(whole, token_score * 0.95)
+
+
+def _best_command_match(command, phrases):
+    best_phrase = None
+    best_score = 0.0
+
+    for phrase in phrases:
+        score = _command_similarity(command, phrase)
+        if score > best_score:
+            best_score = score
+            best_phrase = phrase
+
+    return best_phrase, best_score
+
+
+def _looks_like_next(command):
+    command = normalize_text(command)
+    _, score = _best_command_match(command, NEXT_PHRASES)
+
+    # Short commands need a slightly stricter threshold than longer
+    # natural-language commands.
+    threshold = 0.78 if len(command.split()) >= 2 else 0.88
+    return score >= threshold
+
+
+def _looks_like_previous(command):
+    command = normalize_text(command)
+    _, score = _best_command_match(command, PREVIOUS_PHRASES)
+    threshold = 0.78 if len(command.split()) >= 2 else 0.88
+    return score >= threshold
+
+
+def _looks_like_start(command):
+    command = normalize_text(command)
+    _, score = _best_command_match(command, START_PHRASES)
+    threshold = 0.80 if len(command.split()) >= 2 else 0.90
+    return score >= threshold
+
+
+def _looks_like_stop(command):
+    command = normalize_text(command)
+    _, score = _best_command_match(command, STOP_PHRASES)
+    threshold = 0.80 if len(command.split()) >= 2 else 0.90
+    return score >= threshold
+
+
+def _is_number_navigation(command):
+    command = normalize_text(command)
+    if not command:
+        return False
+
+    number = extract_slide_number(command)
+    if number is None:
+        return False
+
+    # A bare number is useful while presenting: "five" means slide five.
+    if command.isdigit() or command in NUMBER_WORDS:
+        return True
+
+    navigation_markers = (
+        "slide", "number", "go to", "move to", "take me to",
+        "take us to", "jump to", "show me", "show slide",
+        "bring me to", "go directly to", "open slide",
+    )
+
+    return any(marker in command for marker in navigation_markers)
+
+
 def process_command(text):
+    """Interpret natural speech flexibly and execute one presentation action."""
+    raw = normalize_text(text)
 
-    original_text = text
-
-    text = correct_speech_words(text)
-
-    if not text:
+    if not raw:
         return True
 
     print()
-    print(
-        "HeritageAI heard:",
-        original_text
-    )
+    print("HeritageAI heard:", raw)
 
-    command = smart_command_text(text)
+    command = correct_speech_words(raw)
 
-    if not command:
+    # Undo a few risky global substitutions if an older correction table
+    # or recognizer has produced them. This keeps normal English intact.
+    command = re.sub(r"\bgo two slide\b", "go to slide", command)
+    command = re.sub(r"\bmove two slide\b", "move to slide", command)
+    command = re.sub(r"\btake me two slide\b", "take me to slide", command)
+    command = re.sub(r"\bjump two slide\b", "jump to slide", command)
+    command = re.sub(r"\bbring me two slide\b", "bring me to slide", command)
+    command = normalize_text(command)
+
+    print("HeritageAI interpreted:", command)
+
+    # --------------------------------------------------------
+    # 1. STOP / END
+    # --------------------------------------------------------
+    if command in STOP_PHRASES or _looks_like_stop(command):
+        print("HeritageAI: Stop command detected.")
+        stop_presentation()
+        return False
+
+    # --------------------------------------------------------
+    # 2. START / BEGIN
+    # --------------------------------------------------------
+    if command in START_PHRASES or _looks_like_start(command):
+        print("HeritageAI: Start command detected.")
+        start_presentation()
         return True
 
-    print(
-        "HeritageAI command:",
-        command
-    )
-
-    # ========================================================
-    # 1. SLIDE NUMBER
-    # ========================================================
-
-    if is_slide_number_command(command):
-
+    # --------------------------------------------------------
+    # 3. DIRECT SLIDE NUMBER
+    # --------------------------------------------------------
+    if _is_number_navigation(command):
         number = extract_slide_number(command)
+        print(f"HeritageAI: Going directly to slide {number}...")
+        go_to_slide(number)
+        return True
 
-        if number is not None:
-
-            print()
-            print(
-                f"HeritageAI: Going directly to slide {number}..."
-            )
-
-            go_to_slide(number)
-            return True
-
-    # ========================================================
-    # 2. NEXT
-    # ========================================================
-
-    if exact_phrase_match(command, NEXT_PHRASES):
+    # --------------------------------------------------------
+    # 4. NEXT / FORWARD
+    # --------------------------------------------------------
+    if command in NEXT_PHRASES or _looks_like_next(command):
+        print("HeritageAI: Next-slide command detected.")
         next_slide()
         return True
 
-    if safe_phrase_match(command, NEXT_PHRASES, threshold=0.76):
-        next_slide()
-        return True
-
-    # Natural-language intent: anything clearly asking for
-    # the next/forward slide should work.
-    next_intent_words = {
-        "next", "forward", "continue", "proceed",
-        "advance", "following"
-    }
-
-    if any(word in next_intent_words for word in command.split()):
-        if not any(word in {"previous", "back", "backward", "stop"}
-                   for word in command.split()):
-            next_slide()
-            return True
-
-    # ========================================================
-    # 3. PREVIOUS
-    # ========================================================
-
-    if exact_phrase_match(command, PREVIOUS_PHRASES):
+    # --------------------------------------------------------
+    # 5. PREVIOUS / BACK
+    # --------------------------------------------------------
+    if command in PREVIOUS_PHRASES or _looks_like_previous(command):
+        print("HeritageAI: Previous-slide command detected.")
         previous_slide()
         return True
 
-    if safe_phrase_match(command, PREVIOUS_PHRASES, threshold=0.76):
-        previous_slide()
+    # --------------------------------------------------------
+    # 6. TOPIC / PRESENTATION INTELLIGENCE
+    # --------------------------------------------------------
+    if topic_command_candidate(command):
+        print("HeritageAI: Topic search detected.")
+        go_to_topic(command)
         return True
 
-    previous_intent_words = {
-        "previous", "back", "backward", "return", "behind"
-    }
-
-    if any(word in previous_intent_words for word in command.split()):
-        if not any(word in {"next", "forward", "stop"}
-                   for word in command.split()):
-            previous_slide()
-            return True
-
-    # ========================================================
-    # 4. START
-    # ========================================================
-
-    if exact_phrase_match(command, START_PHRASES):
-        start_presentation()
-        return True
-
-    if safe_phrase_match(command, START_PHRASES, threshold=0.74):
-        start_presentation()
-        return True
-
-    start_intent_words = {
-        "start", "begin", "commence", "launch", "present",
-        "presentation", "presenting", "started", "stark", "stat",
-        "starr", "star"
-    }
-
-    if any(word in start_intent_words for word in command.split()):
-        # A slide-number command has already been handled above.
-        start_presentation()
-        return True
-
-    # ========================================================
-    # 5. STOP
-    # ========================================================
-
-    if exact_phrase_match(command, STOP_PHRASES):
-        stop_presentation()
-        return True
-
-    if safe_phrase_match(command, STOP_PHRASES, threshold=0.82):
-        stop_presentation()
-        return True
-
-    stop_intent_words = {
-        "stop", "end", "finish", "exit", "quit", "close",
-        "stops", "stopped", "stopp", "shop", "stap"
-    }
-
-    if any(word in stop_intent_words for word in command.split()):
-        stop_presentation()
-        return True
-
-    print(
-        "HeritageAI: Command not recognized."
+    # --------------------------------------------------------
+    # 7. Natural topic phrasing without an exact marker.
+    # --------------------------------------------------------
+    topic_words_in_command = topic_words(command)
+    topic_like_markers = (
+        "methodology", "method", "results", "conclusion",
+        "architecture", "introduction", "problem", "solution",
+        "objective", "objectives", "background", "discussion",
+        "recommendation", "recommendations", "summary",
     )
 
-    return None
+    if topic_words_in_command and any(
+        marker in command for marker in topic_like_markers
+    ):
+        print("HeritageAI: Natural topic request detected.")
+        go_to_topic("show " + command)
+        return True
+
+    print("HeritageAI: Command not recognized.")
+    return True
 
 
 # ============================================================
@@ -1972,26 +1869,31 @@ def load_voice_model():
 
     print()
     print(
-        "HeritageAI: Loading voice model..."
+        "HeritageAI: "
+        "Loading voice model..."
     )
 
-    if os.path.isdir(
-        MODEL_PATH_INTERNAL
-    ):
+    possible_paths = [
+        MODEL_PATH_INTERNAL,
+        MODEL_PATH_PACKAGED,
+    ]
 
-        model_path = (
-            MODEL_PATH_INTERNAL
+    model_path = None
+
+    for path in possible_paths:
+
+        print(
+            "Checking model:",
+            path
         )
 
-    elif os.path.isdir(
-        MODEL_PATH_LOCAL
-    ):
+        if os.path.isdir(path):
 
-        model_path = (
-            MODEL_PATH_LOCAL
-        )
+            model_path = path
 
-    else:
+            break
+
+    if model_path is None:
 
         print()
         print(
@@ -2001,16 +1903,14 @@ def load_voice_model():
 
         print()
         print(
-            "Expected:"
+            "Expected one of:"
         )
 
-        print(
-            MODEL_PATH_INTERNAL
-        )
+        for path in possible_paths:
 
-        print(
-            MODEL_PATH_LOCAL
-        )
+            print(
+                path
+            )
 
         return False
 
@@ -2020,6 +1920,7 @@ def load_voice_model():
             model_path
         )
 
+        print()
         print(
             "HeritageAI: "
             "Voice model loaded."
@@ -2053,6 +1954,16 @@ def create_recognizer():
 
     try:
 
+        # IMPORTANT:
+        #
+        # The old version used a restrictive grammar.
+        #
+        # That made recognition more predictable,
+        # but it prevented natural variations.
+        #
+        # We now allow normal Vosk recognition and
+        # interpret the result ourselves in process_command().
+
         recognizer = (
             vosk.KaldiRecognizer(
                 model,
@@ -2062,13 +1973,6 @@ def create_recognizer():
 
         recognizer.SetWords(
             True
-        )
-
-        # Ask Vosk for several plausible transcriptions.
-        # The command engine can then recover when the first
-        # transcription is slightly wrong.
-        recognizer.SetMaxAlternatives(
-            5
         )
 
         return True
@@ -2090,7 +1994,7 @@ def create_recognizer():
 
 
 # ============================================================
-# MAIN
+# MAIN VOICE ENGINE
 # ============================================================
 
 def main():
@@ -2163,50 +2067,52 @@ def main():
     # --------------------------------------------------------
 
     print()
-    print("Commands:")
-
     print(
-        "  start presentation"
+        "Commands:"
     )
 
     print(
-        "  begin presentation"
+        "  Start presentation"
     )
 
     print(
-        "  number 3"
+        "  Go to slide 3"
     )
 
     print(
-        "  number three"
+        "  Go to slide three"
     )
 
     print(
-        "  go to slide 3"
+        "  Next"
     )
 
     print(
-        "  go to three"
+        "  Go forward"
     )
 
     print(
-        "  next"
+        "  Previous"
     )
 
     print(
-        "  go forward"
+        "  Go back"
     )
 
     print(
-        "  previous"
+        "  Show the methodology"
     )
 
     print(
-        "  go back"
+        "  Take me to the conclusion"
     )
 
     print(
-        "  stop"
+        "  Where did I discuss networking"
+    )
+
+    print(
+        "  Stop"
     )
 
     print()
@@ -2220,7 +2126,8 @@ def main():
 
     print()
     print(
-        "HeritageAI: Testing microphone..."
+        "HeritageAI: "
+        "Testing microphone..."
     )
 
     try:
@@ -2252,8 +2159,10 @@ def main():
 
                 try:
 
-                    data = audio_queue.get(
-                        timeout=1
+                    data = (
+                        audio_queue.get(
+                            timeout=1
+                        )
                     )
 
                 except queue.Empty:
@@ -2270,42 +2179,18 @@ def main():
                             recognizer.Result()
                         )
 
-                        alternatives = result.get(
-                            "alternatives",
-                            []
+                        text = result.get(
+                            "text",
+                            ""
                         )
 
-                        if alternatives:
+                        if text:
 
-                            # Try the best alternative first.
-                            # If it is empty, fall back to normal text.
-                            candidate_texts = [
-                                item.get("text", "")
-                                for item in alternatives
-                                if item.get("text", "")
-                            ]
-                            if candidate_texts:
-                                for candidate in candidate_texts:
-                                    if not candidate:
-                                        continue
-                                    command_result = process_command(candidate)
-                                    if command_result is not None:
-                                        running = command_result
-                                        break
-                            else:
-                                text = result.get("text", "")
-                                if text:
-                                    running = process_command(text)
-
-                        else:
-
-                            text = result.get(
-                                "text",
-                                ""
+                            running = (
+                                process_command(
+                                    text
+                                )
                             )
-
-                            if text:
-                                running = process_command(text)
 
                 except Exception as error:
 
@@ -2344,285 +2229,85 @@ def main():
 
 
 # ============================================================
-# HERITAGEAI START INTERFACE
+# USER INTERFACE
 # ============================================================
 
 def launch_interface():
-
     import tkinter as tk
     from tkinter import filedialog, messagebox
-
-    # --------------------------------------------------------
-    # COLORS
-    # --------------------------------------------------------
+    import os
 
     BG = "#080808"
     PANEL = "#111111"
-    PANEL_2 = "#161616"
+    PANEL_2 = "#151515"
     GOLD = "#D4AF37"
-    GOLD_LIGHT = "#E8C95A"
-    WHITE = "#F5F5F5"
+    GOLD_LIGHT = "#E5C65A"
+    WHITE = "#F4F4F4"
     MUTED = "#929292"
     BORDER = "#292929"
-    GREEN = "#5FCB81"
+    GREEN = "#63B77A"
 
-    # --------------------------------------------------------
-    # WINDOW
-    # --------------------------------------------------------
+    selected_file = {"path": None}
 
-    root = tk.Tk()
+    def start_selected_presentation():
+        global powerpoint, presentation
 
-    root.title("HeritageAI")
-    root.geometry("820x560")
-    root.minsize(760, 520)
-    root.configure(bg=BG)
-    root.resizable(True, True)
+        file_path = selected_file["path"]
 
-    # --------------------------------------------------------
-    # CENTER WINDOW
-    # --------------------------------------------------------
+        if not file_path:
+            messagebox.showwarning(
+                "No Presentation Selected",
+                "Please choose a PowerPoint presentation first."
+            )
+            return
 
-    root.update_idletasks()
+        try:
+            status_label.config(text="OPENING PRESENTATION...", fg=GOLD)
+            status_dot.config(fg=GOLD)
+            root.update_idletasks()
 
-    width = 820
-    height = 560
+            file_path = os.path.abspath(os.path.normpath(file_path))
 
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+            if not os.path.isfile(file_path):
+                raise FileNotFoundError(file_path)
 
-    x = (screen_width - width) // 2
-    y = (screen_height - height) // 2
+            powerpoint = win32com.client.Dispatch("PowerPoint.Application")
+            try:
+                powerpoint.Visible = True
+            except Exception:
+                pass
 
-    root.geometry(f"{width}x{height}+{x}+{y}")
+            presentation = powerpoint.Presentations.Open(
+                FileName=file_path,
+                ReadOnly=False,
+                Untitled=False,
+                WithWindow=True
+            )
 
-    # --------------------------------------------------------
-    # MAIN CONTAINER
-    # --------------------------------------------------------
+            time.sleep(1)
 
-    main_frame = tk.Frame(
-        root,
-        bg=BG
-    )
+            build_slide_index()
+            root.destroy()
+            main()
 
-    main_frame.pack(
-        fill="both",
-        expand=True,
-        padx=42,
-        pady=32
-    )
+        except Exception as error:
+            status_label.config(
+                text="COULD NOT OPEN PRESENTATION",
+                fg="#D96B6B"
+            )
+            status_dot.config(fg="#D96B6B")
+            messagebox.showerror(
+                "HeritageAI",
+                "Could not open the presentation.\n\n" + str(error)
+            )
 
-    # --------------------------------------------------------
-    # HEADER
-    # --------------------------------------------------------
-
-    header = tk.Frame(
-        main_frame,
-        bg=BG
-    )
-
-    header.pack(
-        fill="x"
-    )
-
-    brand = tk.Label(
-        header,
-        text="HERITAGE",
-        bg=BG,
-        fg=WHITE,
-        font=("Arial", 22, "bold")
-    )
-
-    brand.pack(
-        side="left"
-    )
-
-    ai_text = tk.Label(
-        header,
-        text="AI",
-        bg=BG,
-        fg=GOLD,
-        font=("Arial", 22, "bold")
-    )
-
-    ai_text.pack(
-        side="left"
-    )
-
-    version = tk.Label(
-        header,
-        text="  POWERPOINT VOICE CONTROL",
-        bg=BG,
-        fg=MUTED,
-        font=("Arial", 9, "bold")
-    )
-
-    version.pack(
-        side="left",
-        padx=(10, 0),
-        pady=(7, 0)
-    )
-
-    # --------------------------------------------------------
-    # GOLD LINE
-    # --------------------------------------------------------
-
-    line = tk.Frame(
-        main_frame,
-        bg=GOLD,
-        height=2
-    )
-
-    line.pack(
-        fill="x",
-        pady=(18, 30)
-    )
-
-    # --------------------------------------------------------
-    # HERO SECTION
-    # --------------------------------------------------------
-
-    hero = tk.Frame(
-        main_frame,
-        bg=BG
-    )
-
-    hero.pack(
-        fill="x"
-    )
-
-    hero_title = tk.Label(
-        hero,
-        text="Present With Your Voice.",
-        bg=BG,
-        fg=WHITE,
-        font=("Arial", 30, "bold")
-    )
-
-    hero_title.pack(
-        anchor="w"
-    )
-
-    hero_subtitle = tk.Label(
-        hero,
-        text=(
-            "Control your PowerPoint presentation naturally "
-            "while you present."
-        ),
-        bg=BG,
-        fg=MUTED,
-        font=("Arial", 11)
-    )
-
-    hero_subtitle.pack(
-        anchor="w",
-        pady=(8, 0)
-    )
-
-    # --------------------------------------------------------
-    # PRESENTATION CARD
-    # --------------------------------------------------------
-
-    card = tk.Frame(
-        main_frame,
-        bg=PANEL,
-        highlightbackground=BORDER,
-        highlightthickness=1
-    )
-
-    card.pack(
-        fill="x",
-        pady=(30, 0)
-    )
-
-    card_inner = tk.Frame(
-        card,
-        bg=PANEL
-    )
-
-    card_inner.pack(
-        fill="both",
-        padx=24,
-        pady=24
-    )
-
-    section_title = tk.Label(
-        card_inner,
-        text="PRESENTATION",
-        bg=PANEL,
-        fg=GOLD,
-        font=("Arial", 10, "bold")
-    )
-
-    section_title.pack(
-        anchor="w"
-    )
-
-    status = tk.Label(
-        card_inner,
-        text="No presentation selected",
-        bg=PANEL,
-        fg=WHITE,
-        font=("Arial", 13, "bold"),
-        anchor="w"
-    )
-
-    status.pack(
-        fill="x",
-        pady=(10, 3)
-    )
-
-    path_label = tk.Label(
-        card_inner,
-        text="Choose a PowerPoint file to get started.",
-        bg=PANEL,
-        fg=MUTED,
-        font=("Arial", 9),
-        anchor="w"
-    )
-
-    path_label.pack(
-        fill="x"
-    )
-
-    # --------------------------------------------------------
-    # BUTTON AREA
-    # --------------------------------------------------------
-
-    buttons = tk.Frame(
-        card_inner,
-        bg=PANEL
-    )
-
-    buttons.pack(
-        fill="x",
-        pady=(22, 0)
-    )
-
-    selected_file = {
-        "path": None
-    }
-
-    # --------------------------------------------------------
-    # BROWSE FUNCTION
-    # --------------------------------------------------------
-
-    def browse():
-
+    def choose_presentation():
         file_path = filedialog.askopenfilename(
-            title="Choose PowerPoint Presentation",
+            title="Choose a PowerPoint Presentation",
             filetypes=[
-                (
-                    "PowerPoint Presentation",
-                    "*.pptx"
-                ),
-                (
-                    "PowerPoint",
-                    "*.ppt"
-                ),
-                (
-                    "All Files",
-                    "*.*"
-                )
+                ("PowerPoint Presentation", "*.pptx"),
+                ("PowerPoint 97-2003", "*.ppt"),
+                ("All Files", "*.*")
             ]
         )
 
@@ -2630,311 +2315,240 @@ def launch_interface():
             return
 
         selected_file["path"] = file_path
+        filename = os.path.basename(file_path)
 
-        filename = os.path.basename(
-            file_path
-        )
-
-        status.config(
-            text=filename,
-            fg=WHITE
-        )
-
-        path_label.config(
-            text=file_path,
-            fg=MUTED
-        )
+        file_name_label.config(text=filename, fg=WHITE)
+        file_path_label.config(text=file_path, fg=MUTED)
+        status_label.config(text="PRESENTATION READY", fg=GREEN)
+        status_dot.config(fg=GREEN)
 
         start_button.config(
             state="normal",
             bg=GOLD,
-            fg="#080808"
+            fg="#080808",
+            activebackground=GOLD_LIGHT,
+            activeforeground="#080808",
+            cursor="hand2"
         )
 
-    # --------------------------------------------------------
-    # START FUNCTION
-    # --------------------------------------------------------
+    root = tk.Tk()
+    root.title("HeritageAI")
+    root.geometry("820x560")
+    root.minsize(760, 520)
+    root.configure(bg=BG)
 
-    def start_presentation():
+    root.update_idletasks()
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x = (screen_width - 820) // 2
+    y = (screen_height - 560) // 2
+    root.geometry(f"820x560+{x}+{y}")
 
-        file_path = selected_file["path"]
+    top_bar = tk.Frame(root, bg=BG, height=75)
+    top_bar.pack(fill="x", padx=42, pady=(28, 0))
 
-        if not file_path:
+    brand_frame = tk.Frame(top_bar, bg=BG)
+    brand_frame.pack(side="left", anchor="w")
 
-            messagebox.showwarning(
-                "HeritageAI",
-                "Please choose a PowerPoint presentation first."
-            )
-
-            return
-
-        start_button.config(
-            state="disabled",
-            text="Opening..."
-        )
-
-        status.config(
-            text="Opening presentation...",
-            fg=GOLD
-        )
-
-        root.update()
-
-        try:
-
-            global powerpoint
-            global presentation
-
-            file_path = os.path.abspath(
-                os.path.normpath(
-                    file_path
-                )
-            )
-
-            if not os.path.isfile(
-                file_path
-            ):
-
-                raise FileNotFoundError(
-                    file_path
-                )
-
-            # ------------------------------------------------
-            # SAME POWERPOINT CONNECTION AS YOUR WORKING UI
-            # ------------------------------------------------
-
-            powerpoint = (
-                win32com.client.Dispatch(
-                    "PowerPoint.Application"
-                )
-            )
-
-            try:
-
-                powerpoint.Visible = True
-
-            except Exception:
-
-                pass
-
-            presentation = (
-                powerpoint.Presentations.Open(
-                    FileName=file_path,
-                    ReadOnly=False,
-                    Untitled=False,
-                    WithWindow=True
-                )
-            )
-
-            time.sleep(1)
-
-            root.destroy()
-
-            main()
-
-        except Exception as error:
-
-            start_button.config(
-                state="normal",
-                text="Start Presentation"
-            )
-
-            status.config(
-                text="Could not open presentation",
-                fg="#E06C75"
-            )
-
-            messagebox.showerror(
-                "HeritageAI",
-                "Could not open the presentation.\n\n"
-                + str(error)
-            )
-
-    # --------------------------------------------------------
-    # BROWSE BUTTON
-    # --------------------------------------------------------
-
-    browse_button = tk.Button(
-        buttons,
-        text="Choose Presentation",
-        command=browse,
-        bg=PANEL_2,
+    tk.Label(
+        brand_frame,
+        text="HERITAGE",
+        font=("Segoe UI", 18, "bold"),
         fg=WHITE,
-        activebackground="#202020",
-        activeforeground=GOLD_LIGHT,
-        relief="flat",
-        bd=0,
-        highlightthickness=1,
-        highlightbackground=BORDER,
-        font=("Arial", 10, "bold"),
-        padx=18,
-        pady=11,
-        cursor="hand2"
-    )
-
-    browse_button.pack(
-        side="left"
-    )
-
-    # --------------------------------------------------------
-    # START BUTTON
-    # --------------------------------------------------------
-
-    start_button = tk.Button(
-        buttons,
-        text="Start Presentation",
-        command=start_presentation,
-        bg="#242424",
-        fg="#777777",
-        activebackground=GOLD_LIGHT,
-        activeforeground="#080808",
-        relief="flat",
-        bd=0,
-        font=("Arial", 10, "bold"),
-        padx=20,
-        pady=11,
-        state="disabled",
-        cursor="hand2"
-    )
-
-    start_button.pack(
-        side="right"
-    )
-
-    # --------------------------------------------------------
-    # VOICE COMMANDS
-    # --------------------------------------------------------
-
-    voice_section = tk.Frame(
-        main_frame,
         bg=BG
-    )
+    ).pack(side="left")
 
-    voice_section.pack(
-        fill="x",
-        pady=(28, 0)
-    )
-
-    voice_title = tk.Label(
-        voice_section,
-        text="VOICE CONTROLS",
-        bg=BG,
+    tk.Label(
+        brand_frame,
+        text="AI",
+        font=("Segoe UI", 18, "bold"),
         fg=GOLD,
-        font=("Arial", 9, "bold")
-    )
+        bg=BG
+    ).pack(side="left", padx=(3, 0))
 
-    voice_title.pack(
+    tk.Label(
+        brand_frame,
+        text="  POWERPOINT VOICE CONTROL",
+        font=("Segoe UI", 8, "bold"),
+        fg=MUTED,
+        bg=BG
+    ).pack(side="left", padx=(12, 0), pady=(5, 0))
+
+    content = tk.Frame(root, bg=BG)
+    content.pack(fill="both", expand=True, padx=42, pady=(10, 0))
+
+    tk.Frame(content, bg=GOLD, height=2).pack(fill="x", pady=(5, 35))
+
+    tk.Label(
+        content,
+        text="Present With Your Voice.",
+        font=("Segoe UI", 30, "bold"),
+        fg=WHITE,
+        bg=BG
+    ).pack(anchor="w")
+
+    tk.Label(
+        content,
+        text="Control your PowerPoint presentation without leaving your flow.",
+        font=("Segoe UI", 11),
+        fg=MUTED,
+        bg=BG
+    ).pack(anchor="w", pady=(8, 28))
+
+    presentation_panel = tk.Frame(
+        content,
+        bg=PANEL,
+        highlightbackground=BORDER,
+        highlightthickness=1
+    )
+    presentation_panel.pack(fill="x")
+
+    tk.Label(
+        presentation_panel,
+        text="PRESENTATION",
+        font=("Segoe UI", 9, "bold"),
+        fg=GOLD,
+        bg=PANEL
+    ).pack(anchor="w", padx=26, pady=(23, 10))
+
+    file_area = tk.Frame(
+        presentation_panel,
+        bg=PANEL_2,
+        highlightbackground="#242424",
+        highlightthickness=1
+    )
+    file_area.pack(fill="x", padx=26, pady=(0, 20))
+
+    tk.Frame(file_area, bg=GOLD, width=4).pack(side="left", fill="y")
+
+    file_text_area = tk.Frame(file_area, bg=PANEL_2)
+    file_text_area.pack(side="left", fill="both", expand=True, padx=18, pady=15)
+
+    file_name_label = tk.Label(
+        file_text_area,
+        text="No presentation selected",
+        font=("Segoe UI", 11, "bold"),
+        fg=MUTED,
+        bg=PANEL_2,
         anchor="w"
     )
+    file_name_label.pack(fill="x")
 
-    command_frame = tk.Frame(
-        voice_section,
-        bg=BG
+    file_path_label = tk.Label(
+        file_text_area,
+        text="Choose a .pptx or .ppt file from your computer",
+        font=("Segoe UI", 8),
+        fg="#6F6F6F",
+        bg=PANEL_2,
+        anchor="w"
     )
+    file_path_label.pack(fill="x", pady=(4, 0))
 
-    command_frame.pack(
-        fill="x",
-        pady=(12, 0)
-    )
+    tk.Button(
+        presentation_panel,
+        text="Choose Presentation",
+        font=("Segoe UI", 10, "bold"),
+        bg=PANEL,
+        fg=WHITE,
+        activebackground=PANEL_2,
+        activeforeground=GOLD,
+        relief="flat",
+        bd=0,
+        cursor="hand2",
+        padx=20,
+        pady=10,
+        command=choose_presentation
+    ).pack(anchor="w", padx=26, pady=(0, 23))
 
-    commands = [
-        ("NEXT", "Heritage, next"),
-        ("PREVIOUS", "Heritage, previous"),
-        ("SLIDE", "Heritage, slide 3"),
-        ("START", "Heritage, start presentation"),
-        ("STOP", "Heritage, stop")
-    ]
+    lower = tk.Frame(content, bg=BG)
+    lower.pack(fill="x", pady=(22, 0))
 
-    for title, command in commands:
+    status_frame = tk.Frame(lower, bg=BG)
+    status_frame.pack(side="left", anchor="w")
 
-        command_card = tk.Frame(
-            command_frame,
-            bg=PANEL,
-            highlightbackground=BORDER,
-            highlightthickness=1
-        )
-
-        command_card.pack(
-            side="left",
-            fill="both",
-            expand=True,
-            padx=(0, 8)
-        )
-
-        command_title = tk.Label(
-            command_card,
-            text=title,
-            bg=PANEL,
-            fg=WHITE,
-            font=("Arial", 8, "bold")
-        )
-
-        command_title.pack(
-            pady=(10, 2)
-        )
-
-        command_text = tk.Label(
-            command_card,
-            text=command,
-            bg=PANEL,
-            fg=MUTED,
-            font=("Arial", 8)
-        )
-
-        command_text.pack(
-            pady=(0, 10)
-        )
-
-    # --------------------------------------------------------
-    # FOOTER
-    # --------------------------------------------------------
-
-    footer = tk.Frame(
-        main_frame,
-        bg=BG
-    )
-
-    footer.pack(
-        fill="x",
-        side="bottom",
-        pady=(20, 0)
-    )
-
-    footer_left = tk.Label(
-        footer,
-        text="●  Voice control ready",
-        bg=BG,
-        fg=GREEN,
-        font=("Arial", 9, "bold")
-    )
-
-    footer_left.pack(
-        side="left"
-    )
-
-    footer_right = tk.Label(
-        footer,
-        text="HeritageAI  •  Present With Your Voice",
-        bg=BG,
+    status_dot = tk.Label(
+        status_frame,
+        text="●",
+        font=("Segoe UI", 9),
         fg=MUTED,
-        font=("Arial", 8)
+        bg=BG
+    )
+    status_dot.pack(side="left")
+
+    status_label = tk.Label(
+        status_frame,
+        text="SELECT A PRESENTATION TO BEGIN",
+        font=("Segoe UI", 8, "bold"),
+        fg=MUTED,
+        bg=BG
+    )
+    status_label.pack(side="left", padx=(7, 0))
+
+    start_button = tk.Button(
+        lower,
+        text="Start Presentation  →",
+        font=("Segoe UI", 10, "bold"),
+        bg="#292929",
+        fg="#777777",
+        activebackground="#292929",
+        activeforeground="#777777",
+        relief="flat",
+        bd=0,
+        cursor="arrow",
+        padx=24,
+        pady=12,
+        state="disabled",
+        command=start_selected_presentation
+    )
+    start_button.pack(side="right")
+
+    commands_panel = tk.Frame(content, bg=BG)
+    commands_panel.pack(fill="x", pady=(25, 0))
+
+    tk.Label(
+        commands_panel,
+        text="VOICE CONTROLS",
+        font=("Segoe UI", 8, "bold"),
+        fg=GOLD,
+        bg=BG
+    ).pack(anchor="w")
+
+    tk.Label(
+        commands_panel,
+        text="Next   •   Previous   •   Go to slide   •   Find a topic   •   Start   •   Stop",
+        font=("Segoe UI", 9),
+        fg="#777777",
+        bg=BG
+    ).pack(anchor="w", pady=(6, 0))
+
+    footer = tk.Frame(root, bg=BG)
+    footer.pack(fill="x", padx=42, pady=(0, 24))
+
+    tk.Frame(footer, bg="#202020", height=1).pack(fill="x", pady=(0, 12))
+
+    tk.Label(
+        footer,
+        text="HERITAGEAI  •  PRESENTATION, REIMAGINED",
+        font=("Segoe UI", 7, "bold"),
+        fg="#555555",
+        bg=BG
+    ).pack(anchor="w")
+
+    root.bind(
+        "<Return>",
+        lambda event: start_selected_presentation() if selected_file["path"] else None
     )
 
-    footer_right.pack(
-        side="right"
-    )
-
-    # --------------------------------------------------------
-    # START APPLICATION
-    # --------------------------------------------------------
+    root.bind("<Escape>", lambda event: root.destroy())
 
     root.mainloop()
 
 
 # ============================================================
-# RUN
+# START PROGRAM
 # ============================================================
 
 if __name__ == "__main__":
 
     launch_interface()
+
