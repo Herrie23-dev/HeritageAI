@@ -1,4 +1,4 @@
-name: Build HeritageAI v2
+name: Build HeritageAI
 
 on:
   push:
@@ -18,11 +18,6 @@ jobs:
         with:
           ref: main
 
-      - name: Check files
-        run: |
-          Get-ChildItem
-          Get-ChildItem -Recurse -Filter main.py
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -34,9 +29,40 @@ jobs:
           pip install pyinstaller
           pip install vosk sounddevice pywin32
 
+      - name: Download Vosk model
+        shell: pwsh
+        run: |
+          Invoke-WebRequest `
+            -Uri "https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip" `
+            -OutFile "vosk-model.zip"
+
+          Expand-Archive `
+            -Path "vosk-model.zip" `
+            -DestinationPath "."
+
+          Remove-Item "vosk-model.zip"
+
       - name: Build HeritageAI
         run: |
-          python -m PyInstaller --onefile --windowed --collect-all vosk --name HeritageAI main.py
+          python -m PyInstaller `
+            --onefile `
+            --windowed `
+            --clean `
+            --collect-all vosk `
+            --add-data "vosk-model-small-en-us-0.15;vosk-model-small-en-us-0.15" `
+            --name HeritageAI `
+            main.py
+
+      - name: Verify executable
+        shell: pwsh
+        run: |
+          if (Test-Path "dist\HeritageAI.exe") {
+            Write-Host "HeritageAI.exe successfully built."
+            Get-Item "dist\HeritageAI.exe"
+          } else {
+            Write-Error "HeritageAI.exe was not created."
+            exit 1
+          }
 
       - name: Upload HeritageAI executable
         uses: actions/upload-artifact@v4
