@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="assets/heritageai-logo.png" alt="HeritageAI Logo" width="220">
+</p>
+
+<p align="center">
+  <strong>Present With Your Voice.</strong>
+</p>
+
+<br>
 # HeritageAI
 
 ### Present With Your Voice.
